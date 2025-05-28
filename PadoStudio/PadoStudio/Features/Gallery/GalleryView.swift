@@ -26,17 +26,13 @@ struct GalleryView: View {
     ]
     
     var body: some View {
-        NavigationStack {
-            ScrollView {
-                LazyVGrid(columns: columns) {
-                    ForEach(0..<images.count, id: \.description) { index in
-                        PhotoView(imageName: "\(images[index])")
-                        
-                    }
+        ScrollView {
+            LazyVGrid(columns: columns) {
+                ForEach(images.indices, id: \.self) { index in
+                    PhotoView(imageName: images[index])
                 }
             }
         }
-        .padding()
     }
 }
 

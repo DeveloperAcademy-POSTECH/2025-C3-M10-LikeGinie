@@ -35,12 +35,15 @@ struct CircleButton: View {
     }
 }
 
-struct MainButtontView: View {
+struct MainButtonView: View {
+    @EnvironmentObject var navModel: NavigationViewModel
+
     var body: some View {
         HStack(spacing: 80) {
             VStack(spacing: 25) {
                 CircleButton(systemName: "camera.fill") {
                     print("촬영하기 버튼 눌림")
+                    navModel.navigate(to: .camera)
                 }
                 Text("촬영하기")
                     .font(.system(size: 20, weight: .medium))
@@ -49,6 +52,7 @@ struct MainButtontView: View {
             VStack(spacing: 25) {
                 CircleButton(systemName: "photo.on.rectangle") {
                     print("갤러리 버튼 눌림")
+                    navModel.navigate(to: .gallery)
                 }
                 Text("갤러리")
                     .font(.system(size: 20, weight: .medium))
@@ -60,5 +64,5 @@ struct MainButtontView: View {
 }
 
 #Preview {
-    MainButtontView()
+    MainButtonView().environmentObject(NavigationViewModel())
 }
