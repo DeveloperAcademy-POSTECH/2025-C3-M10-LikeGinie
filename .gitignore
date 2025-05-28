@@ -4,6 +4,7 @@
 *.xcodeproj/project.xcworkspace/
 *.xcodeproj/xcuserdata/
 *.xcworkspace/xcuserdata/
+*.xcuserstate
 
 # SwiftData (SQLite)
 *.sqlite
