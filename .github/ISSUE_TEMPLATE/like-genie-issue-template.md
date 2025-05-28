@@ -1,5 +1,5 @@
 ---
-name: 신규 기능 추가
+name: Like Genie issue Template
 about: Suggest an idea for this project
 title: ''
 labels: ''
@@ -12,7 +12,7 @@ assignees: freeskyES
 - [ ] 버그(Bug)
 - [ ] 기타(Task/Docs 등)
 
-## 제목
+## 제목 포멧 체크
 - [ ] 제목 컨벤션 적용 [예시] [Feature] 유저정보 SwiftData 적용
 
 ## 내용 설명
