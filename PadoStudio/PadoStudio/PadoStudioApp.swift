@@ -9,12 +9,10 @@ import SwiftUI
 
 @main
 struct PadoStudioApp: App {
-    let persistenceController = PersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+//            TODO : Start View
         }
     }
 }
