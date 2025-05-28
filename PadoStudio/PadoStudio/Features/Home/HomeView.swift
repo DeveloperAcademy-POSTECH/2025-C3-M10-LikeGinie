@@ -8,16 +8,18 @@
 import SwiftUI
 
 struct HomeView: View {
+    @EnvironmentObject var navModel: NavigationViewModel
+
     var body: some View {
-        VStack(spacing: 100) { // 각 뷰 사이 간격 조절
+        VStack(spacing: 100) {  // 각 뷰 사이 간격 조절
             MainTextView()
             ContentView()
-            MainButtontView()
+            MainButtonView()
         }
         .padding()
     }
 }
 
 #Preview {
-    HomeView()
+    HomeView().environmentObject(NavigationViewModel())
 }
