@@ -13,6 +13,7 @@ struct PadoStudioApp: App {
     var body: some Scene {
         WindowGroup {
 //            TODO : Start View
+            HomeView()
         }
     }
 }
