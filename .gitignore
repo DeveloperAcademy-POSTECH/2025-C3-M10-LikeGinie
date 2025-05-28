@@ -6,6 +6,10 @@
 *.xcworkspace/xcuserdata/
 *.xcuserstate
 
+**/xcuserdata/
+**/project.xcworkspace/xcuserdata/
+**/*.xcodeproj/xcuserdata/
+
 # SwiftData (SQLite)
 *.sqlite
 *.sqlite-shm
