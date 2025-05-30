@@ -7,12 +7,17 @@
 
 import SwiftUI
 
-struct FramedImageShareView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+struct FramedImageShareView: UIViewControllerRepresentable {
+    let image: UIImage
+    
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        let items = [image]
+        let controller = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        return controller
+    }
+    
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
+        
     }
 }
 
-#Preview {
-    FramedImageShareView()
-}
