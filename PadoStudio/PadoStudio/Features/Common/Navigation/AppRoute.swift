@@ -8,4 +8,5 @@
 enum AppRoute: Hashable {
     case camera
     case gallery
+    case home
 }
