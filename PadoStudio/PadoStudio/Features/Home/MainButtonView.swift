@@ -43,7 +43,7 @@ struct MainButtonView: View {
             VStack(spacing: 25) {
                 CircleButton(systemName: "camera.fill") {
                     print("촬영하기 버튼 눌림")
-                    navModel.navigate(to: .camera)
+                    navModel.navigate(to: .startRecording)
                 }
                 Text("촬영하기")
                     .font(.system(size: 20, weight: .medium))
