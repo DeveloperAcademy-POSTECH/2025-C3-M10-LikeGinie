@@ -10,11 +10,7 @@ final class CharacterViewModel: ObservableObject {
     @Published var selections: [Int: [CharacterPartType: CharacterAsset]] = [:]
     @Published var selectedPart: CharacterPartType = .hair
 
-    let assets: [CharacterAsset] = [
-        CharacterAsset(part: .hair, color: "black", index: "03", imageName: "preview-hair-black-03"),
-        CharacterAsset(part: .hair, color: "brown", index: "02", imageName: "preview-hair-brown-02"),
-        // 추가
-    ]
+    let assets: [CharacterAsset] = CharacterAssetMock.mockCharacterAssets
 
     func select(asset: CharacterAsset, index: Int) {
         if selections[index] == nil {
