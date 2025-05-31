@@ -130,7 +130,7 @@ private struct CharacterAssetGrid: View {
                     let isSelected = selectedAsset == asset
                     ZStack {
                         RoundedRectangle(cornerRadius: 10)
-                            .fill(isSelected ? Color("PrimaryBlue") : Color.gray.opacity(0.1))
+                            .fill(isSelected ? Color.accentColor/*Color("PrimaryBlue")*/ : Color.gray.opacity(0.1))
                             .frame(height: 72)
 
                         Image(asset.imageName)
