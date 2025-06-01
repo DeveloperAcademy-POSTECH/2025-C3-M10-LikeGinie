@@ -29,30 +29,6 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       shouldAutocreateTestPlan = "YES">
-      <Testables>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C06FDC6E2DE6E94A0014D299"
-               BuildableName = "PadoStudioTests.xctest"
-               BlueprintName = "PadoStudioTests"
-               ReferencedContainer = "container:PadoStudio.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C06FDC782DE6E94A0014D299"
-               BuildableName = "PadoStudioUITests.xctest"
-               BlueprintName = "PadoStudioUITests"
-               ReferencedContainer = "container:PadoStudio.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
