@@ -7,65 +7,83 @@
 
 // ContentView.swift
 import SwiftUI
+import Combine
+
+class CarouselAnimator: NSObject, ObservableObject {
+    @Published var offset: CGFloat = 0
+    private var displayLink: CADisplayLink?
+    private var startTime: Date?
+    private var contentWidth: CGFloat = 1
+    private let speed: CGFloat
+
+    init(speed: CGFloat) {
+        self.speed = speed
+        super.init()
+    }
+
+    func start(contentWidth: CGFloat) {
+        self.contentWidth = contentWidth
+        self.offset = 0
+        self.startTime = Date()
+        stop()
+        displayLink = CADisplayLink(target: self, selector: #selector(step))
+        displayLink?.add(to: .main, forMode: .common)
+    }
+
+    func stop() {
+        displayLink?.invalidate()
+        displayLink = nil
+    }
+
+    @objc private func step() {
+        guard let startTime else { return }
+        let elapsed = Date().timeIntervalSince(startTime)
+        let expectedOffset = -CGFloat(elapsed) * speed
+        let resetThreshold = contentWidth
+        if abs(expectedOffset) >= resetThreshold {
+            self.startTime = Date()
+            offset = 0
+        } else {
+            offset = expectedOffset
+        }
+    }
+}
 
 struct ContentView: View {
-    // MARK: - Properties
-    @StateObject private var viewModel = CarouselViewModel()
+    let images = ["Asset5", "Asset5", "Asset5", "Asset5", "Asset5", "Asset5"]
     private let imageWidth: CGFloat = 200
     private let imageSpacing: CGFloat = 32
-    
+    private let speed: CGFloat = 180
+
+    @StateObject private var animator = CarouselAnimator(speed: 180)
+    @State private var contentWidth: CGFloat = 1
+
     var body: some View {
-        GeometryReader { geo in
-            ScrollViewReader { proxy in
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: imageSpacing) {
-                        ForEach(viewModel.getLoopedImages().indices, id: \.self) { idx in
-                            Image(viewModel.getLoopedImages()[idx].name)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: imageWidth, height: 300)
-                                .clipped()
-                                .overlay(
-                                    Rectangle()
-                                        .stroke(Color.gray, lineWidth: 3)
-                                )
-                                .id(idx)
-                        }
-                    }
-                }
-                .onChange(of: viewModel.currentIndex) {
-                    handleScroll(proxy: proxy, geometry: geo)
-                }
-                .onAppear {
-                    initialScrollPosition(proxy: proxy, geometry: geo)
+        GeometryReader { geometry in
+            HStack(spacing: imageSpacing) {
+                ForEach(0..<images.count * 2, id: \.self) { idx in
+                    Image(images[idx % images.count])
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: imageWidth, height: 300)
                 }
             }
+            .background(
+                GeometryReader { proxy in
+                    Color.clear
+                        .onAppear {
+                            contentWidth = (imageWidth + imageSpacing) * CGFloat(images.count)
+                            animator.start(contentWidth: contentWidth)
+                        }
+                        .onDisappear {
+                            animator.stop()
+                        }
+                }
+            )
+            .offset(x: animator.offset)
         }
         .frame(height: 300)
-    }
-    
-    // MARK: - Private Methods
-    private func initialScrollPosition(proxy: ScrollViewProxy, geometry: GeometryProxy) {
-        let startIndex = viewModel.images.count
-        proxy.scrollTo(startIndex, anchor: .leading)
-    }
-    
-    private func handleScroll(proxy: ScrollViewProxy, geometry: GeometryProxy) {
-        let imagesCount = viewModel.images.count
-        let end = imagesCount * 2 - 1
-        let nextIndex = viewModel.currentIndex + imagesCount
-        
-        withAnimation(.easeInOut(duration: 1.5)) {
-            proxy.scrollTo(nextIndex, anchor: .leading)
-        }
-        
-        if nextIndex == end {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.6) {
-                withAnimation(.none) {
-                    proxy.scrollTo(imagesCount, anchor: .leading)
-                }
-            }
-        }
+        .clipped()
     }
 }
 

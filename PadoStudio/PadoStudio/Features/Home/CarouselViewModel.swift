@@ -5,44 +5,66 @@
 //  Created by 윤민경 on 5/28/25.
 //
 
-import Combine
 import SwiftUI
+import Combine
+
+struct CarouselImage: Identifiable {
+    let id = UUID()
+    let name: String
+}
 
 class CarouselViewModel: ObservableObject {
-    // MARK: - Published Properties
-    @Published var currentIndex: Int = 0
-    @Published var images: [ImageData] = []
+    // 원본 이미지 배열
+    private let originalImages: [CarouselImage] = [
+        CarouselImage(name: "home1"),
+        CarouselImage(name: "home2"),
+        CarouselImage(name: "home3"),
+        CarouselImage(name: "home4"),
+        CarouselImage(name: "home5"),
+        CarouselImage(name: "home6"),
+        // 여기에 이미지 이름 추가
+    ]
     
-    // MARK: - Private Properties
-    private var cancellables = Set<AnyCancellable>()
-    private let timerInterval: TimeInterval = 3
+    // 이미지 배열을 앞뒤로 복제해서 무한 루프처럼 보이게 함
+    var loopedImages: [CarouselImage] {
+        originalImages + originalImages + originalImages
+    }
+    
+    @Published var offset: CGFloat = 0
+    private var timer: AnyCancellable?
+    
+    // 이미지 한 장의 너비 + 간격 (ContentView에서 전달 필요)
+    var singleItemWidth: CGFloat = 200 + 32
+    
+    // 중간(원본 배열 시작점) 오프셋
+    var initialOffset: CGFloat {
+        -CGFloat(originalImages.count) * singleItemWidth
+    }
     
     init() {
-        loadImages()
-        setupTimer()
+        offset = initialOffset
     }
     
-    // MARK: - Data Loading
-    private func loadImages() {
-        images = ImageDataService.fetchImages()
+    func getLoopedImages() -> [CarouselImage] {
+        loopedImages
     }
     
-    // MARK: - Timer Logic
-    private func setupTimer() {
-        Timer.publish(every: timerInterval, on: .main, in: .common)
+    func autoScroll() {
+        timer = Timer.publish(every: 0.016, on: .main, in: .common)
             .autoconnect()
             .sink { [weak self] _ in
-                self?.moveToNext()
+                guard let self = self else { return }
+                self.offset -= 1.0 // 스크롤 속도 조절
+                
+                // 한 사이클 끝나면 오프셋을 원위치로 순간 이동 (seamless)
+                let maxOffset = -CGFloat(originalImages.count * 2) * singleItemWidth
+                if self.offset <= maxOffset {
+                    self.offset = initialOffset
+                }
             }
-            .store(in: &cancellables)
     }
     
-    private func moveToNext() {
-        currentIndex = (currentIndex + 1) % images.count
-    }
-    
-    // MARK: - Public Methods
-    func getLoopedImages() -> [ImageData] {
-        images + images + images
+    deinit {
+        timer?.cancel()
     }
 }

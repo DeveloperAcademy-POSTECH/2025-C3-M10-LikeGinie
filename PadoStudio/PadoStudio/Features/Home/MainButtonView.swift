@@ -7,59 +7,61 @@
 
 import SwiftUI
 
-struct CircleIconButtonStyle: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        ZStack {
-            Circle()
-                .fill(Color.white)
-                .frame(width: 100, height: 100)
-                .shadow(color: .black.opacity(0.12), radius: 8, x: 0, y: 4)
-            configuration.label
-                .foregroundColor(configuration.isPressed ? .gray : .black)
-        }
-    }
-}
-
-struct CircleButton: View {
-    let systemName: String
-    let action: () -> Void
-
-    var body: some View {
-        Button(action: action) {
-            Image(systemName: systemName)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 48, height: 48)
-        }
-        .buttonStyle(CircleIconButtonStyle())
-    }
-}
-
 struct MainButtonView: View {
     @EnvironmentObject var navModel: NavigationViewModel
 
     var body: some View {
-        HStack(spacing: 80) {
-            VStack(spacing: 25) {
-                CircleButton(systemName: "camera.fill") {
-                    print("촬영하기 버튼 눌림")
-                    navModel.navigate(to: .camera)
+        ZStack {
+            HStack(spacing: 60) {
+                // 기록 남기기(카메라)
+                VStack(spacing: 12) {
+                    Button(action: {
+                        navModel.navigate(to: .camera)
+                    }) {
+                        VStack(spacing: 8) {
+                            Image(systemName: "camera")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 48, height: 48)
+                                .foregroundColor(.white)
+                            Text("기록 남기기")
+                                .font(.system(size: 20, weight: .semibold))
+                                .foregroundColor(.white)
+                        }
+                        .frame(width: 140, height: 140)
+                        .background(Circle().fill(Color(red: 0.16, green: 0.74, blue: 0.76)))
+                        .shadow(color: .black.opacity(0.15), radius: 10, x: 0, y: 4)
+                    }
                 }
-                Text("촬영하기")
-                    .font(.system(size: 20, weight: .medium))
-                    .foregroundColor(.black)
-            }
-            VStack(spacing: 25) {
-                CircleButton(systemName: "photo.on.rectangle") {
-                    print("갤러리 버튼 눌림")
-                    navModel.navigate(to: .gallery)
+                // 갤러리
+                VStack(spacing: 12) {
+                    Button(action: {
+                        navModel.navigate(to: .gallery)
+                    }) {
+                        VStack(spacing: 8) {
+                            Image(systemName: "photo.on.rectangle")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 32, height: 32)
+                                .foregroundColor(Color(red: 0.16, green: 0.74, blue: 0.76))
+                            Text("갤러리")
+                                .font(.system(size: 16, weight: .semibold))
+                                .foregroundColor(Color(red: 0.16, green: 0.74, blue: 0.76))
+                        }
+                        .frame(width: 100, height: 100)
+                        .background(
+                            Circle()
+                                .fill(Color.white)
+                                .overlay(
+                                    Circle()
+                                        .stroke(Color(red: 0.16, green: 0.74, blue: 0.76), lineWidth: 3)
+                                )
+                        )
+                        .shadow(color: .black.opacity(0.10), radius: 6, x: 0, y: 2)
+                    }
                 }
-                Text("갤러리")
-                    .font(.system(size: 20, weight: .medium))
-                    .foregroundColor(.black)
             }
         }
-        .padding()
     }
 }
 
