@@ -20,6 +20,8 @@ struct NavigationHostView: View {
 //                        Text("카메라 뷰 준비 중")
                     case .gallery:
                         GalleryView()
+                    case .home:
+                        HomeView()
                     }
                 }
         }
