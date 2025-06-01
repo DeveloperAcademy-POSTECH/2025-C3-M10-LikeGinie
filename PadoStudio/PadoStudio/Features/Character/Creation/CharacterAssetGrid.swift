@@ -29,8 +29,7 @@ struct CharacterAssetGrid: View {
                         RoundedRectangle(cornerRadius: 10)
                             .fill(
                                 isSelected
-                                    ? Color
-                                        .accentColor
+                                ? Color.accentColor
                                     : Color.gray.opacity(0.1)
                             )
                             .frame(height: 72)

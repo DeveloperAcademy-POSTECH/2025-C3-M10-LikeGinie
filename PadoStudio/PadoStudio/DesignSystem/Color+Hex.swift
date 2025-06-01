@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-extension Color {
+extension SwiftUI.Color {
     init(hex: String) {
         let hex = hex.trimmingCharacters(
             in: CharacterSet.alphanumerics.inverted)
