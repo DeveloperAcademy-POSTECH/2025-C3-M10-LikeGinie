@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GalleryView: View {
-    var images = [
+    @State private var images = [
         "Feathers",
         "Image1",
         "Image2",
@@ -29,7 +29,7 @@ struct GalleryView: View {
         ScrollView {
             LazyVGrid(columns: columns) {
                 ForEach(images.indices, id: \.self) { index in
-                    PhotoView(imageName: images[index])
+                    PhotoView(imageName: images[index], images: $images)
                 }
             }
         }
