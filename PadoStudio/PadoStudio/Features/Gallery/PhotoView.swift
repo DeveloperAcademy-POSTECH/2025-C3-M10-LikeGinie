@@ -9,6 +9,7 @@ import SwiftUI
 
 struct PhotoView: View {
     let imageName: String
+    @Binding var images: [String]
     
     var body: some View {
         NavigationLink {
@@ -16,11 +17,7 @@ struct PhotoView: View {
                 .navigationTitle("사진")
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {
-                        Button {
-                            
-                        } label : {
-                            Image(systemName: "ellipsis.circle")
-                        }
+                        PhotoMenuView(imageName: imageName, images: $images)
                     }
                 }
         } label: {
@@ -31,6 +28,6 @@ struct PhotoView: View {
     }
 }
 
-#Preview {
-    PhotoView(imageName: "Image2")
-}
+//#Preview {
+//    PhotoView(imageName: "Image2")
+//}
