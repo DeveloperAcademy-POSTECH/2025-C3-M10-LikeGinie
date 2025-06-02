@@ -30,7 +30,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		C04BEFCF2DEC48FA00CC652A /* Exceptions for "PadoStudio" folder in "PadoStudio" target */ = {
+		C04BF0612DECC13100CC652A /* Exceptions for "PadoStudio" folder in "PadoStudio" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -43,7 +43,7 @@
 		C06FDC5C2DE6E9490014D299 /* PadoStudio */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				C04BEFCF2DEC48FA00CC652A /* Exceptions for "PadoStudio" folder in "PadoStudio" target */,
+				C04BF0612DECC13100CC652A /* Exceptions for "PadoStudio" folder in "PadoStudio" target */,
 			);
 			path = PadoStudio;
 			sourceTree = "<group>";
@@ -409,7 +409,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PadoStudio/Preview Content\"";
-				DEVELOPMENT_TEAM = NB42482NDH;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -438,7 +438,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PadoStudio/Preview Content\"";
-				DEVELOPMENT_TEAM = NB42482NDH;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
