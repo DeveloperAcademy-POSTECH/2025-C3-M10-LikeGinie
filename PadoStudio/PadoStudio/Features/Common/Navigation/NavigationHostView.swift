@@ -16,13 +16,16 @@ struct NavigationHostView: View {
                 .navigationDestination(for: AppRoute.self) { route in
                     switch route {
                     case .camera:
-                        Text("카메라 뷰 준비 중")
+                        CameraView()
+//                        Text("카메라 뷰 준비 중")
                     case .gallery:
                         GalleryView()
                     case .startRecording:
                         CharacterCountSelectView()
                     case .characterCreate(let number):
                         CharacterCreateView(number: number)
+                    case .home:
+                        HomeView()
                     }
                 }
         }
