@@ -10,11 +10,9 @@ import SwiftUI
 struct CharacterCountSelectView: View {
     
     @State private var number = 0
-    @State private var showMinAlert = false
-    @State private var showMaxAlert = false
     
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             VStack {
                 Spacer()
                 
@@ -30,11 +28,7 @@ struct CharacterCountSelectView: View {
                 
                 HStack(spacing: 30) {
                     Button(action: {
-                        if number > 0 {
-                            number -= 1
-                        } else {
-                            showMinAlert = true
-                        }
+                        number -= 1
                     }) {
                         Image(systemName: "minus.circle")
                             .font(.system(size: 40))
@@ -44,24 +38,15 @@ struct CharacterCountSelectView: View {
                                     .shadow(radius: 2)
                             )
                     }
-                    .alert(isPresented: $showMinAlert) {
-                        Alert(
-                            title: Text("알림"),
-                            message: Text("최소 한 명 이상의 캐릭터가 있어야 해요!"),
-                            dismissButton: .default(Text("확인"))
-                        )
-                    }
+                    .disabled(number <= 0)
+                    .opacity(number <= 0 ? 0.3 : 1.0)
                     
                     Text("\(number)")
                         .font(.system(size: 50, weight: .bold))
                         .frame(minWidth: 60)
                     
                     Button(action: {
-                        if number < 6 {
-                            number += 1
-                        } else {
-                            showMaxAlert = true
-                        }
+                        number += 1
                     }) {
                         Image(systemName: "plus.circle")
                             .font(.system(size: 40))
@@ -71,13 +56,8 @@ struct CharacterCountSelectView: View {
                                     .shadow(radius: 2)
                             )
                     }
-                    .alert(isPresented: $showMaxAlert) {
-                        Alert(
-                            title: Text("알림"),
-                            message: Text("최대 6명의 캐릭터만 설정할 수 있어요!"),
-                            dismissButton: .default(Text("확인"))
-                        )
-                    }
+                    .disabled(number >= 6)
+                    .opacity(number >= 6 ? 0.3 : 1.0)
                 }
                 
                 Spacer()
@@ -86,7 +66,7 @@ struct CharacterCountSelectView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button(action: {
-                        
+                       
                     }) {
                         Image(systemName: "chevron.left")
                     }
@@ -99,14 +79,14 @@ struct CharacterCountSelectView: View {
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("다음") {
-                        
+                       
                     }
                 }
             }
-            
         }
     }
 }
+
 
 #Preview {
     CharacterCountSelectView()
