@@ -12,40 +12,60 @@ struct CharacterPreviewPager: View {
     @ObservedObject var viewModel: CharacterViewModel
 
     var body: some View {
-        HStack {
-            Button(action: {
-                if currentIndex > 0 {
-                    currentIndex -= 1
+        ZStack {
+            // 배경색
+            Color.primaryBlue
+                .ignoresSafeArea()
+            
+            VStack {
+                Spacer()
+                Image("bg")
+                    .resizable()
+//                    .scaledToFit()
+                    .frame(maxWidth: .infinity)
+            }
+            .ignoresSafeArea(edges: .bottom)
+            
+            
+            HStack {
+                Button(action: {
+                    if currentIndex > 0 {
+                        currentIndex -= 1
+                    }
+                }) {
+                    Image(systemName: "chevron.left")
+                        .padding()
                 }
-            }) {
-                Image(systemName: "chevron.left")
-                    .padding()
-            }
 
-            let previews = CharacterPartType.allCases.map { part in
-                (part, viewModel.getPreview(for: part, index: currentIndex))
-            }
+                let previews = CharacterPartType.allCases.map { part in
+                    (
+                        part,
+                        viewModel.getOriginImageName(for: part, index: currentIndex)
+                    )
+                }
 
-            ZStack {
-                Image("preview-basic")
+                ZStack {
+                    Image("origin-standard")
                         .resizable()
                         .scaledToFit()
-                
-                ForEach(previews, id: \.0) { part, name in
-                    CharacterPartPreview(part: part, previewName: name)
-                }
-            }
-            .frame(maxWidth: .infinity)
 
-            Button(action: {
-                if currentIndex < number - 1 {
-                    currentIndex += 1
+                    ForEach(previews, id: \.0) { part, name in
+                        CharacterPartPreview(part: part, previewName: name)
+                    }
                 }
-            }) {
-                Image(systemName: "chevron.right")
-                    .padding()
+                .frame(maxWidth: .infinity)
+
+                Button(action: {
+                    if currentIndex < number - 1 {
+                        currentIndex += 1
+                    }
+                }) {
+                    Image(systemName: "chevron.right")
+                        .padding()
+                }
             }
         }
+        
     }
 }
 

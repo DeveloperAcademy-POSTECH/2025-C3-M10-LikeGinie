@@ -12,11 +12,9 @@ struct CharacterAssetGrid: View {
 
     var body: some View {
         ScrollView {
-            let filteredAssets = viewModel.assets.filter {
-                $0.part == viewModel.selectedPart
-            }
-            let selectedAsset = viewModel.selectedAsset(
-                for: viewModel.selectedPart, index: currentIndex)
+            let part = viewModel.selectedPart
+            let filteredAssets = viewModel.assets.filter { $0.part == part }
+            let selectedAsset = viewModel.selectedAsset(for: part, index: currentIndex)
 
             LazyVGrid(
                 columns: Array(
@@ -27,11 +25,8 @@ struct CharacterAssetGrid: View {
                     let isSelected = selectedAsset == asset
                     ZStack {
                         RoundedRectangle(cornerRadius: 10)
-                            .fill(
-                                isSelected
-                                ? Color.accentColor
-                                    : Color.gray.opacity(0.1)
-                            )
+                            .stroke(isSelected ? Color.primaryBlue : Color.clear, lineWidth: 3)
+                            .background(Color.white)
                             .frame(height: 72)
 
                         Image(asset.imageName)
@@ -45,6 +40,16 @@ struct CharacterAssetGrid: View {
                 }
             }
             .padding()
+        }
+        .onAppear {
+            DispatchQueue.main.async {
+                let part = viewModel.selectedPart
+                let filteredAssets = viewModel.assets.filter { $0.part == part }
+                if viewModel.selectedAsset(for: part, index: currentIndex) == nil,
+                   let first = filteredAssets.first {
+                    viewModel.select(asset: first, index: currentIndex)
+                }
+            }
         }
     }
 }

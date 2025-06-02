@@ -22,6 +22,10 @@ final class CharacterViewModel: ObservableObject {
     func getPreview(for part: CharacterPartType, index: Int) -> String? {
         selections[index]?[part]?.imageName
     }
+    
+    func getOriginImageName(for part: CharacterPartType, index: Int) -> String? {
+        selections[index]?[part]?.originName
+    }
 
     func getOriginImageNames(for index: Int) -> [String] {
         selections[index]?.values.map { $0.originName } ?? []

@@ -13,8 +13,8 @@ struct CharacterPartPreview: View {
 
     var body: some View {
         // Assign previewName to a local variable for clarity (already passed as prop)
-        let name = previewName
-        if let name = name {
+        let finalName = previewName //?? part.defaultImageName
+        if let name = finalName {
             Image(name)
                 .resizable()
                 .scaledToFit()

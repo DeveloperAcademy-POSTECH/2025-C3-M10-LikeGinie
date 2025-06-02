@@ -5,17 +5,29 @@
 //  Created by eunsong on 5/31/25.
 //
 
-
 enum CharacterPartType: String, CaseIterable, Hashable {
-    case hair, face, suit, board, accessory
+    case hair
+    case face
+    case suit
+    case board
+    case accessory
 
     var label: String {
         switch self {
-        case .hair: return "헤어"
-        case .face: return "얼굴"
-        case .suit: return "의상"
-        case .board: return "보드"
+        case .hair: return "머리"
+        case .face: return "표정"
+        case .suit: return "옷"
+        case .board: return "서핑보드"
         case .accessory: return "악세사리"
+        }
+    }
+
+    var defaultImageName: String? {
+        switch self {
+        case .suit: return "preview-suit-01"
+        case .face: return "preview-emotion-01"
+        case .board: return "preview-board-01"
+        case .hair, .accessory: return nil
         }
     }
 }

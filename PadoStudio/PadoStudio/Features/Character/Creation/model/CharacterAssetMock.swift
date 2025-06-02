@@ -10,58 +10,50 @@ import Foundation
 struct CharacterAssetMock {
     static let mockCharacterAssets: [CharacterAsset] = [
         // Hair
-        .init(
-            part: .hair, color: "black", index: "02",
-            imageName: "preview-hair-black-02"),
-        .init(
-            part: .hair, color: "black", index: "03",
-            imageName: "preview-hair-black-03"),
-        .init(
-            part: .hair, color: "black", index: "06",
-            imageName: "preview-hair-black-06"),
-        .init(
-            part: .hair, color: "blond", index: "02",
-            imageName: "preview-hair-blond-02"),
-        .init(
-            part: .hair, color: "blond", index: "03",
-            imageName: "preview-hair-blond-03"),
-        .init(
-            part: .hair, color: "blond", index: "06",
-            imageName: "preview-hair-blond-06"),
-        .init(
-            part: .hair, color: "brown", index: "02",
-            imageName: "preview-hair-brown-02"),
-        .init(
-            part: .hair, color: "brown", index: "03",
-            imageName: "preview-hair-brown-03"),
-        .init(
-            part: .hair, color: "brown", index: "06",
-            imageName: "preview-hair-brown-06"),
+        
+        // hair default 제거용 X 표시
+        CharacterAsset(part: .hair, color: "", index: "00", imageName: "preview-empty"),
+        
+        CharacterAsset(part: .hair, color: "black", index: "01", imageName: "preview-hair-black-01"),
+        CharacterAsset(part: .hair, color: "black", index: "02", imageName: "preview-hair-black-02"),
+        CharacterAsset(part: .hair, color: "black", index: "03", imageName: "preview-hair-black-03"),
+        CharacterAsset(part: .hair, color: "black", index: "04", imageName: "preview-hair-black-04"),
+        CharacterAsset(part: .hair, color: "blond", index: "01", imageName: "preview-hair-blond-01"),
+        CharacterAsset(part: .hair, color: "blond", index: "02", imageName: "preview-hair-blond-02"),
+        CharacterAsset(part: .hair, color: "blond", index: "03", imageName: "preview-hair-blond-03"),
+        CharacterAsset(part: .hair, color: "blond", index: "04", imageName: "preview-hair-blond-04"),
+        CharacterAsset(part: .hair, color: "brown", index: "01", imageName: "preview-hair-brown-01"),
+        CharacterAsset(part: .hair, color: "brown", index: "02", imageName: "preview-hair-brown-02"),
+        CharacterAsset(part: .hair, color: "brown", index: "03", imageName: "preview-hair-brown-03"),
+        CharacterAsset(part: .hair, color: "brown", index: "04", imageName: "preview-hair-brown-04"),
 
-        // Suit
-        .init(
-            part: .suit, color: "black", index: "01",
-            imageName: "preview-suit-01"),
-        .init(
-            part: .suit, color: "blue", index: "02",
-            imageName: "preview-suit-02"),
+        // face (표정)
+        CharacterAsset(part: .face, color: "", index: "01", imageName: "preview-emotion-01"),
+        CharacterAsset(part: .face, color: "", index: "02", imageName: "preview-emotion-02"),
+        CharacterAsset(part: .face, color: "", index: "03", imageName: "preview-emotion-03"),
+        CharacterAsset(part: .face, color: "", index: "04", imageName: "preview-emotion-04"),
+        CharacterAsset(part: .face, color: "", index: "05", imageName: "preview-emotion-05"),
+        CharacterAsset(part: .face, color: "", index: "06", imageName: "preview-emotion-06"),
 
-        // Board
-        .init(
-            part: .board, color: "white", index: "01",
-            imageName: "preview-board-01"),
-        .init(
-            part: .board, color: "pink", index: "02",
-            imageName: "preview-board-02"),
+        // suit (옷)
+        CharacterAsset(part: .suit, color: "", index: "01", imageName: "preview-suit-01"),
+        CharacterAsset(part: .suit, color: "", index: "02", imageName: "preview-suit-02"),
+        CharacterAsset(part: .suit, color: "", index: "03", imageName: "preview-suit-03"),
+        CharacterAsset(part: .suit, color: "", index: "04", imageName: "preview-suit-04"),
+        CharacterAsset(part: .suit, color: "", index: "05", imageName: "preview-suit-05"),
+        CharacterAsset(part: .suit, color: "", index: "06", imageName: "preview-suit-06"),
 
-        // Face (Emotion)
-        .init(
-            part: .face, color: "default", index: "01",
-            imageName: "preview-emotion-01"),
+        // board (서핑보드)
+        CharacterAsset(part: .board, color: "", index: "01", imageName: "preview-board-01"),
+        CharacterAsset(part: .board, color: "", index: "02", imageName: "preview-board-02"),
+        CharacterAsset(part: .board, color: "", index: "03", imageName: "preview-board-03"),
+        CharacterAsset(part: .board, color: "", index: "04", imageName: "preview-board-04"),
+        CharacterAsset(part: .board, color: "", index: "05", imageName: "preview-board-05"),
+        CharacterAsset(part: .board, color: "", index: "06", imageName: "preview-board-06"),
+        
+        // 악세서리
+        CharacterAsset(part: .accessory, color: "", index: "00", imageName: "preview-empty"),
+        CharacterAsset(part: .accessory, color: "", index: "02", imageName: "preview-acc-02"),
 
-        // Accessory
-        .init(
-            part: .accessory, color: "yellow", index: "02",
-            imageName: "preview-acc-02"),
     ]
 }
