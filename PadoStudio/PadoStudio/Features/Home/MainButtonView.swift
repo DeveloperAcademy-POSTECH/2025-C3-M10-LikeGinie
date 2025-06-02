@@ -16,7 +16,7 @@ struct MainButtonView: View {
                 // 기록 남기기(카메라)
                 VStack(spacing: 12) {
                     Button(action: {
-                        navModel.navigate(to: .camera)
+                        navModel.navigate(to: .startRecording)
                     }) {
                         VStack(spacing: 8) {
                             Image(systemName: "camera")

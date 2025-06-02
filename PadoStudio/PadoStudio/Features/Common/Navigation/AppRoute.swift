@@ -9,7 +9,8 @@
 enum AppRoute: Hashable {
     case camera
     case gallery
+    case startRecording
+    case characterCreate(number: Int)
     case home
-
 }
 
