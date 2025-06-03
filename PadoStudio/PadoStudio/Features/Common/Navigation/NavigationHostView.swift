@@ -14,7 +14,7 @@ struct NavigationHostView: View {
     var body: some View {
         NavigationStack(path: $navModel.path) {
             HomeView()
-                .navigationDestination(for: AppRoute.self) { route in  
+                .navigationDestination(for: AppRoute.self) { route in
                     switch route {
                     case .camera:
                         CameraView()
