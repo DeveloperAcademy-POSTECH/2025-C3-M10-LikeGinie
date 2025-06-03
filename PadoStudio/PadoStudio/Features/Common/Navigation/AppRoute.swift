@@ -10,6 +10,7 @@ enum AppRoute: Hashable {
     case camera
     case gallery
     case home
-
+    case result(IdentifiableImage)
+    case ImageCheck(IdentifiableImage)
 }
 

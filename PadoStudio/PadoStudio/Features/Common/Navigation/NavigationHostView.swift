@@ -5,6 +5,7 @@
 //  Created by eunsong on 5/28/25.
 //
 
+
 import SwiftUI
 
 struct NavigationHostView: View {
@@ -13,15 +14,22 @@ struct NavigationHostView: View {
     var body: some View {
         NavigationStack(path: $navModel.path) {
             HomeView()
-                .navigationDestination(for: AppRoute.self) { route in
+                .navigationDestination(for: AppRoute.self) { route in  
                     switch route {
                     case .camera:
                         CameraView()
-//                        Text("카메라 뷰 준비 중")
                     case .gallery:
                         GalleryView()
                     case .home:
                         HomeView()
+                    case .result(let identifiableImage):
+                        CameraStageView(
+                            image: identifiableImage.image,
+                            onRetake: {
+                                navModel.path.removeLast()
+                            }                        )
+                    case .ImageCheck(let identifiableImage):
+                        ImageCheckView(identifiableImage: identifiableImage)
                     }
                 }
         }
