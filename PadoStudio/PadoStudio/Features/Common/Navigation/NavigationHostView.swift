@@ -20,6 +20,10 @@ struct NavigationHostView: View {
                         CameraView()
                     case .gallery:
                         GalleryView()
+                    case .startRecording:
+                        CharacterCountSelectView()
+                    case .characterCreate(let number):
+                        CharacterCreateView(number: number)
                     case .home:
                         HomeView()
                     case .result(let identifiableImage):
