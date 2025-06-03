@@ -29,9 +29,22 @@
 		C06FDC792DE6E94A0014D299 /* PadoStudioUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PadoStudioUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		C04D5E072DED564400B66DB9 /* Exceptions for "PadoStudio" folder in "PadoStudio" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = C06FDC592DE6E9490014D299 /* PadoStudio */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		C06FDC5C2DE6E9490014D299 /* PadoStudio */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C04D5E072DED564400B66DB9 /* Exceptions for "PadoStudio" folder in "PadoStudio" target */,
+			);
 			path = PadoStudio;
 			sourceTree = "<group>";
 		};
