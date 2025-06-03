@@ -12,43 +12,46 @@ struct HomeView: View {
     var body: some View {
         ZStack {
             GeometryReader { proxy in
+                let width = proxy.size.width
+                let height = proxy.size.height
+
                 Image("bg_home")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: proxy.size.width, height: proxy.size.height)
-                    .position(x: proxy.size.width / 2, y: proxy.size.height / 2)
-            }
+                    .frame(width: max(width, 1), height: max(height, 1))
+                    .position(x: width / 2, y: height / 2)
 
-            VStack(spacing: 0) {
-                Spacer().frame(height: 64)  // increased top margin for title
+                VStack(spacing: 0) {
+                    Spacer().frame(height: height * 0.08)
 
-                MainTextView()
-                    .padding(.top, 32.0)
-                    .frame(maxWidth: .infinity, alignment: .center)
+                    MainTextView(proxy: proxy)
+                        .padding(.top, height * 0.04)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .background(Color.yellow.opacity(0.2))
+
+                    ContentView()
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, width * 0.08)
+                        .padding(.vertical, max(height * 0.03, 1))
+                        
+
+                    Spacer()
+
+                    MainButtonView(
+                        onCameraTapped: {
+                            navModel.navigate(to: .startRecording)
+                        },
+                        onGalleryTapped: {
+                            navModel.navigate(to: .gallery)
+                        }
+                    )
+                    .padding(.bottom, max(height * 0.02, 1))
                     .background(Color.yellow.opacity(0.2))
-
-                ContentView()
-                    .frame(maxWidth: .infinity)
-                    .padding(.horizontal, 32)
-                    .padding(.vertical, 24)
-                    .background(Color.yellow.opacity(0.2))
-
-                Spacer()
-
-                MainButtonView(
-                    onCameraTapped: {
-                        navModel.navigate(to: .startRecording)
-                    },
-                    onGalleryTapped: {
-                        navModel.navigate(to: .gallery)
-                    }
-                )
-                .padding(.bottom, 16)
-                .background(Color.yellow.opacity(0.2))
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-
-        }.ignoresSafeArea()
+        }
+        .ignoresSafeArea()
     }
 }
 

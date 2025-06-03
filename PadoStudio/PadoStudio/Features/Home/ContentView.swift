@@ -5,9 +5,9 @@
 //  Created by 윤민경 on 5/28/25.
 //
 
+import Combine
 // ContentView.swift
 import SwiftUI
-import Combine
 
 class CarouselAnimator: NSObject, ObservableObject {
     @Published var offset: CGFloat = 0
@@ -23,9 +23,8 @@ class CarouselAnimator: NSObject, ObservableObject {
 
     func start(contentWidth: CGFloat) {
         self.contentWidth = contentWidth
-        self.offset = 0
-        self.startTime = Date()
-        stop()
+        self.stop() // Ensure any previous animation is stopped
+        self.startTime = Date().addingTimeInterval(Double(offset / speed))
         displayLink = CADisplayLink(target: self, selector: #selector(step))
         displayLink?.add(to: .main, forMode: .common)
     }
@@ -37,15 +36,17 @@ class CarouselAnimator: NSObject, ObservableObject {
 
     @objc private func step() {
         guard let startTime else { return }
+
         let elapsed = Date().timeIntervalSince(startTime)
-        let expectedOffset = -CGFloat(elapsed) * speed
+        var newOffset = -CGFloat(elapsed) * speed
+
+        // 이미지가 전체 너비 이상 넘어가면 다시 앞쪽으로 이어 붙이기
         let resetThreshold = contentWidth
-        if abs(expectedOffset) >= resetThreshold {
-            self.startTime = Date()
-            offset = 0
-        } else {
-            offset = expectedOffset
+        if abs(newOffset) >= resetThreshold {
+            newOffset += resetThreshold
         }
+
+        offset = newOffset
     }
 }
 
@@ -66,7 +67,8 @@ struct ContentView: View {
             let calculatedWidth = (totalWidth - totalSpacing) / visibleItemCount
             let characterHeight = calculatedWidth * 1.0
             let availableHeight = geometry.size.height
-            let verticalPadding = max((availableHeight - characterHeight) / 2, 0)
+            let verticalPadding = max(
+                (availableHeight - characterHeight) / 2, 0)
 
             VStack {
                 Spacer().frame(height: verticalPadding)
@@ -76,7 +78,8 @@ struct ContentView: View {
                         Image(images[idx % images.count])
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: calculatedWidth, height: characterHeight)
+                            .frame(
+                                width: max(calculatedWidth, 1), height: max(characterHeight, 1))
                     }
                 }
                 .padding(.horizontal, 32)
@@ -85,7 +88,9 @@ struct ContentView: View {
                         Color.clear
                             .onAppear {
                                 imageWidth = calculatedWidth
-                                contentWidth = (calculatedWidth + imageSpacing) * CGFloat(images.count)
+                                contentWidth =
+                                    (calculatedWidth + imageSpacing)
+                                    * CGFloat(images.count * 2)
                                 animator.start(contentWidth: contentWidth)
                             }
                             .onDisappear {
@@ -94,12 +99,16 @@ struct ContentView: View {
                     }
                 )
                 .offset(x: animator.offset)
-                .frame(height: characterHeight)
-
-//                Spacer()
+                .animation(nil, value: animator.offset)
+                .frame(height: max(characterHeight, 1))
             }
         }
-//        .clipped()
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                contentWidth = ((UIScreen.main.bounds.width - 64) / 3 + imageSpacing) * CGFloat(images.count * 2)
+                animator.start(contentWidth: contentWidth)
+            }
+        }
     }
 }
 

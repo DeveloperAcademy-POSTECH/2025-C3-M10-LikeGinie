@@ -17,7 +17,20 @@ extension Font {
         return Font(scaled)
     }
 
-    // MARK: - Named Styles
+    static func responsiveDynamicCustom(_ name: String, baseSize: CGFloat, proxy: GeometryProxy) -> Font {
+        let width = proxy.size.width
+        let ratio = width / 375.0 // 기준 기기 너비 (iPhone 11)
+        let adjustedSize = baseSize * ratio
+
+        guard let uiFont = UIFont(name: name, size: adjustedSize) else {
+            return .system(size: adjustedSize)
+        }
+
+        let scaled = UIFontMetrics.default.scaledFont(for: uiFont)
+        return Font(scaled)
+    }
+
+    // MARK: - Named Styles (폰트 설정 고려)
     static var largeTitleBold: Font {
         .dynamicCustom("EliceDigitalBaeum-Bd", size: 40)
     }
@@ -65,49 +78,89 @@ extension Font {
     static func largeSinchonTitle(size: CGFloat) -> Font {
         .dynamicCustom("SinchonRhapsodyTTF-ExtraBold", size: size)
     }
+    
+    
+    // MARK: 기기 너비 고려된 폰트 사이즈 (기종 사이즈별 고려 가능)
+    static func title1RegularResponsive(_ proxy: GeometryProxy) -> Font {
+        .responsiveDynamicCustom("EliceDigitalBaeum", baseSize: 32, proxy: proxy)
+    }
+
+    static func title2BoldResponsive(_ proxy: GeometryProxy) -> Font {
+        .responsiveDynamicCustom("EliceDigitalBaeum-Bd", baseSize: 24, proxy: proxy)
+    }
+
+    static func title3RegularResponsive(size: CGFloat, proxy: GeometryProxy) -> Font {
+        .responsiveDynamicCustom("EliceDigitalBaeum", baseSize: size, proxy: proxy)
+    }
+
+    static func bodyBoldResponsive(_ proxy: GeometryProxy) -> Font {
+        .responsiveDynamicCustom("EliceDigitalBaeum-Bd", baseSize: 17, proxy: proxy)
+    }
+
+    static func caption1BoldResponsive(_ proxy: GeometryProxy) -> Font {
+        .responsiveDynamicCustom("EliceDigitalBaeum-Bd", baseSize: 12, proxy: proxy)
+    }
+
+    static func caption2BoldResponsive(_ proxy: GeometryProxy) -> Font {
+        .responsiveDynamicCustom("EliceDigitalBaeum-Bd", baseSize: 11, proxy: proxy)
+    }
+
+    static func eliceBoldResponsive(size: CGFloat, proxy: GeometryProxy) -> Font {
+        .responsiveDynamicCustom("EliceDigitalBaeum-Bd", baseSize: size, proxy: proxy)
+    }
+
+    static func styledRegularResponsive(size: CGFloat, proxy: GeometryProxy) -> Font {
+        .responsiveDynamicCustom("EliceDigitalBaeum", baseSize: size, proxy: proxy)
+    }
+
+    static func largeSinchonTitleResponsive(size: CGFloat, proxy: GeometryProxy) -> Font {
+        .responsiveDynamicCustom("SinchonRhapsodyTTF-ExtraBold", baseSize: size, proxy: proxy)
+    }
 }
 
 
 struct FontPreviewView: View {
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 24) {
-                Group {
-                    Text("LargeTitle Bold")
-                        .font(.largeTitleBold)
-                    Text("LargeTitle Regular")
-                        .font(.largeTitleRegular)
-                    Text("Title1 Bold")
-                        .font(.title1Bold)
-                    Text("Title1 Regular")
-                        .font(.title1Regular)
-                    Text("Title2 Bold")
-                        .font(.title2Bold)
-                    Text("Title3 Bold")
-                        .font(.title3Bold)
-                }
+        GeometryReader { proxy in
+            ScrollView {
+                VStack(alignment: .leading, spacing: 24) {
+                    Group {
+                        Text("LargeTitle Bold")
+                            .font(.largeTitleBold)
+                        Text("LargeTitle Regular")
+                            .font(.largeTitleRegular)
+                        Text("Title1 Bold")
+                            .font(.title1Bold)
+                        Text("Title1 Regular")
+                            .font(.title1RegularResponsive(proxy))
+                        Text("Title2 Bold")
+                            .font(.title2BoldResponsive(proxy))
+                        Text("Title3 Bold")
+                            .font(.title3RegularResponsive(size: 20, proxy: proxy))
+                    }
 
-                Group {
-                    Text("Body Bold")
-                        .font(.bodyBold)
-                    Text("Caption1 Bold")
-                        .font(.caption1Bold)
-                    Text("Caption2 Bold")
-                        .font(.caption2Bold)
-                }
+                    Group {
+                        Text("Body Bold")
+                            .font(.bodyBoldResponsive(proxy))
+                        Text("Caption1 Bold")
+                            .font(.caption1BoldResponsive(proxy))
+                        Text("Caption2 Bold")
+                            .font(.caption2BoldResponsive(proxy))
+                    }
 
-                Group {
-                    Text("Elice Bold (Size: 18)")
-                        .font(.eliceBold(size: 18))
-                    Text("Styled Regular (Size: 20)")
-                        .font(.styledRegular(size: 20))
-                    Text("Sinchon Rhapsody (Size: 32)")
-                        .font(.largeSinchonTitle(size: 32))
+                    Group {
+                        Text("Elice Bold (Size: 18)")
+                            .font(.eliceBoldResponsive(size: 18, proxy: proxy))
+                        Text("Styled Regular (Size: 20)")
+                            .font(.styledRegularResponsive(size: 20, proxy: proxy))
+                        Text("Sinchon Rhapsody (Size: 32)")
+                            .font(.largeSinchonTitleResponsive(size: 32, proxy: proxy))
+                    }
                 }
+                .padding()
             }
-            .padding()
+            .navigationTitle("Font Preview")
         }
-        .navigationTitle("Font Preview")
     }
 }
 
