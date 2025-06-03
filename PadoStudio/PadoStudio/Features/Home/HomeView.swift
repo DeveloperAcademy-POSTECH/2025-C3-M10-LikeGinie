@@ -21,11 +21,17 @@ struct HomeView: View {
             VStack(spacing: 100) {
                 MainTextView()
                 ContentView()
-                MainButtonView()
+                MainButtonView(
+                    onCameraTapped: {
+                        navModel.navigate(to: .startRecording)
+                    },
+                    onGalleryTapped: {
+                        navModel.navigate(to: .gallery)
+                    }
+                )
             }
             .padding(.top, 220) // 이 값을 조절해서 원하는 만큼 내리세요!
             .padding()
-
         }
     }
 }

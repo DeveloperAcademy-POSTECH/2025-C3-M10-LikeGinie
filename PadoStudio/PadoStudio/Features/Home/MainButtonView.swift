@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct MainButtonView: View {
-    @EnvironmentObject var navModel: NavigationViewModel
+    let onCameraTapped: () -> Void
+    let onGalleryTapped: () -> Void
     
     var body: some View {
         ZStack {
@@ -17,9 +18,7 @@ struct MainButtonView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Button(action: {
-                        navModel.navigate(to: .startRecording)
-                    }) {
+                    Button(action: onCameraTapped) {
                         VStack(spacing: 8) {
                             Image(systemName: "camera")
                                 .resizable()
@@ -44,9 +43,7 @@ struct MainButtonView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    Button(action: {
-                        navModel.navigate(to: .gallery)
-                    }) {
+                    Button(action: onGalleryTapped) {
                         VStack(spacing: 8) {
                             Image(systemName: "photo.on.rectangle")
                                 .resizable()
@@ -78,6 +75,9 @@ struct MainButtonView: View {
 }
 
 #Preview {
-    MainButtonView().environmentObject(NavigationViewModel())
+    MainButtonView(
+        onCameraTapped: {},
+        onGalleryTapped: {}
+    )
 }
 

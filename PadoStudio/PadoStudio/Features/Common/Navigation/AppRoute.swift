@@ -12,5 +12,7 @@ enum AppRoute: Hashable {
     case startRecording
     case characterCreate(number: Int)
     case home
+    case result(IdentifiableImage)
+    case ImageCheck(IdentifiableImage)
 }
 
