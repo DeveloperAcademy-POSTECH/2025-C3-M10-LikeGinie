@@ -9,12 +9,14 @@ import SwiftUI
 
 struct MainButtonView: View {
     @EnvironmentObject var navModel: NavigationViewModel
-
+    
     var body: some View {
         ZStack {
-            HStack(spacing: 60) {
-                // 기록 남기기(카메라)
-                VStack(spacing: 12) {
+            // 중앙 하단 카메라 버튼
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
                     Button(action: {
                         navModel.navigate(to: .startRecording)
                     }) {
@@ -32,9 +34,16 @@ struct MainButtonView: View {
                         .background(Circle().fill(Color(red: 0.16, green: 0.74, blue: 0.76)))
                         .shadow(color: .black.opacity(0.15), radius: 10, x: 0, y: 4)
                     }
+                    Spacer()
                 }
-                // 갤러리
-                VStack(spacing: 12) {
+                .padding(.bottom, 40) // 하단 여백
+            }
+            
+            // 오른쪽 하단 갤러리 버튼
+            VStack {
+                Spacer()
+                HStack {
+                    Spacer()
                     Button(action: {
                         navModel.navigate(to: .gallery)
                     }) {
@@ -59,7 +68,10 @@ struct MainButtonView: View {
                         )
                         .shadow(color: .black.opacity(0.10), radius: 6, x: 0, y: 2)
                     }
+                    Spacer()
                 }
+                .padding(.bottom, 40) // 하단 여백
+                .padding(.leading, 600)
             }
         }
     }
@@ -68,3 +80,4 @@ struct MainButtonView: View {
 #Preview {
     MainButtonView().environmentObject(NavigationViewModel())
 }
+

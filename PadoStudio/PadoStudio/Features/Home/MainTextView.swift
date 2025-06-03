@@ -13,7 +13,9 @@ struct MainTextView: View {
             Text("파도 사진관")
                 .font(.system(size: 80, weight: .bold))
                 .fontWeight(.bold)
+                .foregroundColor(.white)
             Text("직접 만든 서핑 캐릭터와 함께 사진을 찍어보세요!")
+                .foregroundColor(.white)
         }
     }
 }
