@@ -14,7 +14,14 @@ struct HomeView: View {
         VStack(spacing: 100) {  // 각 뷰 사이 간격 조절
             MainTextView()
             ContentView()
-            MainButtonView()
+            MainButtonView(
+                onCameraTapped: {
+                    navModel.navigate(to: .startRecording)
+                },
+                onGalleryTapped: {
+                    navModel.navigate(to: .gallery)
+                }
+            )
         }
         .padding()
     }
