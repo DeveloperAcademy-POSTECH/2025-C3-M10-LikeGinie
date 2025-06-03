@@ -7,7 +7,22 @@
 
 import SwiftUI
 
+enum ButtonColor: String {
+    case green
+    case white
+    
+    var buttonColor: Color {
+        switch self {
+            case .green:
+                return Color.primaryGreen
+            case .white:
+                return Color.white
+        }
+    }
+}
+
 struct RoundButton: View {
+    let backgroundColor: ButtonColor
     let iconName: String
     let label: String
     let action: () -> Void
@@ -15,16 +30,20 @@ struct RoundButton: View {
     var body: some View {
         Button(action: action) {
             ZStack {
-                Circle()
-                    .fill(Color.white)
-                    .frame(width: 100, height: 100)
-                    .shadow(color: .black.opacity(0.12), radius: 8, x: 0, y: 4)
+                Circle(backgroundColor.buttonColor)
+                    .fill()
+                    .frame(width: 200, height: 200)
+                
                 VStack {
                     Image(systemName: iconName)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 32, height: 32)
+                        .frame(height: 64)
+                        .foregroundStyle(.white)
                     Text(label)
+                        .font(.system(size: 24))
+                        .bold()
+                        .foregroundStyle(.white)
                 }
             }
         }
@@ -32,5 +51,5 @@ struct RoundButton: View {
 }
 
 #Preview {
-    RoundButton(iconName: "house", label: "얏호!", action: {print("버튼 눌렸다!")})
+    RoundButton(backgroundColor: .green, iconName: "house", label: "얏호!", action: {print("버튼 눌렸다!")})
 }
