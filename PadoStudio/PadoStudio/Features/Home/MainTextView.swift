@@ -9,17 +9,31 @@ import SwiftUI
 
 struct MainTextView: View {
     var body: some View {
-        VStack(alignment: .center, spacing: 8) {
-            Text("파도 사진관")
-                .font(.system(size: 80, weight: .bold))
-                .fontWeight(.bold)
-                .foregroundColor(.white)
-            Text("직접 만든 서핑 캐릭터와 함께 사진을 찍어보세요!")
-                .foregroundColor(.white)
+        HStack(alignment: .center, spacing: 20) {
+            Image("ic_home_title")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 80, height: 80)
+
+            VStack(alignment: .leading, spacing: 8) {
+                Text("파도 사진관")
+                    .font(.largeSinchonTitle(size: 32))
+                    .foregroundColor(.white)
+
+                Text("직접 만든 서핑 캐릭터와 함께 사진을 찍어보세요!")
+                    .font(.title3)
+                    .foregroundColor(.white)
+            }
         }
+        .frame(maxWidth: .infinity)
+        .padding(.top, 40)
+        .padding(.horizontal)
     }
 }
 
 #Preview {
-    MainTextView()
+    ZStack {
+        Color.primaryGreen.ignoresSafeArea()
+        MainTextView()
+    }
 }

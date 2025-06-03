@@ -51,8 +51,8 @@ class CarouselAnimator: NSObject, ObservableObject {
 
 struct ContentView: View {
     let images = ["Asset5", "Asset5", "Asset5", "Asset5", "Asset5", "Asset5"]
-    private let imageWidth: CGFloat = 200
-    private let imageSpacing: CGFloat = 32
+    @State private var imageWidth: CGFloat = 200
+    @State private var imageSpacing: CGFloat = 16
     private let speed: CGFloat = 180
 
     @StateObject private var animator = CarouselAnimator(speed: 180)
@@ -60,30 +60,46 @@ struct ContentView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            HStack(spacing: imageSpacing) {
-                ForEach(0..<images.count * 2, id: \.self) { idx in
-                    Image(images[idx % images.count])
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: imageWidth, height: 300)
+            let totalWidth = geometry.size.width - 64
+            let visibleItemCount = floor(totalWidth / 240)
+            let totalSpacing = imageSpacing * (visibleItemCount - 1)
+            let calculatedWidth = (totalWidth - totalSpacing) / visibleItemCount
+            let characterHeight = calculatedWidth * 1.0
+            let availableHeight = geometry.size.height
+            let verticalPadding = max((availableHeight - characterHeight) / 2, 0)
+
+            VStack {
+                Spacer().frame(height: verticalPadding)
+
+                HStack(spacing: imageSpacing) {
+                    ForEach(0..<images.count * 2, id: \.self) { idx in
+                        Image(images[idx % images.count])
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: calculatedWidth, height: characterHeight)
+                    }
                 }
+                .padding(.horizontal, 32)
+                .background(
+                    GeometryReader { proxy in
+                        Color.clear
+                            .onAppear {
+                                imageWidth = calculatedWidth
+                                contentWidth = (calculatedWidth + imageSpacing) * CGFloat(images.count)
+                                animator.start(contentWidth: contentWidth)
+                            }
+                            .onDisappear {
+                                animator.stop()
+                            }
+                    }
+                )
+                .offset(x: animator.offset)
+                .frame(height: characterHeight)
+
+//                Spacer()
             }
-            .background(
-                GeometryReader { proxy in
-                    Color.clear
-                        .onAppear {
-                            contentWidth = (imageWidth + imageSpacing) * CGFloat(images.count)
-                            animator.start(contentWidth: contentWidth)
-                        }
-                        .onDisappear {
-                            animator.stop()
-                        }
-                }
-            )
-            .offset(x: animator.offset)
         }
-        .frame(height: 300)
-        .clipped()
+//        .clipped()
     }
 }
 

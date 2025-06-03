@@ -11,16 +11,30 @@ struct HomeView: View {
 
     var body: some View {
         ZStack {
-            // 1. 배경 이미지 (맨 아래)
-            Image("홈화면_배경")
-                .resizable()
-                .scaledToFill()
-                .ignoresSafeArea()
+            GeometryReader { proxy in
+                Image("bg_home")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: proxy.size.width, height: proxy.size.height)
+                    .position(x: proxy.size.width / 2, y: proxy.size.height / 2)
+            }
 
-            // 2. 콘텐츠 (텍스트, 캐릭터, 버튼 등)
-            VStack(spacing: 100) {
+            VStack(spacing: 0) {
+                Spacer().frame(height: 64)  // increased top margin for title
+
                 MainTextView()
+                    .padding(.top, 32.0)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .background(Color.yellow.opacity(0.2))
+
                 ContentView()
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 32)
+                    .padding(.vertical, 24)
+                    .background(Color.yellow.opacity(0.2))
+
+                Spacer()
+
                 MainButtonView(
                     onCameraTapped: {
                         navModel.navigate(to: .startRecording)
@@ -29,10 +43,12 @@ struct HomeView: View {
                         navModel.navigate(to: .gallery)
                     }
                 )
+                .padding(.bottom, 16)
+                .background(Color.yellow.opacity(0.2))
             }
-            .padding(.top, 220) // 이 값을 조절해서 원하는 만큼 내리세요!
-            .padding()
-        }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+
+        }.ignoresSafeArea()
     }
 }
 
