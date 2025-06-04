@@ -13,8 +13,11 @@ struct CharacterAssetGrid: View {
 
     var body: some View {
         let spacing: CGFloat = 16.scaled
-        let totalSpacing: CGFloat = spacing * 3
-        let itemSide = (proxy.size.width - totalSpacing - 32) / 4
+        let columnCount = 4
+        let totalSpacing = spacing * CGFloat(columnCount - 1)
+        let totalHorizontalPadding = proxy.size.width * 0.06 * 2
+        let itemSide = (proxy.size.width - totalSpacing - totalHorizontalPadding) / CGFloat(columnCount)
+        let columns = Array(repeating: GridItem(.flexible(), spacing: spacing), count: columnCount)
         ScrollView {
             let part = viewModel.selectedPart
             let filteredAssets = viewModel.assets.filter { $0.part == part }
@@ -22,9 +25,7 @@ struct CharacterAssetGrid: View {
                 for: part, index: currentIndex)
 
             LazyVGrid(
-                columns: Array(
-                    repeating: GridItem(.flexible(), spacing: spacing), count: 4
-                ),
+                columns: columns,
                 spacing: spacing
             ) {
                 ForEach(filteredAssets) { asset in
