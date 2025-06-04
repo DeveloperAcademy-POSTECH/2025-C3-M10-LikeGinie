@@ -8,36 +8,33 @@
 import SwiftUI
 
 struct MainButtonView: View {
-    @EnvironmentObject var navModel: NavigationViewModel
+    let onCameraTapped: () -> Void
+    let onGalleryTapped: () -> Void
 
     var body: some View {
         ZStack {
             HStack(spacing: 60) {
-                // 기록 남기기(카메라)
+                RoundButton(iconName: "camera", label: "기록 남기기", action: onCameraTapped)
+//                VStack(spacing: 12) {
+//                    Button(action: onCameraTapped) {
+//                        VStack(spacing: 8) {
+//                            Image(systemName: "camera")
+//                                .resizable()
+//                                .scaledToFit()
+//                                .frame(width: 48, height: 48)
+//                                .foregroundColor(.white)
+//                            Text("기록 남기기")
+//                                .font(.system(size: 20, weight: .semibold))
+//                                .foregroundColor(.white)
+//                        }
+//                        .frame(width: 140, height: 140)
+//                        .background(Circle().fill(Color(red: 0.16, green: 0.74, blue: 0.76)))
+//                        .shadow(color: .black.opacity(0.15), radius: 10, x: 0, y: 4)
+//                    }
+//                }
+
                 VStack(spacing: 12) {
-                    Button(action: {
-                        navModel.navigate(to: .startRecording)
-                    }) {
-                        VStack(spacing: 8) {
-                            Image(systemName: "camera")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 48, height: 48)
-                                .foregroundColor(.white)
-                            Text("기록 남기기")
-                                .font(.system(size: 20, weight: .semibold))
-                                .foregroundColor(.white)
-                        }
-                        .frame(width: 140, height: 140)
-                        .background(Circle().fill(Color(red: 0.16, green: 0.74, blue: 0.76)))
-                        .shadow(color: .black.opacity(0.15), radius: 10, x: 0, y: 4)
-                    }
-                }
-                // 갤러리
-                VStack(spacing: 12) {
-                    Button(action: {
-                        navModel.navigate(to: .gallery)
-                    }) {
+                    Button(action: onGalleryTapped) {
                         VStack(spacing: 8) {
                             Image(systemName: "photo.on.rectangle")
                                 .resizable()
@@ -66,5 +63,8 @@ struct MainButtonView: View {
 }
 
 #Preview {
-    MainButtonView().environmentObject(NavigationViewModel())
+    MainButtonView(
+        onCameraTapped: {},
+        onGalleryTapped: {}
+    )
 }
