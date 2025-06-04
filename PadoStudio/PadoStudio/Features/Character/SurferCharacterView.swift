@@ -11,7 +11,7 @@ struct SurferCharacterView: View {
     let characterImages = Array(repeating: "Asset5", count: 6)
 
     var body: some View {
-        HStack(alignment: .bottom, spacing: 0) {
+        HStack{
             ForEach(0..<characterImages.count, id: \.self) { idx in
                 Image(characterImages[idx])
                     .resizable()

@@ -13,6 +13,9 @@ struct CameraStageView: View {
     @EnvironmentObject var navModel: NavigationViewModel
     @StateObject private var camera = CameraViewModel()
     
+    
+    
+    
     var body: some View {
         VStack {
             if let image = image {
@@ -20,13 +23,13 @@ struct CameraStageView: View {
                     Image(uiImage: image)
                         .resizable()
                         .scaledToFit()
-                        .frame(maxHeight: 500)
+                        .frame(maxHeight: 500.scaled)
                         .cornerRadius(16)
 
                     Image("프레임")
                         .resizable()
                         .scaledToFit()
-                        .frame(maxHeight: 500)
+                        .frame(maxHeight: 500.scaled)
                         .allowsHitTesting(false)
                 }
                 .padding()
@@ -44,6 +47,8 @@ struct CameraStageView: View {
                 onRetake()
             }) {
                 Image("cameraagain")
+                    .resizable()
+                    .frame(width: 40.scaled, height: 40.scaled)
             }
                 
                 Button(action: {
@@ -63,6 +68,8 @@ struct CameraStageView: View {
                     }
                 }) {
                     Image("download")
+                        .resizable()
+                        .frame(width: 70.scaled, height: 70.scaled)
                 }
 
 

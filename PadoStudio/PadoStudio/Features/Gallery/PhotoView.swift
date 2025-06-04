@@ -12,7 +12,7 @@ struct PhotoView: View {
     @Binding var images: [String]
     
     var body: some View {
-        NavigationLink {
+        NavigationLink(destination: {
             PhotoDetailView(imageName: imageName)
                 .navigationTitle("사진")
                 .toolbar {
@@ -20,7 +20,7 @@ struct PhotoView: View {
                         PhotoMenuView(imageName: imageName, images: $images)
                     }
                 }
-        } label: {
+        }) {
             Image(imageName)
                 .resizable()
                 .scaledToFit()
