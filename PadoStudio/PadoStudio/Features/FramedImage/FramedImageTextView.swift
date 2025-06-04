@@ -11,9 +11,10 @@ struct FramedImageTextView: View {
     var body: some View {
         VStack {
             Text("촬영이 완료되었어요!")
-                .font(.largeTitle)
+                .font(.styledRegular(size: 20.scaled))
                 .bold()
             Text("함께한 사진을 공유해보세요")
+                .font(.styledRegular(size: 10.scaled))
         }
     }
 }

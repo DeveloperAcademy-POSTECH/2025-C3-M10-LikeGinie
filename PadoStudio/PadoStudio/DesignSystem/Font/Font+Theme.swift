@@ -40,7 +40,7 @@ extension Font {
     }
 
     static var title1Bold: Font {
-        .dynamicCustom("EliceDigitalBaeum-Bd", size: 32)
+        .dynamicCustom("EliceDigitalBaeum-Bd", size: 32.scaled)
     }
 
     static var title1Regular: Font {
