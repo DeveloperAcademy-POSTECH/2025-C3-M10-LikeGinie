@@ -12,7 +12,7 @@ struct CharacterCheckView: View {
     var body: some View {
         ZStack {
             // 전체 배경 이미지
-            Image("캐릭터확인_배경")
+            Image("background1 1")
                 .resizable()
                 .scaledToFill()
                 .ignoresSafeArea()

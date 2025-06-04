@@ -10,6 +10,7 @@ struct CharacterCreateView: View {
     let number: Int
     @StateObject var viewModel = CharacterViewModel()
     @State private var currentIndex: Int = 0
+    
 
     var body: some View {
         VStack {
@@ -36,6 +37,7 @@ struct CharacterCreateView: View {
 
                     Button("저장하기") {
                         // 저장 처리
+                        
                     }
                     .buttonStyle(.borderedProminent)
                 }
