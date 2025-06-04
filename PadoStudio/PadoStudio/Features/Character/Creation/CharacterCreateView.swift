@@ -10,6 +10,7 @@ struct CharacterCreateView: View {
     let number: Int
     @StateObject var viewModel = CharacterViewModel()
     @State private var currentIndex: Int = 0
+    @EnvironmentObject var navModel: NavigationViewModel  
 
     var body: some View {
         VStack {
@@ -35,7 +36,7 @@ struct CharacterCreateView: View {
                     .buttonStyle(.bordered)
 
                     Button("저장하기") {
-                        // 저장 처리
+                        navModel.path.append(AppRoute.camera)
                     }
                     .buttonStyle(.borderedProminent)
                 }
