@@ -13,23 +13,29 @@ struct ImageCheckView: View {
     @State private var isSharing: Bool = false
 
     var body: some View {
-        VStack(spacing: 50) {
-            FramedImageTextView()
-            FramedImageView(identifiableImage: identifiableImage)
-            HStack(spacing: 50) {
-                RoundButton(iconName: "square.and.arrow.up", label: "공유하기", action: {
-                    print("공유!")
-                    isSharing = true
-                })
-                .sheet(isPresented: $isSharing) {
-                    FramedImageShareView(image: identifiableImage.image)
+        ZStack {
+            Color.lightYellow.ignoresSafeArea()
+            
+            VStack(spacing: 50) {
+                FramedImageTextView()
+                FramedImageView(identifiableImage: identifiableImage)
+                
+                HStack(spacing: 50) {
+                    RoundButton(iconName: "square.and.arrow.up", label: "공유하기", action: {
+                        print("공유!")
+                        isSharing = true
+                    })
+                    .sheet(isPresented: $isSharing) {
+                        FramedImageShareView(image: identifiableImage.image)
+                    }
+                    //                RoundButton(iconName: "house", label: "처음으로", action: {
+                    //                    print("홈!")
+                    //                    navModel.navigate(to: .home)
+                    //                })
                 }
-                RoundButton(iconName: "house", label: "처음으로", action: {
-                    print("홈!")
-                    navModel.navigate(to: .home)
-                })
             }
         }
+        
     }
 }
 

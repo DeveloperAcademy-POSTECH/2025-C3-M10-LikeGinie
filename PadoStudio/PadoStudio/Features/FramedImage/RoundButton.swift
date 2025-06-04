@@ -16,15 +16,19 @@ struct RoundButton: View {
         Button(action: action) {
             ZStack {
                 Circle()
-                    .fill(Color.white)
-                    .frame(width: 100, height: 100)
-                    .shadow(color: .black.opacity(0.12), radius: 8, x: 0, y: 4)
+                    .fill(Color.primaryGreen)
+                    .frame(width: 200, height: 200)
+                
                 VStack {
                     Image(systemName: iconName)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 32, height: 32)
+                        .frame(height: 64)
+                        .foregroundStyle(.white)
                     Text(label)
+                        .font(.system(size: 24))
+                        .fontWeight(.black)
+                        .foregroundStyle(.white)
                 }
             }
         }
