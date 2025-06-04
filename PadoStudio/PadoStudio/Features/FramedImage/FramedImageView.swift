@@ -14,7 +14,7 @@ struct FramedImageView: View {
         Image(uiImage: identifiableImage.image)
             .resizable()
             .scaledToFit()
-            .frame(width: 550, height: 770)
+            .frame(width: ScreenRatioUtility.imageWidth , height: ScreenRatioUtility.imageHeight )
     }
 }
 
