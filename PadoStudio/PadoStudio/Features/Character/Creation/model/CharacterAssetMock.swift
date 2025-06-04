@@ -52,8 +52,19 @@ struct CharacterAssetMock {
         CharacterAsset(part: .board, color: "", index: "06", imageName: "preview-board-06"),
         
         // 악세서리
-        CharacterAsset(part: .accessory, color: "", index: "00", imageName: "preview-empty"),
-        CharacterAsset(part: .accessory, color: "", index: "02", imageName: "preview-acc-02"),
+        // head accessory (얼굴 악세사리)
+        CharacterAsset(part: .headAccessory, color: "", index: "00", imageName: "preview-empty"),
+        CharacterAsset(part: .headAccessory, color: "", index: "01", imageName: "preview-head-acc-01"),
+        CharacterAsset(part: .headAccessory, color: "", index: "02", imageName: "preview-head-acc-02"),
+        CharacterAsset(part: .headAccessory, color: "", index: "03", imageName: "preview-head-acc-03"),
+        CharacterAsset(part: .headAccessory, color: "", index: "04", imageName: "preview-head-acc-04"),
+
+        // hand accessory (손 악세사리)
+        CharacterAsset(part: .handAccessory, color: "", index: "00", imageName: "preview-empty"),
+        CharacterAsset(part: .handAccessory, color: "", index: "01", imageName: "preview-body-acc-01"),
+        CharacterAsset(part: .handAccessory, color: "", index: "02", imageName: "preview-body-acc-02"),
+        CharacterAsset(part: .handAccessory, color: "", index: "03", imageName: "preview-body-acc-03"),
+        CharacterAsset(part: .handAccessory, color: "", index: "04", imageName: "preview-body-acc-04"),
 
     ]
 }

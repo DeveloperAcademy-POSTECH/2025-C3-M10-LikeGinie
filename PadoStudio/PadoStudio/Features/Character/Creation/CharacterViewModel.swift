@@ -34,4 +34,8 @@ final class CharacterViewModel: ObservableObject {
     func selectedAsset(for part: CharacterPartType, index: Int) -> CharacterAsset? {
         selections[index]?[part]
     }
+
+    func resetCharacter() {
+        selections = [:]
+    }
 }

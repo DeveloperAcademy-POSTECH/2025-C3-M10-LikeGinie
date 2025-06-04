@@ -4,8 +4,8 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>EliceDigitalBaeum-Bold.ttf</string>
 		<string>EliceDigitalBaeum-Regular.ttf</string>
+		<string>EliceDigitalBaeum-Bold.ttf</string>
 		<string>SinchonRhapsody-ExtraBold.ttf</string>
 	</array>
 </dict>

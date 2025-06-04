@@ -88,6 +88,10 @@ extension Font {
     static func title2BoldResponsive(_ proxy: GeometryProxy) -> Font {
         .responsiveDynamicCustom("EliceDigitalBaeum-Bd", baseSize: 24, proxy: proxy)
     }
+    
+    static func title3BoldResponsive(size: CGFloat, proxy: GeometryProxy) -> Font {
+        .responsiveDynamicCustom("EliceDigitalBaeum-Bd", baseSize: size, proxy: proxy)
+    }
 
     static func title3RegularResponsive(size: CGFloat, proxy: GeometryProxy) -> Font {
         .responsiveDynamicCustom("EliceDigitalBaeum", baseSize: size, proxy: proxy)
