@@ -15,29 +15,30 @@ struct CameraView: View {
     @State private var isCountingDown = false
     @EnvironmentObject var navModel: NavigationViewModel  
 
+
+    
     var body: some View {
         ZStack {
             CameraPreview(session: camera.session)
                 .onAppear {
                     camera.configure()
                 }
-                .frame(width: UIScreen.main.bounds.width,
-                       height: UIScreen.main.bounds.width * 4 / 3)
-                .cornerRadius(16)
-                .clipped()
+                .frame(width: ScreenRatioUtility.imageWidth , height: ScreenRatioUtility.imageHeight )
+                .cornerRadius(16.scaled)
+                                   .clipped()
 
             Image("프레임")
                 .resizable()
                 .scaledToFit()
-                .frame(width: UIScreen.main.bounds.width,
-                       height: UIScreen.main.bounds.width * 4 / 3)
+                .frame(width: ScreenRatioUtility.imageWidth , height: ScreenRatioUtility.imageHeight )
                 .allowsHitTesting(false)
+            
 
             if isCountingDown {
                 Text("\(countdown)")
-                    .font(.system(size: 100, weight: .bold))
+                    .font(.system(size: 100.scaled , weight: .bold))
                     .foregroundColor(.white)
-                    .shadow(radius: 10)
+                    .shadow(radius: 10.scaled)
             }
 
             VStack {
@@ -58,11 +59,11 @@ struct CameraView: View {
                     }) {
                         Image("CameraFrame")
                             .resizable()
-                            .frame(width: 70, height: 70)
-                            .shadow(radius: 4)
+                            .frame(width: 70.scaled, height: 70.scaled)
+                           
                     }
-                    .padding(.bottom, 30)
-                    .padding(.leading, 100)
+                    .padding(.bottom, 30.scaled)
+                    .padding(.leading, 100.scaled)
                     .disabled(isCountingDown)
 
                     Button(action: {
@@ -70,8 +71,8 @@ struct CameraView: View {
                     }) {
                         Image("camerachange")
                             .resizable()
-                            .frame(width: 40, height: 30)
-                            .padding(.leading, 60)
+                            .frame(width: 40.scaled, height: 40.scaled)
+                            .padding(.leading, 60.scaled)
                     }
                 }
             }
