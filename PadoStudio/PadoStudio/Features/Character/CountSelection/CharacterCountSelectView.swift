@@ -16,12 +16,11 @@ struct CharacterCountSelectView: View {
             Spacer()
 
             Text("몇 명의 캐릭터를 만들까요?")
-                .font(.title)
-                .fontWeight(.bold)
+                .font(.eliceBold(size: 28)) // 커스텀 폰트 적용
                 .padding(.bottom, 4)
 
             Text("최대 6명까지 가능해요!")
-                .font(.subheadline)
+                .font(.styledRegular(size: 16)) // 커스텀 폰트 적용
                 .foregroundColor(.gray)
                 .padding(.bottom, 30)
 
@@ -41,7 +40,7 @@ struct CharacterCountSelectView: View {
                 .opacity(number <= 0 ? 0.3 : 1.0)
 
                 Text("\(number)")
-                    .font(.system(size: 50, weight: .bold))
+                    .font(.eliceBold(size: 50)) // 커스텀 폰트 적용
                     .frame(minWidth: 60)
 
                 Button(action: {
@@ -73,6 +72,7 @@ struct CharacterCountSelectView: View {
 
             ToolbarItem(placement: .principal) {
                 Text("캐릭터 만들기")
+                    .font(.eliceBold(size: 22)) // 커스텀 폰트 적용
                     .fontWeight(.semibold)
             }
 
@@ -80,10 +80,10 @@ struct CharacterCountSelectView: View {
                 Button("다음") {
                     navModel.navigate(to: .characterCreate(number: number))
                 }
+                .font(.eliceBold(size: 18)) // 커스텀 폰트 적용
             }
         }
     }
-
 }
 
 #Preview {

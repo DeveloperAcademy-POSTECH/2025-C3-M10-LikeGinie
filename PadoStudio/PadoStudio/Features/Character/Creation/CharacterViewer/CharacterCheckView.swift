@@ -14,48 +14,19 @@ struct CharacterCheckView: View {
             // 전체 배경 이미지
             Image("background1 1")
                 .resizable()
-                .scaledToFill()
                 .ignoresSafeArea()
             
             VStack(spacing: 0) {
-                // 상단 바
-                HStack {
-                    Button(action: {
-                        // 뒤로가기 동작
-                    }) {
-                        Circle()
-                            .fill(Color.white)
-                            .frame(width: 80, height: 80)
-                            .overlay(
-                                Image(systemName: "chevron.left")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 40, height: 40)
-                                    .foregroundColor(Color(red: 0.13, green: 0.72, blue: 0.75))
-                            )
-                    }
-                    .padding(.leading, 50)
-
-                    Spacer()
-
-                    Text("캐릭터 확인")
-                        .font(.system(size: 40))
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                        .multilineTextAlignment(.center)
-
-                    Spacer()
-
-                    Color.clear
-                        .frame(width: 80 + 50, height: 80)
-                }
-                .frame(height: 80)
-
                 // 중앙에 오게 하기 위한 Spacer
+                CharacterToolbarView()
+                
                 Spacer()
 
                 // 캐릭터와 텍스트 묶음
                 VStack(spacing: 2) {
+                    
+                    Spacer().frame(height: 160) // SurferCharacterView 위에 여백
+                    
                     SurferCharacterView()
                     CharacterTextView()
                 }
