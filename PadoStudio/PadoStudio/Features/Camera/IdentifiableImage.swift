@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 struct IdentifiableImage: Hashable, Codable {
+    
     let id: UUID
     let image: UIImage
 
