@@ -5,7 +5,6 @@
 //  Created by kim yijun on 5/28/25.
 //
 
-
 import SwiftUI
 import AVFoundation
 
@@ -13,21 +12,24 @@ struct CameraView: View {
     @StateObject private var camera = CameraViewModel()
     @State private var countdown = 5
     @State private var isCountingDown = false
-    @EnvironmentObject var navModel: NavigationViewModel  
+    @EnvironmentObject var navModel: NavigationViewModel
 
-
+    @State private var characters: [String] = ["Asset5", "Asset5", "Asset5","Asset5", "Asset5", "Asset5"]
+    
     
     var body: some View {
         ZStack {
+            
             CameraPreview(session: camera.session)
                 .onAppear {
                     camera.configure()
                 }
-                .frame(width: ScreenRatioUtility.imageWidth , height: ScreenRatioUtility.imageHeight )
+                .frame(width: ScreenRatioUtility.imageWidth , height: ScreenRatioUtility.imageHeight, alignment: .top )
                 .cornerRadius(16.scaled)
-                                   .clipped()
+                .clipped()
+                
 
-            Image("프레임")
+            Image("Frame1")
                 .resizable()
                 .scaledToFit()
                 .frame(width: ScreenRatioUtility.imageWidth , height: ScreenRatioUtility.imageHeight )
@@ -40,9 +42,23 @@ struct CameraView: View {
                     .foregroundColor(.white)
                     .shadow(radius: 10.scaled)
             }
-
+           
             VStack {
+                
                 Spacer()
+                
+                HStack(spacing: -10.scaled) {
+                    ForEach(characters, id: \.self) { character in
+                        Image(character)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: min(150.scaled, (ScreenRatioUtility.imageWidth) / CGFloat(characters.count)),
+                                   height: min(150.scaled, (ScreenRatioUtility.imageWidth) / CGFloat(characters.count)))
+                    }
+                }
+                .frame(maxWidth: ScreenRatioUtility.imageWidth)
+                .padding(.bottom, 50.scaled)
+                
                 HStack {
                     Button(action: {
                         isCountingDown = true
@@ -77,11 +93,21 @@ struct CameraView: View {
                 }
             }
         }
-        .onChange(of: camera.capturedImage) { newImage in
-            if let img = newImage {
-                navModel.path.append(AppRoute.result(IdentifiableImage(image: img)))
-            }
-        }.environmentObject(camera) 
+        .onChange(of: camera.capturedImage) { oldValue, newImage in
+                  if let img = newImage {
+                    
+                      if let composedImage = ImageComposer.composeFramedImageWithCharacters(
+                          baseImage: img,
+                          frameImageName: "Frame1",
+                          selectedCharacters: characters
+                      ) {
+                          navModel.path.append(AppRoute.result(IdentifiableImage(image: composedImage)))
+                      } else {
+                          navModel.path.append(AppRoute.result(IdentifiableImage(image: img)))
+                      }
+                  }
+              }
+        .environmentObject(camera)
     }
 }
 
