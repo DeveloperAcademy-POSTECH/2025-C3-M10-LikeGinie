@@ -18,7 +18,7 @@ struct CharacterCheckView: View {
             
             VStack(spacing: 0) {
                 // 중앙에 오게 하기 위한 Spacer
-                CharacterToolbarView()
+                ToolbarView(title: "캐릭터 확인", titleColor: .white)
                 
                 Spacer()
 

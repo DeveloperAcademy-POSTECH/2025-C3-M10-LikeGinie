@@ -14,8 +14,6 @@ struct CharacterCreateView: View {
 
     var body: some View {
         VStack {
-            CharacterCreateToolbar_View()
-            
             CharacterPreviewPager(
                 number: number, currentIndex: $currentIndex,
                 viewModel: viewModel)

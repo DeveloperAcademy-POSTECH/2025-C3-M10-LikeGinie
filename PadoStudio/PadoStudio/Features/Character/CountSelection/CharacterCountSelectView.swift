@@ -18,7 +18,7 @@ struct CharacterCountSelectView: View {
                 .scaledToFill()
                 .ignoresSafeArea()
             VStack {
-                CountSelectToolBarView()
+                ToolbarView(title: "인원 선택하기", titleColor: .black)
                 
                 Spacer() // 상단 여백
                 Spacer() // 상단 여백
