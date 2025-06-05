@@ -16,11 +16,12 @@ struct ImageCheckView: View {
         ZStack {
             Color.lightYellow.ignoresSafeArea()
             
-            VStack(spacing: 50) {
+            VStack(spacing: 20.scaled) {
                 FramedImageTextView()
                 FramedImageView(identifiableImage: identifiableImage)
+                    .shadow(color: .black.opacity(0.10), radius: 6, x: 0, y: 2)
                 
-                HStack(spacing: 50) {
+                HStack(spacing: 50.scaled) {
                     RoundButton(iconName: "square.and.arrow.up", label: "공유하기", action: {
                         print("공유!")
                         isSharing = true
