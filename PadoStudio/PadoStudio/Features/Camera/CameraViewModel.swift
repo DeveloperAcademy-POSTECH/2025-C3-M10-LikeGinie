@@ -63,64 +63,7 @@ class CameraViewModel: NSObject, ObservableObject {
         output.capturePhoto(with: settings, delegate: self)
     }
     
-    func composeFramedImageWithCharacters(baseImage: UIImage, frameImageName: String = "Frame1") -> UIImage? {
-        print("캐릭터 포함 이미지 합성 시작 - 프레임: \(frameImageName)")
-        
-        guard let frameImage = UIImage(named: frameImageName) else {
-            print("프레임 이미지 로드 실패: \(frameImageName)")
-            return nil
-        }
-        
-        let size = baseImage.size
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-        
-       
-        baseImage.draw(in: CGRect(origin: .zero, size: size))
-        
-       
-        frameImage.draw(in: CGRect(origin: .zero, size: size), blendMode: .normal, alpha: 1.0)
-        
-        
-        let scaleX = size.width / ScreenRatioUtility.imageWidth
-        let scaleY = size.height / ScreenRatioUtility.imageHeight
-        
-        
-        let maxSize = min(150 * scaleX, (ScreenRatioUtility.imageWidth * scaleX) / CGFloat(selectedCharacters.count))
-        let characterWidth = maxSize
-        let characterHeight = maxSize
-        
-        
-        let spacing: CGFloat = -10 * scaleX
-        
-        let totalWidth = CGFloat(selectedCharacters.count) * characterWidth + CGFloat(selectedCharacters.count - 1) * spacing
-        let startX = (size.width - totalWidth) / 2
-        
-        
-        let bottomMargin = 50 * scaleY
-        let yPosition = size.height - characterHeight - bottomMargin
-        
-        for (index, characterName) in selectedCharacters.enumerated() {
-            if let characterImage = UIImage(named: characterName) {
-                let xPosition = startX + CGFloat(index) * (characterWidth + spacing)
-                let characterRect = CGRect(x: xPosition, y: yPosition, width: characterWidth, height: characterHeight)
-                characterImage.draw(in: characterRect)
-                print("캐릭터 \(characterName) 그리기 완료 - 위치: \(characterRect), 크기: \(characterWidth)x\(characterHeight)")
-            } else {
-                print("캐릭터 이미지 로드 실패: \(characterName)")
-            }
-        }
-        
-        let combinedImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        if combinedImage != nil {
-            print("캐릭터 포함 이미지 합성 완료")
-        } else {
-            print("캐릭터 포함 이미지 합성 실패")
-        }
-        
-        return combinedImage
-    }
+    
     
     func switchCamera() {
            sessionQueue.async {
