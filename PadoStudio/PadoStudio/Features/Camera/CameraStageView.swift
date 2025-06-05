@@ -11,10 +11,8 @@ struct CameraStageView: View {
     let image: UIImage?
     var onRetake: () -> Void
     @EnvironmentObject var navModel: NavigationViewModel
-    @StateObject private var camera = CameraViewModel()
     
-    
-    
+
     
     var body: some View {
         VStack {
@@ -24,20 +22,14 @@ struct CameraStageView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: ScreenRatioUtility.imageWidth , height: ScreenRatioUtility.imageHeight )
-                        .cornerRadius(16.scaled)
-
-                    Image("프레임")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: ScreenRatioUtility.imageWidth , height: ScreenRatioUtility.imageHeight )
-                        .allowsHitTesting(false)
+                    
                 }
                 .padding()
             } else {
                 Text("이미지를 불러올 수 없습니다.")
                     .foregroundColor(.gray)
             }
-
+            
             
             VStack {
                 Spacer()
@@ -45,18 +37,13 @@ struct CameraStageView: View {
                     
                     Button(action: {
                         print("버튼 클릭됨")
-                        guard let base = image else {
-                            print("기본 이미지가 없음")
+                        guard let finalImage = image else {
+                            print("최종 이미지가 없음")
                             return
                         }
-                        print("이미지 합성 시작")
-                        if let composed = camera.composeFramedImage(baseImage: base) {
-                            print("이미지 합성 성공")
-                            let identifiableImage = IdentifiableImage(image: composed)
-                            navModel.path.append(AppRoute.ImageCheck(identifiableImage))
-                        } else {
-                            print("이미지 합성 실패")
-                        }
+                        print("이미지체크뷰로 이동")
+                        let identifiableImage = IdentifiableImage(image: finalImage)
+                        navModel.path.append(AppRoute.ImageCheck(identifiableImage))
                     }) {
                         Image("download")
                             .resizable()
@@ -82,7 +69,7 @@ struct CameraStageView: View {
             }
 
 
-                  }.navigationBarHidden(true) 
+                  }.navigationBarHidden(true)
     }
 }
 
