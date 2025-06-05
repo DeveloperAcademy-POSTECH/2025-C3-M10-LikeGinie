@@ -1,13 +1,13 @@
 //
-//  CharacterToolbarView.swift
+//  CountSelectToolBarView.swift
 //  PadoStudio
 //
-//  Created by 윤민경 on 6/4/25.
+//  Created by 윤민경 on 6/5/25.
 //
 
 import SwiftUI
 
-struct CharacterToolbarView: View {
+struct CountSelectToolBarView: View {
     var body: some View {
         HStack {
             // 왼쪽 버튼을 고정 프레임으로 감싸기
@@ -32,9 +32,9 @@ struct CharacterToolbarView: View {
 
             Spacer()
 
-            Text("캐릭터 확인")
+            Text("인원 선택하기")
                 .font(.styledRegular(size: 40))
-                .foregroundColor(.white)
+                .foregroundColor(.black)
                 .multilineTextAlignment(.center)
 
             Spacer()
@@ -48,5 +48,5 @@ struct CharacterToolbarView: View {
 }
 
 #Preview {
-    CharacterToolbarView()
+    CountSelectToolBarView()
 }

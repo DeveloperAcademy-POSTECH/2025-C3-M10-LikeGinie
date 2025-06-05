@@ -25,8 +25,7 @@ struct CameraButtonView: View {
             .frame(width: 200, height: 200)
             .background(
                 Circle()
-                    .fill(Color(red: 0.13, green: 0.72, blue: 0.75))
-            )
+                    .foregroundColor(.primaryGreen))
             .shadow(color: .black.opacity(0.12), radius: 8, x: 0, y: 4)
         }
         .buttonStyle(PlainButtonStyle())
