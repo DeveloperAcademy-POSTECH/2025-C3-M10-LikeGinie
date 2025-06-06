@@ -8,17 +8,19 @@
 import SwiftUI
 import SwiftData
 
+let galleryDateFormatter: DateFormatter = {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd"
+    return formatter
+}()
+
 struct GalleryView: View {
     @Query var galleryItems: [GalleryData]
-    @State private var images = [
-        "Feathers",
-        "Image1",
-        "Image2",
-        "Image3",
-        "Image4",
-        "Image5",
-        "Image6"
-    ]
+    var groupedItems: [String: [GalleryData]] {
+        return Dictionary(grouping: galleryItems) { item in
+            galleryDateFormatter.string(from: item.date)
+        }
+    }
     
     let columns = [
         GridItem(.flexible()),
@@ -28,15 +30,20 @@ struct GalleryView: View {
     ]
     
     var body: some View {
-//        ScrollView {
-//            LazyVGrid(columns: columns) {
-//                ForEach(images.indices, id: \.self) { index in
-//                    PhotoView(imageName: images[index], images: $images)
-//                }
-//            }
-//        }
-        List(galleryItems) { item in
-            
+        if galleryItems.isEmpty {
+            EmptyGalleryView()
+        } else {
+            ScrollView {
+                LazyVGrid(columns: columns) {
+                    ForEach(groupedItems.keys.sorted(), id: \.self) { dateKey in
+                        Section(header: Text(dateKey)) {
+                            ForEach(groupedItems[dateKey] ?? []) { item in
+                                PhotoView(imageModel: item)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
