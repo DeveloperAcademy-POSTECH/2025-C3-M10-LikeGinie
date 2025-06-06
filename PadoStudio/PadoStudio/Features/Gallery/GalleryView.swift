@@ -34,16 +34,22 @@ struct GalleryView: View {
             EmptyGalleryView()
         } else {
             ScrollView {
-                LazyVGrid(columns: columns) {
-                    ForEach(groupedItems.keys.sorted(), id: \.self) { dateKey in
-                        Section(header: Text(dateKey)) {
+                VStack(alignment: .leading) {
+                    ForEach(groupedItems.keys.sorted(by: >), id: \.self) { dateKey in
+                        Text(dateKey)
+                            .font(.title3Bold)
+                            .padding(.vertical)
+                        
+                        LazyVGrid(columns: columns) {
                             ForEach(groupedItems[dateKey] ?? []) { item in
                                 PhotoView(imageModel: item)
                             }
+                            
                         }
                     }
                 }
             }
+            .padding(.top)
         }
     }
 }
