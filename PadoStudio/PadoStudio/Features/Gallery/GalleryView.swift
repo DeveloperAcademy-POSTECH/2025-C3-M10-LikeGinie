@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct GalleryView: View {
+    @Query var galleryItems: [GalleryData]
     @State private var images = [
         "Feathers",
         "Image1",
@@ -26,12 +28,15 @@ struct GalleryView: View {
     ]
     
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: columns) {
-                ForEach(images.indices, id: \.self) { index in
-                    PhotoView(imageName: images[index], images: $images)
-                }
-            }
+//        ScrollView {
+//            LazyVGrid(columns: columns) {
+//                ForEach(images.indices, id: \.self) { index in
+//                    PhotoView(imageName: images[index], images: $images)
+//                }
+//            }
+//        }
+        List(galleryItems) { item in
+            
         }
     }
 }

@@ -8,8 +8,8 @@
 import SwiftData
 import Foundation
 
-//@Model
-struct GalleryData {
+@Model
+class GalleryData {
     var id: UUID
     var date: Date
     var filePath: String
