@@ -3,41 +3,43 @@ import SwiftUI
 struct MainButtonView: View {
     let onCameraTapped: () -> Void
     let onGalleryTapped: () -> Void
-    
+
     var body: some View {
         GeometryReader { geometry in
             let width = geometry.size.width
             let height = geometry.size.height
             let buttonSize = max(width * 0.18, 90)
             let gallerySize = buttonSize * 0.7
-            
-            let bottomPadding: CGFloat = max(height * 0.07, 20)
-            let sidePadding: CGFloat = max(width * 0.05, 16)
-            
+            let bottomPadding = geometry.safeAreaInsets.bottom + 24
+            let sidePadding = width * 0.05
+
+            // ZStack에 명시적 프레임 설정
             ZStack {
-                // 기록 남기기 버튼 (정중앙 하단)
                 CameraButton(action: onCameraTapped, size: buttonSize)
                     .position(
                         x: width / 2,
                         y: height - buttonSize / 2 - bottomPadding
                     )
                 
-                // 갤러리 버튼 (오른쪽 하단)
                 GalleryButton(action: onGalleryTapped, size: gallerySize)
                     .position(
                         x: width - gallerySize / 2 - sidePadding,
                         y: height - gallerySize / 2 - bottomPadding
                     )
             }
+            .frame(width: width, height: height) // 핵심!
         }
-        .frame(height: 180)
+        .frame(maxHeight: .infinity) // 상위 뷰의 높이를 최대로 확장
+        .ignoresSafeArea(.container, edges: .bottom)
     }
 }
+
+// CameraButton과 GalleryButton 구조체는 기존 코드 유지
 
 struct CameraButton: View {
     let action: () -> Void
     let size: CGFloat
-    
+
     var body: some View {
         Button(action: action) {
             VStack(spacing: 8) {
@@ -62,7 +64,7 @@ struct CameraButton: View {
 struct GalleryButton: View {
     let action: () -> Void
     let size: CGFloat
-    
+
     var body: some View {
         Button(action: action) {
             VStack(spacing: 6) {

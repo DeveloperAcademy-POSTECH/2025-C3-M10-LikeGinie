@@ -11,7 +11,7 @@ struct InfiniteCarouselView: View {
     let images: [ImageData]
     @State private var offset: CGFloat = 0
     private let timer = Timer.publish(every: 0.016, on: .main, in: .common).autoconnect()
-    private let itemWidth: CGFloat = 300
+    private let itemWidth: CGFloat = 250
     private let spacing: CGFloat = 10
     private let loopCount: Int = 3
     private let speed: CGFloat = 2.5

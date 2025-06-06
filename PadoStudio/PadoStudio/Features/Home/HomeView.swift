@@ -1,9 +1,3 @@
-//
-//  MainHomeView.swift
-//  LikeGinie
-//
-//  Created by 윤민경 on 5/28/25.
-//
 import SwiftUI
 
 struct HomeView: View {
@@ -11,42 +5,46 @@ struct HomeView: View {
     
     var body: some View {
         GeometryReader { proxy in
-            ZStack {
-                // 배경
+            let isPad = proxy.size.width > 700
+            let topPadding = isPad ? proxy.size.height * 0.06 : proxy.size.height * 0.09
+            let carouselHeight = isPad ? proxy.size.height * 0.28 : proxy.size.height * 0.22
+            let carouselBottomPadding = isPad ? proxy.size.height * 0.04 : proxy.size.height * 0.03
+            let carouselTopPadding = isPad ? proxy.size.height * 0.08 : proxy.size.height * 0.30 // 원하는 만큼 조정
+            let buttonBottomPadding = isPad ? 40.0 : 20.0
+            
+            
+            ZStack() {
                 Image("bg_home")
                     .resizable()
-                    .scaledToFill()
+                    .aspectRatio(contentMode: .fill)
                     .ignoresSafeArea()
-                
-                // 1. MainTextView만을 위한 VStack (위치 독립)
-                VStack {
-                    Spacer().frame(height: proxy.size.height * 0.15) // MainTextView를 아래로 내리기 위한 여백
-                    MainTextView(proxy: proxy)
-                    Spacer() // 필요시 추가 여백
-                }
-                .frame(maxWidth: .infinity, alignment: .center)
-                
-                // 2. InfiniteCarouselView만을 위한 VStack (위치 독립)
-                VStack {
-                    Spacer().frame(height: 20) // 위 여백을 줄임 (또는 완전히 제거)
-                    InfiniteCarouselView(images: ImageDataService.fetchImages())
-                        .padding(.bottom, proxy.size.height * 0.04)
-                    Spacer().frame(height: 500) // 아래 여백을 늘려 위치를 조정
-                }
-                .frame(maxWidth: .infinity, alignment: .center)
-
-                
-                // 3. MainButtonView만을 위한 VStack (하단 고정)
-                VStack {
-                    Spacer()
-                    MainButtonView(
-                        onCameraTapped: { navModel.navigate(to: .startRecording) },
-                        onGalleryTapped: { navModel.navigate(to: .gallery) }
-                    )
-                    .padding(.bottom, proxy.size.height * 0.02)
-                }
-                .frame(maxWidth: .infinity, alignment: .bottom)
             }
+            VStack {
+                MainTextView(proxy: proxy)
+                    .padding(.top, topPadding)
+                    .padding(.horizontal, isPad ? 100 : 50)
+            }
+            
+            Spacer().frame(height: isPad ? 30 : 16)
+            
+            VStack {
+                InfiniteCarouselView(images: ImageDataService.fetchImages())
+                    .frame(height: carouselHeight)
+                    .padding(.top, carouselTopPadding)
+                    .padding(.bottom, carouselBottomPadding)
+            }
+            
+            Spacer().frame(height: isPad ? 30 : 16)
+            
+            VStack {
+                Spacer()
+                MainButtonView(
+                    onCameraTapped: { navModel.navigate(to: .startRecording) },
+                    onGalleryTapped: { navModel.navigate(to: .gallery) }
+                )
+                .padding(.bottom, isPad ? 40 : 20)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         }
     }
 }
