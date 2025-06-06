@@ -27,9 +27,9 @@ struct HomeView: View {
                     MainTextView(proxy: proxy)
                         .padding(.top, height * 0.04)
                         .frame(maxWidth: .infinity, alignment: .center)
-                        .background(Color.yellow.opacity(0.2))
+//                        .background(Color.yellow.opacity(0.2))
 
-                    ContentView()
+                    ContentView(divisor: 300)
                         .frame(maxWidth: .infinity)
                         .padding(.horizontal, width * 0.08)
                         .padding(.vertical, max(height * 0.03, 1))
@@ -46,7 +46,7 @@ struct HomeView: View {
                         }
                     )
                     .padding(.bottom, max(height * 0.02, 1))
-                    .background(Color.yellow.opacity(0.2))
+//                    .background(Color.yellow.opacity(0.2))
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             }

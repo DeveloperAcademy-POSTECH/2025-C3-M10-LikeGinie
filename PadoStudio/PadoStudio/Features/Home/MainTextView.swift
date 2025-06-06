@@ -16,7 +16,7 @@ struct MainTextView: View {
                 .resizable()
                 .scaledToFit()
                 .frame(
-                    width: proxy.size.width * 0.16
+                    width: proxy.size.width * 0.15
                 )
 
             VStack(alignment: .center) {

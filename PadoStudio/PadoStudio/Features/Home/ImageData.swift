@@ -18,12 +18,12 @@ struct ImageData: Identifiable {
 class ImageDataService {
     static func fetchImages() -> [ImageData] {
         return [
-            ImageData(name: "home1"),
-            ImageData(name: "home2"),
-            ImageData(name: "home3"),
-            ImageData(name: "home4"),
-            ImageData(name: "home5"),
-            ImageData(name: "home6")
+            ImageData(name: "sample_character_01"),
+            ImageData(name: "sample_character_02"),
+            ImageData(name: "sample_character_03"),
+            ImageData(name: "sample_character_04"),
+            ImageData(name: "sample_character_05"),
+            ImageData(name: "sample_character_06")
         ]
     }
 }
