@@ -9,56 +9,53 @@ import SwiftUI
 
 struct InfiniteCarouselView: View {
     let images: [ImageData]
-    @State private var scrollOffset: CGFloat = 0
-    @State private var contentWidth: CGFloat = 1
+    @State private var offset: CGFloat = 0
     private let timer = Timer.publish(every: 0.016, on: .main, in: .common).autoconnect()
-
-    private let itemWidth: CGFloat = 200
-    private let spacing: CGFloat = 20
-    private let loopCount: Int = 5
-    private let speed: CGFloat = 2 // ⭐️ 속도 조절용
+    private let itemWidth: CGFloat = 300
+    private let spacing: CGFloat = 10
+    private let loopCount: Int = 3
+    private let speed: CGFloat = 2.5
 
     var body: some View {
         GeometryReader { proxy in
-            VStack {
-                Spacer() // ⭐️ 캐릭터를 아래로 내리기
+            ZStack {
+                // 1. 고정 배경
+                Image("background")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
 
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 5) { // ⭐️ 간격을 좁힌 부분
-                        ForEach(0..<images.count * loopCount, id: \.self) { idx in
-                            Image(images[idx % images.count].name)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: itemWidth, height: itemWidth)
-                        }
+                // 2. 무한 반복 캐릭터
+                HStack(spacing: spacing) {
+                    ForEach(0..<(images.count * loopCount), id: \.self) { idx in
+                        Image(images[idx % images.count].name)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: itemWidth, height: itemWidth)
                     }
-                    .background(
-                        GeometryReader { geo -> Color in
-                            DispatchQueue.main.async {
-                                self.contentWidth = geo.size.width
-                            }
-                            return Color.clear
-                        }
-                    )
                 }
-                .content.offset(x: scrollOffset)
-                .disabled(true)
-                .onAppear {
-                    scrollOffset = -contentWidth / 2
-                }
+                .offset(x: offset)
                 .onReceive(timer) { _ in
-                    scrollOffset -= speed
-
-                    if scrollOffset <= -contentWidth {
-                        scrollOffset = -contentWidth / 2
+                    offset -= speed
+                    let totalWidth = CGFloat(images.count) * (itemWidth + spacing)
+                    if abs(offset) >= totalWidth {
+                        offset += totalWidth
                     }
                 }
+                .frame(width: proxy.size.width, height: itemWidth)
+                .clipped()
             }
         }
-        .frame(height: itemWidth * 1.5) // ⭐️ 여유 높이 확보
+        .frame(height: itemWidth)
+    }
+}
+
+struct ContentView: View {
+    var body: some View {
+        InfiniteCarouselView(images: ImageDataService.fetchImages())
     }
 }
 
 #Preview {
-    InfiniteCarouselView(images: ImageDataService.fetchImages())
+   ContentView()
 }
