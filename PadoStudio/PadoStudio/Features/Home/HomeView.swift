@@ -21,20 +21,17 @@ struct HomeView: View {
                     .frame(width: max(width, 1), height: max(height, 1))
                     .position(x: width / 2, y: height / 2)
 
-                VStack(spacing: 0) {
+                VStack(spacing: 30) {
                     Spacer().frame(height: height * 0.08)
 
                     MainTextView(proxy: proxy)
                         .padding(.top, height * 0.04)
                         .frame(maxWidth: .infinity, alignment: .center)
-//                        .background(Color.yellow.opacity(0.2))
 
-                    ContentView(divisor: 300)
+                    ContentView()
                         .frame(maxWidth: .infinity)
-                        .padding(.horizontal, width * 0.08)
-                        .padding(.vertical, max(height * 0.03, 1))
+                        .padding(.top, height * 0.1)
                         
-
                     Spacer()
 
                     MainButtonView(
