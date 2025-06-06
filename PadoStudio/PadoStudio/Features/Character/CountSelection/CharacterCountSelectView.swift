@@ -97,7 +97,26 @@ struct CharacterCountSelectView: View {
                     }
                     .font(.eliceBold(size: 18))
                 }
+            }.alert("캐릭터를 한 명 이상 선택해주세요!", isPresented: $showAlert) {
+            Button("확인", role: .cancel) {}
+                
+                SquareButton(color: .green, label: "설정하기") {
+                    if number > 0 {
+                        navModel.navigate(to: .characterCreate(number: number))
+                    } else {
+                        showAlert = true
+                    }
+                }
             }
+        }
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            
+            ToolbarItem(placement: .principal) {
+                Text("캐릭터 만들기")
+                    .fontWeight(.semibold)
+            }
+
         }
     }
 }
