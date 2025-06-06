@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct MainTextView: View {
-    let proxy: GeometryProxy
+        let proxy: GeometryProxy
 
     var body: some View {
-        HStack(alignment: .center, spacing: 12) {
+        HStack(alignment: .center, spacing: 5) {
             Image("ic_home_title")
                 .resizable()
                 .scaledToFit()
@@ -22,13 +22,13 @@ struct MainTextView: View {
             VStack(alignment: .center) {
                 Text("파도 사진관")
                     .font(
-                        .largeSinchonTitleResponsive(size: 30, proxy: proxy)
+                    .largeSinchonTitleResponsive(size: 20, proxy: proxy)
                     )
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
 
                 Text("직접 만든 서핑 캐릭터와 함께 사진을 찍어보세요!")
-                    .font(.title3RegularResponsive(size: 10, proxy: proxy))
+                    .font(.title3RegularResponsive(size: 8, proxy: proxy))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
             }

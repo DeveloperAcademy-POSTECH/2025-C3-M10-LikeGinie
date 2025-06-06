@@ -11,44 +11,41 @@ struct HomeView: View {
 
     var body: some View {
         ZStack {
-            GeometryReader { proxy in
-                let width = proxy.size.width
-                let height = proxy.size.height
+            // 배경 이미지
+            Image("bg_home")
+                .resizable()
+                .scaledToFill()
+                .ignoresSafeArea()
 
-                Image("bg_home")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: max(width, 1), height: max(height, 1))
-                    .position(x: width / 2, y: height / 2)
-
-                VStack(spacing: 30) {
-                    Spacer().frame(height: height * 0.08)
-
+            VStack(spacing: 30) {
+                GeometryReader { proxy in
                     MainTextView(proxy: proxy)
-                        .padding(.top, height * 0.04)
+                        .padding(.top, UIScreen.main.bounds.height * 0.04)
                         .frame(maxWidth: .infinity, alignment: .center)
-
-                    ContentView()
-                        .frame(maxWidth: .infinity)
-                        .padding(.top, height * 0.1)
-                        
-                    Spacer()
-
-                    MainButtonView(
-                        onCameraTapped: {
-                            navModel.navigate(to: .startRecording)
-                        },
-                        onGalleryTapped: {
-                            navModel.navigate(to: .gallery)
-                        }
-                    )
-                    .padding(.bottom, max(height * 0.02, 1))
-//                    .background(Color.yellow.opacity(0.2))
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .frame(height: 150) // 고정 높이 지정
+
+                InfiniteCarouselView(images: ImageDataService.fetchImages())
+                    .padding(.horizontal, 20)
+                    .padding(.top, 20)
+
+                Spacer()
+
+                MainButtonView(
+                    onCameraTapped: {
+                        // 카메라 버튼 눌렀을 때 실행할 코드
+                        navModel.navigate(to: .startRecording)
+                    },
+                    onGalleryTapped: {
+                        // 갤러리 버튼 눌렀을 때 실행할 코드
+                        navModel.navigate(to: .gallery)
+                    }
+                )
+
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+
         }
-        .ignoresSafeArea()
     }
 }
 

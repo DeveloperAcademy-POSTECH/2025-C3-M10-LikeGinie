@@ -10,24 +10,25 @@ import SwiftUI
 struct MainButtonView: View {
     let onCameraTapped: () -> Void
     let onGalleryTapped: () -> Void
-
+    
     var body: some View {
         GeometryReader { geometry in
             let width = geometry.size.width
             let height = geometry.size.height
             let buttonSize = max(width * 0.18, 90)
             let gallerySize = buttonSize * 0.7
-
+            
             ZStack {
                 // 카메라 버튼 중앙 하단
                 CameraButton(action: onCameraTapped, size: buttonSize)
-                    .position(x: width / 2, y: height - buttonSize / 2 - 32)
-
+                    .position(x: width / 2, y: height - buttonSize / 2 - height * 0.05)
+                
                 // 갤러리 버튼 오른쪽 하단
                 GalleryButton(action: onGalleryTapped, size: gallerySize)
-                    .position(
-                        x: width - gallerySize / 2 - 32,
-                        y: height - gallerySize / 2 - 32)
+                    .position( // 괄호 수정 부분
+                        x: width - gallerySize / 2 - width * 0.05,
+                        y: height - gallerySize / 2 - height * 0.05
+                    ) // ← 닫는 괄호 추가
             }
         }
         .frame(height: 180)
@@ -37,7 +38,7 @@ struct MainButtonView: View {
 private struct CameraButton: View {
     let action: () -> Void
     let size: CGFloat
-
+    
     var body: some View {
         Button(action: action) {
             VStack(spacing: 8) {
@@ -58,14 +59,14 @@ private struct CameraButton: View {
             )
             .shadow(color: .black.opacity(0.15), radius: 10, x: 0, y: 4)
         }
-
+        
     }
 }
 
 private struct GalleryButton: View {
     let action: () -> Void
     let size: CGFloat
-
+    
     var body: some View {
         Button(action: action) {
             VStack(spacing: 6) {

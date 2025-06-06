@@ -5,16 +5,13 @@
 //  Created by 윤민경 on 5/28/25.
 //
 
-// ImageData.swift
 import Foundation
 
-// 데이터 모델
 struct ImageData: Identifiable {
     let id = UUID()
     let name: String
 }
 
-// 데이터 서비스
 class ImageDataService {
     static func fetchImages() -> [ImageData] {
         return [
@@ -27,3 +24,5 @@ class ImageDataService {
         ]
     }
 }
+
+
