@@ -13,17 +13,18 @@ struct MainTextView: View {
 
     var body: some View {
         if sizeClass == .regular {
-            HomePadLayout(proxy: proxy)
+            HomePadTextLayout(proxy: proxy)
         } else {
-            HomePhoneLayout(proxy: proxy)
+            HomePhoneTextLayout(proxy: proxy)
         }
     }
 }
 
 // 아이폰용 레이아웃
-struct HomePhoneLayout: View {
+struct HomePhoneTextLayout: View {
     let proxy: GeometryProxy
-
+    @Environment(\.horizontalSizeClass) var sizeClass // 추가
+    
     var body: some View {
         let isPad = (sizeClass == .regular) || (proxy.size.width > 700)
         
@@ -69,9 +70,10 @@ struct HomePhoneLayout: View {
 }
 
 // 아이패드용 레이아웃
-struct HomePadLayout: View {
+struct HomePadTextLayout: View {
     let proxy: GeometryProxy
-
+    @Environment(\.horizontalSizeClass) var sizeClass // 추가
+    
     var body: some View {
         HStack(alignment: .center, spacing: 24) {
             Image("ic_home_title")

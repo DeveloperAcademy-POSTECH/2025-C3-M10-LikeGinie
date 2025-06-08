@@ -6,7 +6,7 @@ struct HomeView: View {
     
     var body: some View {
         if sizeClass == .regular {
-            HomePadLayout()
+            HomePadLayout() // 파라미터 제거
                 .environmentObject(navModel)
         } else {
             HomePhoneLayout()
@@ -14,6 +14,7 @@ struct HomeView: View {
         }
     }
 }
+
 struct HomePadLayout: View {
     @EnvironmentObject var navModel: NavigationViewModel
 
@@ -32,7 +33,7 @@ struct HomePadLayout: View {
 
                 VStack(spacing: 0) {
                     // 상단 텍스트
-                    MainTextView(proxy: proxy)
+                    MainTextView(proxy: proxy) // 내부 GeometryReader의 proxy 사용
                         .padding(.top, proxy.size.height * 0.08)
                         .padding(.horizontal, 100)
                     
@@ -74,7 +75,7 @@ struct HomePhoneLayout: View {
                     .ignoresSafeArea()
                 
                 VStack {
-                    MainTextView(proxy: proxy)
+                    MainTextView(proxy: proxy) // 내부 GeometryReader의 proxy 사용
                         .padding(.top, proxy.size.height * 0.08)
                         .padding(.horizontal, 50)
                     
