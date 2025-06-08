@@ -11,7 +11,7 @@ struct InfiniteCarouselView: View {
     let images: [ImageData]
     @State private var offset: CGFloat = 0
     private let timer = Timer.publish(every: 0.016, on: .main, in: .common).autoconnect()
-    private let itemWidth: CGFloat = 250
+    private let itemWidth: CGFloat = 300
     private let spacing: CGFloat = 10
     private let loopCount: Int = 3
     private let speed: CGFloat = 2.5
@@ -19,11 +19,11 @@ struct InfiniteCarouselView: View {
     var body: some View {
         GeometryReader { proxy in
             ZStack {
-                // 1. 고정 배경
-                Image("background")
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
+//                // 1. 고정 배경
+//                Image("background")
+//                    .resizable()
+//                    .scaledToFill()
+//                    .ignoresSafeArea()
 
                 // 2. 무한 반복 캐릭터
                 HStack(spacing: spacing) {

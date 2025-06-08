@@ -9,16 +9,17 @@ import SwiftUI
 
 struct MainTextView: View {
     let proxy: GeometryProxy
-    
+    @Environment(\.horizontalSizeClass) private var sizeClass
+
     var body: some View {
-        let isPad = proxy.size.width > 700
+        let isPad = (sizeClass == .regular) || (proxy.size.width > 700)
         
         // 아이패드 기준 화면 너비 (약 1024pt)를 기준으로 비율 계산
         let iPadBaseWidth: CGFloat = 1024.0
-        let titleFontRatio: CGFloat = 44.0 / iPadBaseWidth    // ≈ 0.043
-        let subtitleFontRatio: CGFloat = 10.0 / iPadBaseWidth // ≈ 0.0098
+        let titleFontRatio: CGFloat = 44.0 / iPadBaseWidth
+        let subtitleFontRatio: CGFloat = 10.0 / iPadBaseWidth
         
-        // 현재 화면 크기에 비례해서 폰트 크기 계산
+        // 폰트 크기 계산 (아이패드/아이폰 분기)
         let titleFontSize: CGFloat = isPad ?
             proxy.size.width * titleFontRatio :
             proxy.size.width * (titleFontRatio * 1.2)
@@ -54,9 +55,8 @@ struct MainTextView: View {
         .padding(.horizontal, isPad ? 80 : 20)
         .padding(.top, isPad ? 60 : 40)
     }
-    
-    
 }
+
 #Preview {
     GeometryReader { proxy in
         ZStack {
