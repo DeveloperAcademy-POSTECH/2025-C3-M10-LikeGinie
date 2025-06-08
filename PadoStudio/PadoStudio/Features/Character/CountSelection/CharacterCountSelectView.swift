@@ -36,6 +36,7 @@ struct CharacterCountSelectPhoneLayout: View {
                 .ignoresSafeArea()
             
             ToolbarView(title: "인원 선택하기", titleColor: .black)
+                .padding(.top, 16)
             
             VStack {
                 Spacer().frame(height: 250)
@@ -78,7 +79,7 @@ struct CharacterCountSelectPhoneLayout: View {
         .alert("캐릭터를 한 명 이상 선택해주세요!", isPresented: $showAlert) {
             Button("확인", role: .cancel) {}
         }
-        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.hidden, for: .navigationBar)
     }
 
     private var minusButton: some View {
@@ -129,6 +130,7 @@ struct CharacterCountSelectPadLayout: View {
                 .ignoresSafeArea()
             
             ToolbarView(title: "인원 선택하기", titleColor: .black)
+                .padding(.top, 48)
             
             VStack {
                 Spacer().frame(height: 350)
@@ -172,7 +174,7 @@ struct CharacterCountSelectPadLayout: View {
         .alert("캐릭터를 한 명 이상 선택해주세요!", isPresented: $showAlert) {
             Button("확인", role: .cancel) {}
         }
-        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.hidden, for: .navigationBar)
     }
 
     private var minusButton: some View {
