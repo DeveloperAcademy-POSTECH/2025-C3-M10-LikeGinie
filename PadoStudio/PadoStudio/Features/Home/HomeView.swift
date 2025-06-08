@@ -114,7 +114,7 @@ struct HomePhoneLayout: View {
                             Spacer(minLength: proxy.size.width * 0.05)
                         }
                     }
-                    .padding(.horizontal, 24)
+//                    .padding(.horizontal, 24)
                     .padding(.bottom, buttonBottomPadding)
                 }
             }
