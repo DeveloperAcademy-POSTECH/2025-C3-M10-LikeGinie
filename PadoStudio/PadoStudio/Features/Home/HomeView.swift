@@ -96,7 +96,7 @@ struct HomePhoneLayout: View {
                         CameraButton(
                             action: { navModel.navigate(to: .startRecording) },
                             size: 100
-                        )
+                        ).padding(.trailing, 180)
 
                         // 오른쪽 하단 갤러리 버튼
                         HStack {
