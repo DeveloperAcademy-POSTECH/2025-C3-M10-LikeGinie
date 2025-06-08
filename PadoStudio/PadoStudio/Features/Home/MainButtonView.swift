@@ -1,43 +1,70 @@
-//
-//  MainButtonView.swift
-//  LikeGinie
-//
-//  Created by 윤민경 on 5/28/25.
-//
-
 import SwiftUI
 
 struct MainButtonView: View {
     let onCameraTapped: () -> Void
     let onGalleryTapped: () -> Void
 
+    @Environment(\.horizontalSizeClass) var sizeClass
+
     var body: some View {
-        GeometryReader { geometry in
-            let width = geometry.size.width
-            let height = geometry.size.height
-            let buttonSize = max(width * 0.18, 90)
-            let gallerySize = buttonSize * 0.7
-
-            ZStack {
-                // 카메라 버튼 중앙 하단
-                CameraButton(action: onCameraTapped, size: buttonSize)
-                    .position(x: width / 2, y: height - buttonSize / 2 - 32)
-
-                // 갤러리 버튼 오른쪽 하단
-                GalleryButton(action: onGalleryTapped, size: gallerySize)
-                    .position(
-                        x: width - gallerySize / 2 - 32,
-                        y: height - gallerySize / 2 - 32)
-            }
+        if sizeClass == .regular {
+            // iPad 등 넓은 화면용
+            PadButtonLayout(
+                onCameraTapped: onCameraTapped,
+                onGalleryTapped: onGalleryTapped
+            )
+        } else {
+            // iPhone 등 좁은 화면용
+            PhoneButtonLayout(
+                onCameraTapped: onCameraTapped,
+                onGalleryTapped: onGalleryTapped
+            )
         }
-        .frame(height: 180)
     }
 }
 
-private struct CameraButton: View {
+// 아이폰용 레이아웃
+struct PhoneButtonLayout: View {
+    let onCameraTapped: () -> Void
+    let onGalleryTapped: () -> Void
+
+    var body: some View {
+        HStack(alignment: .bottom, spacing: 40) {
+            CameraButton(action: onCameraTapped, size: 100)
+            GalleryButton(action: onGalleryTapped, size: 80)
+        }
+        .padding(.bottom, 30)
+        .padding(.trailing, 199)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+        .ignoresSafeArea(.container, edges: .bottom)
+    }
+}
+
+// 아이패드용 레이아웃 (더 크고 넓게)
+struct PadButtonLayout: View {
+    let onCameraTapped: () -> Void
+    let onGalleryTapped: () -> Void
+
+    var body: some View {
+        Color.clear // 또는 배경 뷰
+            .overlay(
+                HStack(alignment: .bottom, spacing: 120) {
+                    CameraButton(action: onCameraTapped, size: 140)
+                    GalleryButton(action: onGalleryTapped, size: 100)
+                }
+                .padding(.bottom, 60)
+                .padding(.trailing, 130), // 원하는 만큼 조정
+                alignment: .bottomTrailing
+            )
+            .ignoresSafeArea(.container, edges: .bottom)
+    }
+}
+
+
+struct CameraButton: View {
     let action: () -> Void
     let size: CGFloat
-
+    
     var body: some View {
         Button(action: action) {
             VStack(spacing: 8) {
@@ -53,19 +80,16 @@ private struct CameraButton: View {
             }
             .frame(width: size, height: size)
             .padding(size * 0.05)
-            .background(
-                Circle().fill(Color.primaryGreen)
-            )
+            .background(Circle().fill(Color.primaryGreen))
             .shadow(color: .black.opacity(0.15), radius: 10, x: 0, y: 4)
         }
-
     }
 }
 
-private struct GalleryButton: View {
+struct GalleryButton: View {
     let action: () -> Void
     let size: CGFloat
-
+    
     var body: some View {
         Button(action: action) {
             VStack(spacing: 6) {
@@ -83,9 +107,7 @@ private struct GalleryButton: View {
                 Circle()
                     .fill(Color.white)
                     .overlay(
-                        Circle().stroke(
-                            Color.primaryGreen,
-                            lineWidth: 3)
+                        Circle().stroke(Color.primaryGreen, lineWidth: 3)
                     )
             )
             .shadow(color: .black.opacity(0.10), radius: 6, x: 0, y: 2)
