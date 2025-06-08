@@ -9,7 +9,20 @@ import SwiftUI
 
 struct MainTextView: View {
     let proxy: GeometryProxy
-    @Environment(\.horizontalSizeClass) private var sizeClass
+    @Environment(\.horizontalSizeClass) var sizeClass
+
+    var body: some View {
+        if sizeClass == .regular {
+            HomePadLayout(proxy: proxy)
+        } else {
+            HomePhoneLayout(proxy: proxy)
+        }
+    }
+}
+
+// 아이폰용 레이아웃
+struct HomePhoneLayout: View {
+    let proxy: GeometryProxy
 
     var body: some View {
         let isPad = (sizeClass == .regular) || (proxy.size.width > 700)
@@ -32,13 +45,11 @@ struct MainTextView: View {
             Image("ic_home_title")
                 .resizable()
                 .scaledToFit()
-                .frame(width: min(max(proxy.size.width * (isPad ? 0.10 : 0.18), 60), isPad ? 120 : 80))
-                .clipped()
-            
-            VStack(alignment: .center, spacing: isPad ? 12 : 6) {
+                .frame(width: proxy.size.width * 0.15)
+
+            VStack(alignment: .center) {
                 Text("파도 사진관")
-                    .minimumScaleFactor(0.5) // 폰트 크기 유동적 조절
-                    .font(.largeSinchonTitleResponsive(size: 20, proxy: proxy))
+                    .font(.largeSinchonTitleResponsive(size: 30, proxy: proxy))
                     .foregroundColor(.white)
                     .minimumScaleFactor(0.7)
                     .multilineTextAlignment(.leading)
@@ -51,9 +62,39 @@ struct MainTextView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
-        .frame(maxWidth: .infinity, alignment: .center)
-        .padding(.horizontal, isPad ? 80 : 20)
-        .padding(.top, isPad ? 60 : 40)
+        .frame(maxWidth: .infinity)
+        .padding(.top, 40)
+        .padding(.horizontal)
+    }
+}
+
+// 아이패드용 레이아웃
+struct HomePadLayout: View {
+    let proxy: GeometryProxy
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 24) {
+            Image("ic_home_title")
+                .resizable()
+                .scaledToFit()
+                .frame(width: proxy.size.width * 0.10) // 패드에서 더 작게
+
+            VStack(alignment: .center) {
+                Text("파도 사진관")
+                    .font(.largeSinchonTitleResponsive(size: 30, proxy: proxy)) // 더 크게
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+
+                Text("직접 만든 서핑 캐릭터와 함께 사진을 찍어보세요!")
+                    .font(.title3RegularResponsive(size: 10, proxy: proxy)) // 더 크게
+                    .foregroundColor(.white)
+                    .multilineTextAlignment(.center)
+            }
+            .frame(alignment: .center)
+        }
+        .frame(maxWidth: .infinity)
+        .padding(.top, 80) // 패드에서 더 넓게
+        .padding(.horizontal, 80)
     }
 }
 
