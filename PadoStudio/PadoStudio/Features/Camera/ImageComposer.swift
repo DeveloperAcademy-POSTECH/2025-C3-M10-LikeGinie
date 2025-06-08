@@ -13,7 +13,7 @@ class ImageComposer {
     
     static func composeFramedImageWithCharacters(
         baseImage: UIImage,
-        frameImageName: String = "Frame1",
+        frameImageName: String = "frame_sea",
         selectedCharacters: [String]
     ) -> UIImage? {
         print("캐릭터 포함 이미지 합성 시작 - 프레임: \(frameImageName)")
@@ -36,6 +36,9 @@ class ImageComposer {
         
         // 캐릭터 그리기
         drawCharacters(selectedCharacters: selectedCharacters, size: size)
+        
+        // 날짜 텍스트 그리기
+        drawDateText(on: size)
         
         let combinedImage = UIGraphicsGetImageFromCurrentImageContext()
         logCompletionStatus(combinedImage)
@@ -124,6 +127,9 @@ private extension ImageComposer {
         }
     }
     
+   
+
+    
     static func calculateCharacterLayout(for size: CGSize, characterCount: Int) -> CharacterLayout {
         // CameraView와 동일한 방식으로 계산
         let imageScale = size.width / ScreenRatioUtility.imageWidth
@@ -156,6 +162,41 @@ private extension ImageComposer {
         } else {
             print("캐릭터 포함 이미지 합성 실패")
         }
+    }
+    
+    static func drawDateText(on size: CGSize) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+        dateFormatter.timeZone = TimeZone(identifier: "Asia/Seoul")
+        let dateString = dateFormatter.string(from: Date())
+        
+        
+        let fontSize: CGFloat = 20 * (size.width / ScreenRatioUtility.imageWidth)
+        
+        
+        let font = UIFont(name: "EliceDigitalBaeum-Bd", size: fontSize) ?? UIFont.systemFont(ofSize: fontSize, weight: .semibold)
+        
+       
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: font,
+            .foregroundColor: UIColor.white,
+            .strokeColor: UIColor.black,
+            .strokeWidth: -2.0
+        ]
+        
+        let attributedString = NSAttributedString(string: dateString, attributes: attributes)
+        let textSize = attributedString.size()
+        
+        // 우측 상단 위치 (여백 20pt)
+        let margin: CGFloat = 20 * (size.width / ScreenRatioUtility.imageWidth)
+        let textRect = CGRect(
+            x: size.width - textSize.width - margin,
+            y: margin,
+            width: textSize.width,
+            height: textSize.height
+        )
+        
+        attributedString.draw(in: textRect)
     }
 }
 
