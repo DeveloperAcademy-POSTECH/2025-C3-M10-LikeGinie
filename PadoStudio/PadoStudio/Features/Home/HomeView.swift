@@ -59,63 +59,70 @@ struct HomePadLayout: View {
 
 struct HomePhoneLayout: View {
     @EnvironmentObject var navModel: NavigationViewModel
-
+    
     var body: some View {
         GeometryReader { proxy in
             let topPadding = proxy.size.height * 0.08
             let carouselHeight = proxy.size.height * 0.22
             let buttonBottomPadding: CGFloat = 30.0
+//            let isWide = proxy.size.width > 400
+//            let spacing = isWide ? proxy.size.width * 0.06 : proxy.size.width * 0.03
             
             ZStack {
-                // 배경
+                // 배경 이미지
                 Image("bg_home")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .ignoresSafeArea()
-
+                
+                // 본문 콘텐츠
                 VStack(spacing: 0) {
-                    // 상단 텍스트
                     MainTextView(proxy: proxy)
                         .padding(.top, topPadding)
                         .padding(.horizontal, 50)
-
+                    
                     Spacer().frame(height: proxy.size.height * 0.18)
-
-                    // 캐러셀
+                    
                     InfiniteCarouselView(images: ImageDataService.fetchImages())
                         .frame(height: 150)
-
+                    
                     Spacer()
                 }
-
-                // 카메라 + 갤러리 버튼
+                
+                // 버튼 레이어
                 VStack {
                     Spacer()
                     ZStack {
-                        // 중앙 하단 카메라 버튼
-                        CameraButton(
-                            action: { navModel.navigate(to: .startRecording) },
-                            size: 100
-                        ).padding(.trailing, 180)
+                        // 카메라 버튼 - 중앙
+                        HStack {
+                            Spacer()
+                            CameraButton(
+                                action: { navModel.navigate(to: .startRecording) },
+                                size: 100
+                            )
+                            Spacer()
+                            Spacer()
+                        }
 
-                        // 오른쪽 하단 갤러리 버튼
+                        // 갤러리 버튼 - 오른쪽
                         HStack {
                             Spacer()
                             GalleryButton(
                                 action: { navModel.navigate(to: .gallery) },
                                 size: 80
                             )
-                            .padding(.trailing, 200)
+                            Spacer(minLength: proxy.size.width * 0.05)
                         }
                     }
+                    .padding(.horizontal, 24)
                     .padding(.bottom, buttonBottomPadding)
                 }
-                .ignoresSafeArea(.keyboard) // 키보드 대응 시
             }
         }
     }
-}
-
+    
+   
+    }
 #Preview {
     HomeView().environmentObject(NavigationViewModel())
 }
