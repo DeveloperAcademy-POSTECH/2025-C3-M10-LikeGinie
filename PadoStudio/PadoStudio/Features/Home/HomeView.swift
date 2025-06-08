@@ -65,8 +65,8 @@ struct HomePhoneLayout: View {
             let topPadding = proxy.size.height * 0.08
             let carouselHeight = proxy.size.height * 0.22
             let buttonBottomPadding: CGFloat = 30.0
-//            let isWide = proxy.size.width > 400
-//            let spacing = isWide ? proxy.size.width * 0.06 : proxy.size.width * 0.03
+            //            let isWide = proxy.size.width > 400
+            //            let spacing = isWide ? proxy.size.width * 0.06 : proxy.size.width * 0.03
             
             ZStack {
                 // 배경 이미지
@@ -103,7 +103,7 @@ struct HomePhoneLayout: View {
                             Spacer()
                             Spacer()
                         }
-
+                        
                         // 갤러리 버튼 - 오른쪽
                         HStack {
                             Spacer()
@@ -114,15 +114,13 @@ struct HomePhoneLayout: View {
                             Spacer(minLength: proxy.size.width * 0.05)
                         }
                     }
-//                    .padding(.horizontal, 24)
+                    //                    .padding(.horizontal, 24)
                     .padding(.bottom, buttonBottomPadding)
                 }
             }
         }
     }
-    
-   
-    }
+}
 #Preview {
     HomeView().environmentObject(NavigationViewModel())
 }
