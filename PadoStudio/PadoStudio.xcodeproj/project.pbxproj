@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		C01D54E92DF6764900DD6015 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = C01D54E82DF6764900DD6015 /* ComposableArchitecture */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		C06FDC702DE6E94A0014D299 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -65,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C01D54E92DF6764900DD6015 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,12 +90,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C01D54E02DF63C6100DD6015 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C06FDC512DE6E9490014D299 = {
 			isa = PBXGroup;
 			children = (
 				C06FDC5C2DE6E9490014D299 /* PadoStudio */,
 				C06FDC722DE6E94A0014D299 /* PadoStudioTests */,
 				C06FDC7C2DE6E94A0014D299 /* PadoStudioUITests */,
+				C01D54E02DF63C6100DD6015 /* Frameworks */,
 				C06FDC5B2DE6E9490014D299 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -125,6 +138,7 @@
 			);
 			name = PadoStudio;
 			packageProductDependencies = (
+				C01D54E82DF6764900DD6015 /* ComposableArchitecture */,
 			);
 			productName = PadoStudio;
 			productReference = C06FDC5A2DE6E9490014D299 /* PadoStudio.app */;
@@ -208,6 +222,10 @@
 			);
 			mainGroup = C06FDC512DE6E9490014D299;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				C01D54D32DF602CB00DD6015 /* XCRemoteSwiftPackageReference "swift-dependencies" */,
+				C01D54E72DF6762300DD6015 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = C06FDC5B2DE6E9490014D299 /* Products */;
 			projectDirPath = "";
@@ -412,6 +430,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PadoStudio/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -442,6 +461,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PadoStudio/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -573,6 +593,33 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C01D54D32DF602CB00DD6015 /* XCRemoteSwiftPackageReference "swift-dependencies" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-dependencies";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.9.2;
+			};
+		};
+		C01D54E72DF6762300DD6015 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.20.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C01D54E82DF6764900DD6015 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C01D54E72DF6762300DD6015 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C06FDC522DE6E9490014D299 /* Project object */;
 }
