@@ -87,36 +87,46 @@ struct HomePhoneLayout: View {
                         .frame(height: 150)
                     
                     Spacer()
+                    
+                    HStack {
+                        Spacer()
+                        CameraButton(
+                            action: { navModel.navigate(to: .startRecording) },
+                            size: 100
+                        )
+                       
+                        
+                        GalleryButton(
+                            action: { navModel.navigate(to: .gallery) },
+                            size: 80
+                        )
+                        Spacer(minLength: proxy.size.width * 0.05)
+                    }
+//                    
+//                    HStack {
+//                        Spacer()
+//                        GalleryButton(
+//                            action: { navModel.navigate(to: .gallery) },
+//                            size: 80
+//                        )
+//                        Spacer(minLength: proxy.size.width * 0.05)
+//                    }
+                    
                 }
                 
                 // 버튼 레이어
-                VStack {
-                    Spacer()
-                    ZStack {
+//                VStack {
+                  
+//                    ZStack {
                         // 카메라 버튼 - 중앙
-                        HStack {
-                            Spacer()
-                            CameraButton(
-                                action: { navModel.navigate(to: .startRecording) },
-                                size: 100
-                            )
-                            Spacer()
-                            Spacer()
-                        }
+                      
                         
                         // 갤러리 버튼 - 오른쪽
-                        HStack {
-                            Spacer()
-                            GalleryButton(
-                                action: { navModel.navigate(to: .gallery) },
-                                size: 80
-                            )
-                            Spacer(minLength: proxy.size.width * 0.05)
-                        }
-                    }
+                       
+                  //  }
                     //                    .padding(.horizontal, 24)
-                    .padding(.bottom, buttonBottomPadding)
-                }
+//                    .padding(.bottom, buttonBottomPadding)
+                //}
             }
         }
     }
