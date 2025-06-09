@@ -15,21 +15,16 @@ struct CameraStageView: View {
     @Environment(\.modelContext) var modelContext
     
     var body: some View {
-        VStack {
+        ZStack {
             if let image = image {
-                ZStack {
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: ScreenRatioUtility.imageWidth , height: ScreenRatioUtility.imageHeight )
-                    
-                }
-                .padding()
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: ScreenRatioUtility.imageWidth , height: ScreenRatioUtility.imageHeight )
             } else {
                 Text("이미지를 불러올 수 없습니다.")
                     .foregroundColor(.gray)
             }
-            
             
             VStack {
                 Spacer()
@@ -70,9 +65,8 @@ struct CameraStageView: View {
                 }
                 .padding(.bottom, 30.scaled)
             }
-
-
-                  }.navigationBarHidden(true)
+        }
+        .navigationBarHidden(true)
     }
     
     func savePhotoForGallery(image: UIImage) throws -> URL {

@@ -22,21 +22,27 @@ struct MainButtonView: View {
         }
     }
 }
-
 // 아이폰용 레이아웃
 struct PhoneButtonLayout: View {
     let onCameraTapped: () -> Void
     let onGalleryTapped: () -> Void
 
     var body: some View {
-        HStack(alignment: .bottom, spacing: 40) {
-            CameraButton(action: onCameraTapped, size: 100)
-            GalleryButton(action: onGalleryTapped, size: 80)
-        }
-        .padding(.bottom, 30)
-        .padding(.trailing, 199)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
-        .ignoresSafeArea(.container, edges: .bottom)
+        Color.clear
+            // 중앙 하단: 기록 남기기(카메라)
+            .overlay(
+                CameraButton(action: onCameraTapped, size: 100)
+                    .padding(.bottom, 30),
+                alignment: .bottom
+            )
+            // 오른쪽 하단: 갤러리
+            .overlay(
+                GalleryButton(action: onGalleryTapped, size: 80)
+                    .padding(.bottom, 30)
+                    .padding(.trailing, 24),
+                alignment: .bottomTrailing
+            )
+            .ignoresSafeArea(.container, edges: .bottom)
     }
 }
 
@@ -46,15 +52,19 @@ struct PadButtonLayout: View {
     let onGalleryTapped: () -> Void
 
     var body: some View {
-        Color.clear // 또는 배경 뷰
+        Color.clear
+            // 중앙 하단: 기록 남기기(카메라)
             .overlay(
-                HStack(alignment: .bottom, spacing: 120) {
-                    CameraButton(action: onCameraTapped, size: 140)
-                    GalleryButton(action: onGalleryTapped, size: 100)
-                }
-                .padding(.bottom, 60)
-                .padding(.trailing, 130), // 원하는 만큼 조정
-                alignment: .bottomTrailing
+                CameraButton(action: onCameraTapped, size: 140)
+                    .padding(.bottom, 60),
+                alignment: .bottom // 중앙 하단 정렬
+            )
+            // 오른쪽 하단: 갤러리
+            .overlay(
+                GalleryButton(action: onGalleryTapped, size: 100)
+                    .padding(.bottom, 60)
+                    .padding(.trailing, 130),
+                alignment: .bottomTrailing // 오른쪽 하단 정렬
             )
             .ignoresSafeArea(.container, edges: .bottom)
     }
