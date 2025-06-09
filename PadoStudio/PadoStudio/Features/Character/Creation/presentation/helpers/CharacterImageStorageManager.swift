@@ -27,7 +27,7 @@ struct CharacterImageStorageManager {
     static func save(image: UIImage, at index: Int) throws -> String {
         let filename = directory.appendingPathComponent(
             "character-preview-\(index).png")
-        if let data = image.jpegData(compressionQuality: 0.8) {
+        if let data = image.pngData() {
             try data.write(to: filename)
         }
         return filename.path

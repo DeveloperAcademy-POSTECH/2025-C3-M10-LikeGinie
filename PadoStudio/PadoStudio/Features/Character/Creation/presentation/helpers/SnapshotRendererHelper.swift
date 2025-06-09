@@ -13,7 +13,7 @@ enum SnapshotRendererHelper {
         from view: some View,
         size: CGSize
     ) -> UIImage? {
-        let renderer = ImageRenderer(content: view)
+        let renderer = ImageRenderer(content: view.background(Color.clear))
         renderer.scale = UIScreen.main.scale
         renderer.proposedSize = .init(size)
         renderer.isOpaque = false

@@ -20,11 +20,6 @@ struct HomePadLayout: View {
 
     var body: some View {
         GeometryReader { proxy in
-            let topPadding = proxy.size.height * 0.002  // 더 작은 값으로 조정
-            let carouselHeight = proxy.size.height * 0.28
-            let carouselBottomPadding = proxy.size.height * 0.04
-            let buttonBottomPadding: CGFloat = 40.0
-
             ZStack {
                 Image("bg_home")
                     .resizable()
@@ -37,12 +32,7 @@ struct HomePadLayout: View {
                         .padding(.top, proxy.size.height * 0.08)
                         .padding(.horizontal, 100)
 
-//                    MainTextView(proxy: proxy)
-//                        .padding(.top, height * 0.04)
-//                        .frame(maxWidth: .infinity, alignment: .center)
-
                     Spacer().frame(height: proxy.size.height * 0.18)
-
 
                     // 캐러셀
                     InfiniteCarouselView(images: ImageDataService.fetchImages())
@@ -56,7 +46,6 @@ struct HomePadLayout: View {
                         },
                         onGalleryTapped: { navModel.navigate(to: .gallery) }
                     )
-//                    .padding(.bottom, max(height * 0.02, 1))
 
                 }
                 .frame(
@@ -75,11 +64,8 @@ struct HomePhoneLayout: View {
     var body: some View {
         GeometryReader { proxy in
             let topPadding = proxy.size.height * 0.08
-            let carouselHeight = proxy.size.height * 0.22
             let buttonBottomPadding: CGFloat = 30.0
-            //            let isWide = proxy.size.width > 400
-            //            let spacing = isWide ? proxy.size.width * 0.06 : proxy.size.width * 0.03
-            let getCenter = (proxy.size.width * 0.5)
+
             ZStack {
                 // 배경 이미지
                 Image("bg_home")

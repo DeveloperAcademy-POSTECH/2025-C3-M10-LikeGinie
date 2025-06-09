@@ -28,5 +28,6 @@ struct CharacterPreviewStackView: View {
             }
         }
         .frame(width: imageSize.width, height: imageSize.width)
+        .background(Color.clear)
     }
 }
