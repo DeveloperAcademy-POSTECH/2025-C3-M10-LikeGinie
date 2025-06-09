@@ -68,7 +68,6 @@ struct CameraView: View {
     
     var body: some View {
         ZStack {
-            
             CameraPreview(session: camera.session)
                 .onAppear {
                     camera.configure()
@@ -102,7 +101,7 @@ struct CameraView: View {
                     }
                 }
                 .frame(maxWidth: ScreenRatioUtility.imageWidth)
-                .padding(.bottom, 50.scaled)
+                .padding(.bottom, 30.scaled)
                 
                 HStack {
                     Button(action: {
@@ -152,9 +151,9 @@ struct CameraView: View {
                       }
                   }
               }
+        .navigationBarHidden(true)
         .environmentObject(camera)
         .onAppear {
-            // 디버깅을 위한 로그
             print("CameraView - 완성된 캐릭터들: \(completedCharacters)")
             print("CameraView - CharacterViewModel 캐릭터 보유 여부: \(characterViewModel.hasCharacters())")
         }

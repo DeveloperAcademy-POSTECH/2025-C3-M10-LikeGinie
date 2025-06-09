@@ -9,6 +9,21 @@
 import UIKit
 import Foundation
 
+// UIImage extension for fixing orientation
+extension UIImage {
+    func fixOrientation() -> UIImage {
+        if imageOrientation == .up {
+            return self
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        
+        draw(in: CGRect(origin: .zero, size: size))
+        return UIGraphicsGetImageFromCurrentImageContext() ?? self
+    }
+}
+
 class ImageComposer {
     
     static func composeFramedImageWithCharacters(
@@ -79,25 +94,28 @@ private extension ImageComposer {
         let targetAspectRatio = targetSize.width / targetSize.height
         let imageAspectRatio = image.size.width / image.size.height
         
+        // 이미지 방향 고려
+        let orientedImage = image.fixOrientation()
+        
         var cropRect: CGRect
         
         if imageAspectRatio > targetAspectRatio {
             // 이미지가 더 넓은 경우 - 좌우를 자름
-            let newWidth = image.size.height * targetAspectRatio
-            let xOffset = (image.size.width - newWidth) / 2
-            cropRect = CGRect(x: xOffset, y: 0, width: newWidth, height: image.size.height)
+            let newWidth = orientedImage.size.height * targetAspectRatio
+            let xOffset = (orientedImage.size.width - newWidth) / 2
+            cropRect = CGRect(x: xOffset, y: 0, width: newWidth, height: orientedImage.size.height)
         } else {
             // 이미지가 더 높은 경우 - 상하를 자름
-            let newHeight = image.size.width / targetAspectRatio
-            let yOffset = (image.size.height - newHeight) / 2
-            cropRect = CGRect(x: 0, y: yOffset, width: image.size.width, height: newHeight)
+            let newHeight = orientedImage.size.width / targetAspectRatio
+            let yOffset = (orientedImage.size.height - newHeight) / 2
+            cropRect = CGRect(x: 0, y: yOffset, width: orientedImage.size.width, height: newHeight)
         }
         
-        guard let cgImage = image.cgImage?.cropping(to: cropRect) else {
-            return image
+        guard let cgImage = orientedImage.cgImage?.cropping(to: cropRect) else {
+            return orientedImage
         }
         
-        return UIImage(cgImage: cgImage, scale: image.scale, orientation: image.imageOrientation)
+        return UIImage(cgImage: cgImage, scale: orientedImage.scale, orientation: .up)
     }
     
     static func drawCompletedCharacters(completedCharacters: [[String]], size: CGSize) {
@@ -187,8 +205,8 @@ private extension ImageComposer {
         let maxSize = min(150.scaled * imageScale, (size.width) / CGFloat(max(characterCount, 1)))
         let spacing: CGFloat = -10.scaled * imageScale
         
-        // CameraView에서 캐릭터들이 더 아래에 위치하므로 bottomPadding을 더 작게 설정
-        let bottomPadding = 20.scaled * imageScale  // 50에서 20으로 줄임
+        // CameraView와 동일한 bottomPadding 사용
+        let bottomPadding = 50.scaled * imageScale
         
         // 캐릭터 위치를 더 아래로
         let yPosition = size.height - maxSize - bottomPadding
