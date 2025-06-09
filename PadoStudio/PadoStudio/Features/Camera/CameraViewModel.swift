@@ -7,6 +7,7 @@
 
 import AVFoundation
 import UIKit
+import Dependencies
 
 class CameraViewModel: NSObject, ObservableObject {
     let session = AVCaptureSession()
@@ -16,6 +17,9 @@ class CameraViewModel: NSObject, ObservableObject {
     @Published var currentPosition: AVCaptureDevice.Position = .front
     @Published var capturedImage: UIImage?
     @Published var selectedCharacters: [String] = []
+    @Published var characterImages: [UIImage] = []
+    
+    @Dependency(\.getCharactersUseCase) var getCharactersUseCase
 
     override init() {
         super.init()
@@ -88,6 +92,23 @@ class CameraViewModel: NSObject, ObservableObject {
                self.session.commitConfiguration()
            }
        }
+    
+    func fetchCompletedCharacters() async {
+        do {
+            let characters = try await getCharactersUseCase()
+            
+            // imagePath -> UIImage 로 변환
+            let images: [UIImage] = characters.compactMap { character in
+                UIImage(contentsOfFile: character.imagePath)
+            }
+
+            await MainActor.run {
+                self.characterImages = images
+            }
+        } catch {
+            print("캐릭터 불러오기 실패: \(error)")
+        }
+    }
 }
 
 extension CameraViewModel: AVCapturePhotoCaptureDelegate {
@@ -101,7 +122,7 @@ extension CameraViewModel: AVCapturePhotoCaptureDelegate {
         }
 
         DispatchQueue.main.async {
-            self.capturedImage = image  
+            self.capturedImage = image
         }
 
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
