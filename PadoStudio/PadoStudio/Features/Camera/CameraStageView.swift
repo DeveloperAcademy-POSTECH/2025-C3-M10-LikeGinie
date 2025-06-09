@@ -6,38 +6,25 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CameraStageView: View {
     let image: UIImage?
     var onRetake: () -> Void
     @EnvironmentObject var navModel: NavigationViewModel
-    @StateObject private var camera = CameraViewModel()
-    
-    
-    
+    @Environment(\.modelContext) var modelContext
     
     var body: some View {
-        VStack {
+        ZStack {
             if let image = image {
-                ZStack {
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: ScreenRatioUtility.imageWidth , height: ScreenRatioUtility.imageHeight )
-                        .cornerRadius(16.scaled)
-
-                    Image("프레임")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: ScreenRatioUtility.imageWidth , height: ScreenRatioUtility.imageHeight )
-                        .allowsHitTesting(false)
-                }
-                .padding()
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: ScreenRatioUtility.imageWidth , height: ScreenRatioUtility.imageHeight )
             } else {
                 Text("이미지를 불러올 수 없습니다.")
                     .foregroundColor(.gray)
             }
-
             
             VStack {
                 Spacer()
@@ -45,18 +32,16 @@ struct CameraStageView: View {
                     
                     Button(action: {
                         print("버튼 클릭됨")
-                        guard let base = image else {
-                            print("기본 이미지가 없음")
+                        guard let finalImage = image else {
+                            print("최종 이미지가 없음")
                             return
                         }
-                        print("이미지 합성 시작")
-                        if let composed = camera.composeFramedImage(baseImage: base) {
-                            print("이미지 합성 성공")
-                            let identifiableImage = IdentifiableImage(image: composed)
-                            navModel.path.append(AppRoute.ImageCheck(identifiableImage))
-                        } else {
-                            print("이미지 합성 실패")
-                        }
+                        print("이미지 저장")
+                        insertImageData(image: finalImage)
+                        
+                        print("이미지체크뷰로 이동")
+                        let identifiableImage = IdentifiableImage(image: finalImage)
+                        navModel.path.append(AppRoute.ImageCheck(identifiableImage))
                     }) {
                         Image("download")
                             .resizable()
@@ -80,9 +65,38 @@ struct CameraStageView: View {
                 }
                 .padding(.bottom, 30.scaled)
             }
+        }
+        .navigationBarHidden(true)
+    }
+    
+    func savePhotoForGallery(image: UIImage) throws -> URL {
+        guard let data = image.pngData() else {
+            throw NSError(domain: "SaveImageError", code: 1, userInfo: [NSLocalizedDescriptionKey: "이미지를 Data로 변환할 수 없음"])
+        }
+        
+        guard let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            throw NSError(domain: "SaveImageError", code: 2, userInfo: [NSLocalizedDescriptionKey: "문서 디렉토리를 찾을 수 없음"])
+        }
+        let fileName = UUID().uuidString + ".png"
+        let fileURL = directory.appendingPathComponent(fileName)
+        
+        do {
+            try data.write(to: fileURL)
+        } catch {
+            print("저장 실패!")
+        }
+        
+        return fileURL
+    }
 
-
-                  }.navigationBarHidden(true) 
+    func insertImageData(image: UIImage) {
+        do {
+            let fileURL = try savePhotoForGallery(image: image)
+            let newImageModel = GalleryData(filePath: fileURL.path)
+            modelContext.insert(newImageModel)
+        } catch {
+            print("에러 발생")
+        }
     }
 }
 

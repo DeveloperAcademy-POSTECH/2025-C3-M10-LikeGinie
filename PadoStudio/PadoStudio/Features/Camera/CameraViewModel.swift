@@ -15,6 +15,7 @@ class CameraViewModel: NSObject, ObservableObject {
     
     @Published var currentPosition: AVCaptureDevice.Position = .front
     @Published var capturedImage: UIImage?
+    @Published var selectedCharacters: [String] = []
 
     override init() {
         super.init()
@@ -62,36 +63,7 @@ class CameraViewModel: NSObject, ObservableObject {
         output.capturePhoto(with: settings, delegate: self)
     }
     
-    func composeFramedImage(baseImage: UIImage, frameImageName: String = "프레임") -> UIImage? {
-        print("이미지 합성 시작 - 프레임: \(frameImageName)")
-        
-        guard let frameImage = UIImage(named: frameImageName) else {
-            print("프레임 이미지 로드 실패: \(frameImageName)")
-            return nil
-        }
-        
-        print("프레임 이미지 로드 성공")
-        print("기본 이미지 크기: \(baseImage.size)")
-        print("프레임 이미지 크기: \(frameImage.size)")
-
-        let size = baseImage.size
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-
-        baseImage.draw(in: CGRect(origin: .zero, size: size))
-        frameImage.draw(in: CGRect(origin: .zero, size: size), blendMode: .normal, alpha: 1.0)
-
-        let combinedImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        if combinedImage != nil {
-            print("이미지 합성 완료")
-        } else {
-            print("이미지 합성 실패 - UIGraphicsGetImageFromCurrentImageContext 반환값이 nil")
-        }
-
-        return combinedImage
-    }
-
+    
     
     func switchCamera() {
            sessionQueue.async {

@@ -34,7 +34,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		06D3B72A2DEEB8AF00D3D6C7 /* Exceptions for "PadoStudio" folder in "PadoStudio" target */ = {
+		C04D5E072DED564400B66DB9 /* Exceptions for "PadoStudio" folder in "PadoStudio" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -47,7 +47,7 @@
 		C06FDC5C2DE6E9490014D299 /* PadoStudio */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				06D3B72A2DEEB8AF00D3D6C7 /* Exceptions for "PadoStudio" folder in "PadoStudio" target */,
+				C04D5E072DED564400B66DB9 /* Exceptions for "PadoStudio" folder in "PadoStudio" target */,
 			);
 			path = PadoStudio;
 			sourceTree = "<group>";
@@ -431,7 +431,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PadoStudio/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -462,7 +464,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PadoStudio/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

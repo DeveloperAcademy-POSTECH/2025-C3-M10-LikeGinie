@@ -44,7 +44,7 @@ struct SquareButton: View {
                 
                 VStack {
                     Text(label)
-                        .font(.system(size: 32))
+                        .font(.styledRegular(size: 20.scaled))
                         .foregroundStyle(color.textColor)
                 }
             }
