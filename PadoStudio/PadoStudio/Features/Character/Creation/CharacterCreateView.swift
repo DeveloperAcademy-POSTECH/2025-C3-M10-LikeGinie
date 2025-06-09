@@ -40,7 +40,7 @@ struct CharacterCreateView: View {
                     Button("저장하기") {
                         // 저장 처리 - 카메라로 이동
                         print("캐릭터 저장 완료 - 생성된 캐릭터 수: \(viewModel.selections.count)")
-                        navModel.path.append(AppRoute.camera)
+                        navModel.path.append(AppRoute.frameSelect)
                     }
                     .buttonStyle(.borderedProminent)
                 }

@@ -11,6 +11,7 @@ import SwiftUI
 struct NavigationHostView: View {
     @EnvironmentObject var navModel: NavigationViewModel
     @StateObject private var characterViewModel = CharacterViewModel()
+    @StateObject private var characterFrameViewModel = CharacterFrameViewModel()
 
     var body: some View {
         NavigationStack(path: $navModel.path) {
@@ -40,7 +41,11 @@ struct NavigationHostView: View {
                         .environmentObject(characterViewModel)
                     case .ImageCheck(let identifiableImage):
                         ImageCheckView(identifiableImage: identifiableImage)
+                    case .frameSelect:
+                        CharacterFrameSelectionView()
+                            .environmentObject(characterFrameViewModel)
                     }
+                    
                 }
         }
         .environmentObject(characterViewModel)

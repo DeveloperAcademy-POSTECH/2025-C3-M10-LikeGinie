@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct CharacterFrameSelectionView: View {
-    @ObservedObject var viewModel: CharacterViewModel
-    let surferCharacters: [CharacterAsset] = []
-    
+
+    @EnvironmentObject var navModel: NavigationViewModel
+    @EnvironmentObject var viewModel: CharacterFrameViewModel
+
     var body: some View {
         ZStack {
             // 배경 이미지
@@ -22,54 +23,73 @@ struct CharacterFrameSelectionView: View {
             VStack {
                 // 네비게이션바
                 ToolbarView(title: "프레임 고르기", titleColor: .black)
-                    .padding(.top, 16)
+                    .padding(.top, 48)
                 
+
                 Spacer()
 
                 // 프레임 미리보기
                 ZStack {
-                    // 프레임 - 이미지
-                    
+                    // 프레임 이미지
+                    Image(viewModel.selectedFrame.imgName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 300.scaled, height: 400.scaled)
                     // 캐릭터
-                    let previews = CharacterPartType.allCases.map { part in
-                        (
-                            part,
-                            viewModel.getOriginImageName(for: part, index: 1)
-                        )
-                    }
-                    
-                    ZStack {
-                        Image("origin-standard")
-                            .resizable()
-                            .scaledToFit()
+                    VStack {
+                        Spacer()
 
-                        ForEach(previews, id: \.0) { part, name in
-                            CharacterPartPreview(part: part, previewName: name)
+                        HStack(spacing: -5.scaled) {
+                            Spacer()
+//                            추가 예정
+
                         }
+                        .padding(.horizontal, 10.scaled)
+                        .padding(.bottom, 30.scaled)
+                        .frame(width: 300.scaled)
+
                     }
-                    .frame(maxWidth: .infinity)
-                    
-                    HStack {
-                        // 캐릭터 리스트 불러오기
-                        // 오른쪽 정렬
-                    }
+                    .frame(width: 300.scaled, height: 400.scaled)
+
                 }
+                .shadow(radius: 5, x: 10, y: 10)
+
+                Spacer()
 
                 // 프레임 선택창
                 VStack {
                     // 프레임 버튼 리스트
-                    HStack {
-
+                    ScrollView(.horizontal, showsIndicators: true) {
+                        CharacterFrameButtonList()
                     }
+                    .padding(.horizontal, 60)
+
                     // 촬영 버튼
-                    // alert
+                    SquareButton(color: .green, label: "촬영하기") {
+                        viewModel.showAlert = true
+                    }
+                    .padding(.bottom, 60)
+                    Spacer()
                 }
+                .frame(height: ScreenRatioUtility.screenHeight * 0.3)
+                .background(Color.white)
 
             }
+            .ignoresSafeArea(.all)
         }
+        .alert("촬영이 시작됩니다!", isPresented: $viewModel.showAlert, ) {
+            Button("취소", role: .cancel) {}
+            Button("촬영하기") {
+                navModel.path.append(AppRoute.camera)
+            }
+        }
+        .toolbar(.hidden, for: .navigationBar)
+
     }
 }
 
 #Preview {
-    CharacterFrameSelectionView(viewModel: CharacterViewModel())
+    CharacterFrameSelectionView()
+        .environmentObject(CharacterFrameViewModel())
+
 }
