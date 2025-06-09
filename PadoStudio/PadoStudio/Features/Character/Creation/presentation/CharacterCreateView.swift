@@ -70,7 +70,7 @@ struct CharacterCreateView: View {
                                 viewModel.saveAllCharacterSnapshots(
                                     count: number, imageSize: proxy.size
                                 ) {
-                                    navModel.path.append(AppRoute.camera)
+                                    navModel.path.append(AppRoute.frameSelect)
                                 }
                             }
                         }

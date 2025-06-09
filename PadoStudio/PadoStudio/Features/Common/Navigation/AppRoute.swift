@@ -5,7 +5,6 @@
 //  Created by eunsong on 5/28/25.
 //
 
-
 enum AppRoute: Hashable {
     case camera
     case gallery
@@ -13,6 +12,6 @@ enum AppRoute: Hashable {
     case characterCreate(number: Int)
     case home
     case result(IdentifiableImage)
+    case frameSelect
     case ImageCheck(IdentifiableImage)
 }
-

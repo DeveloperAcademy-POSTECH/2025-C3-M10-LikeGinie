@@ -23,7 +23,7 @@ struct ScreenRatioUtility {
     static var ratio: CGFloat { min(widthRatio, heightRatio) }
     
     // 공통 크기 계산
-    static var imageWidth: CGFloat { screenWidth * 0.9 }
+    static var imageWidth: CGFloat { screenWidth * 0.8 }
     static var imageHeight: CGFloat { imageWidth * 4 / 3 }
     
     // 유틸리티 함수들
