@@ -10,6 +10,7 @@ import SwiftUI
 
 struct NavigationHostView: View {
     @EnvironmentObject var navModel: NavigationViewModel
+    @StateObject private var characterViewModel = CharacterViewModel()
 
     var body: some View {
         NavigationStack(path: $navModel.path) {
@@ -18,12 +19,15 @@ struct NavigationHostView: View {
                     switch route {
                     case .camera:
                         CameraView()
+                            .environmentObject(characterViewModel)
                     case .gallery:
                         GalleryView()
                     case .startRecording:
                         CharacterCountSelectView()
+                            .environmentObject(characterViewModel)
                     case .characterCreate(let number):
                         CharacterCreateView(number: number)
+                            .environmentObject(characterViewModel)
                     case .home:
                         HomeView()
                     case .result(let identifiableImage):
@@ -31,11 +35,14 @@ struct NavigationHostView: View {
                             image: identifiableImage.image,
                             onRetake: {
                                 navModel.path.removeLast()
-                            }                        )
+                            }
+                        )
+                        .environmentObject(characterViewModel)
                     case .ImageCheck(let identifiableImage):
                         ImageCheckView(identifiableImage: identifiableImage)
                     }
                 }
         }
+        .environmentObject(characterViewModel)
     }
 }
