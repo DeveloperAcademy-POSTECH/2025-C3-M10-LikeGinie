@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct PhotoMenuView: View {
-    let imageName: String
+    let imageModel: GalleryData
     @State private var isSharing = false
     @State private var isWarning = false
-    @Binding var images: [String]
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) var modelContext
     
     var body: some View {
         VStack {
@@ -34,18 +35,19 @@ struct PhotoMenuView: View {
             }
         }
         .sheet(isPresented: $isSharing) {
-            if let image = UIImage(named: imageName) {
-                FramedImageShareView(image: image)
+            if let uiImage = UIImage(contentsOfFile: imageModel.filePath) {
+                FramedImageShareView(image: uiImage)
             } else {
                 Text("이미지를 불러올 수 없습니다.")
             }
         }
         .alert("정말로 삭제하시겠습니까?", isPresented: $isWarning, actions: {
             Button("삭제하기", role: .destructive) {
-                if let index = images.firstIndex(of: imageName) {
-                    images.remove(at: index)
-                    dismiss()
-                }
+                try? FileManager.default.removeItem(atPath: imageModel.filePath)
+                modelContext.delete(imageModel)
+                try? modelContext.save()
+                
+                dismiss()
             }
             Button("취소하기", role: .cancel) { }
         }, message: {

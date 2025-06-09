@@ -6,24 +6,21 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct PhotoView: View {
-    let imageName: String
-    @Binding var images: [String]
-    
+    let imageModel: GalleryData
+
     var body: some View {
-        NavigationLink(destination: {
-            PhotoDetailView(imageName: imageName)
-                .navigationTitle("사진")
-                .toolbar {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        PhotoMenuView(imageName: imageName, images: $images)
-                    }
-                }
-        }) {
-            Image(imageName)
-                .resizable()
-                .scaledToFit()
+        if let uiImage = UIImage(contentsOfFile: imageModel.filePath) {
+            NavigationLink(destination: PhotoDetailView(imageModel: imageModel)) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+            }
+        } else {
+            Color.gray
+                .overlay(Text("오류").foregroundStyle(Color.white))
         }
     }
 }
