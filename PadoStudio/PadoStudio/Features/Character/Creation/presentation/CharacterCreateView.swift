@@ -25,9 +25,8 @@ struct CharacterCreateView: View {
                     .position(x: width / 2, y: height / 2)
 
                 VStack {
-                    
                     // MARK: Toolbar 추가하기
-                    
+
                     // MARK: 캐릭터 전환
                     CharacterPreviewPager(
                         number: number, currentIndex: $currentIndex,
@@ -51,7 +50,8 @@ struct CharacterCreateView: View {
                                 title: "초기화",
                                 foreground: .gray01,
                                 background: .gray04,
-                                font: .title3RegularResponsive(size: 11.scaled, proxy: proxy),
+                                font: .title3RegularResponsive(
+                                    size: 11.scaled, proxy: proxy),
                                 width: proxy.size.width * 0.4,
                                 height: 42
                             ) {
@@ -62,11 +62,16 @@ struct CharacterCreateView: View {
                                 title: "저장하기",
                                 foreground: .white,
                                 background: .primaryGreen,
-                                font: .title3RegularResponsive(size: 11.scaled, proxy: proxy),
+                                font: .title3RegularResponsive(
+                                    size: 11.scaled, proxy: proxy),
                                 width: proxy.size.width * 0.4,
                                 height: 42
                             ) {
-                                navModel.path.append(AppRoute.camera)
+                                viewModel.saveAllCharacterSnapshots(
+                                    count: number, imageSize: proxy.size
+                                ) {
+                                    navModel.path.append(AppRoute.camera)
+                                }
                             }
                         }
                         .frame(maxWidth: .infinity)
@@ -85,6 +90,11 @@ struct CharacterCreateView: View {
             }
         }
         .ignoresSafeArea()
+        .onAppear {
+            Task {
+                await viewModel.resetCharacterCreationSession()
+            }
+        }
     }
 }
 

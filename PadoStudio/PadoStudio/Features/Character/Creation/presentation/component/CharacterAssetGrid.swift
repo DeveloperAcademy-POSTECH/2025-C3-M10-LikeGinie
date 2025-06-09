@@ -16,7 +16,7 @@ struct CharacterAssetGrid: View {
         let columnCount = 4
         let totalSpacing = spacing * CGFloat(columnCount - 1)
         let totalHorizontalPadding = proxy.size.width * 0.06 * 2
-        let itemSide = (proxy.size.width - totalSpacing - totalHorizontalPadding) / CGFloat(columnCount)
+        let itemSide = max((proxy.size.width - totalSpacing - totalHorizontalPadding) / CGFloat(columnCount), 1)
         let columns = Array(repeating: GridItem(.flexible(), spacing: spacing), count: columnCount)
         ScrollView {
             let part = viewModel.selectedPart
@@ -30,8 +30,9 @@ struct CharacterAssetGrid: View {
             ) {
                 ForEach(filteredAssets) { asset in
                     let isSelected = selectedAsset == asset
+                    let safeItemSide = itemSide.isFinite && itemSide > 0 ? itemSide : 1
                     CharacterAssetItemView(
-                        asset: asset, isSelected: isSelected, size: itemSide
+                        asset: asset, isSelected: isSelected, size: safeItemSide
                     )
                     .onTapGesture {
                         viewModel.select(asset: asset, index: currentIndex)
