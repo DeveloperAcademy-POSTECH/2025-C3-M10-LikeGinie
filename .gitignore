@@ -1,41 +1,43 @@
-# Additional Xcode files
-*.xccheckout
-*.xcscmblueprint
-*.xcodeproj/project.xcworkspace/
+# MARK: - Xcode project/workspace
 *.xcodeproj/xcuserdata/
 *.xcworkspace/xcuserdata/
 *.xcuserstate
-
 **/xcuserdata/
 **/project.xcworkspace/xcuserdata/
-**/*.xcodeproj/xcuserdata/
 
-# SwiftData (SQLite)
+# MARK: - Swift Package Manager
+/.build/
+/Packages/
+Package.pins
+!Package.resolved
+
+# MARK: - Derived Data & Logs
+DerivedData/
+*.xcresult
+*.log
+
+# MARK: - SwiftUI Previews
+**/Preview Content/
+
+# MARK: - SwiftData (SQLite) & Core Data
 *.sqlite
 *.sqlite-shm
 *.sqlite-wal
 
-# macOS temp files
+# MARK: - Firebase
+GoogleService-Info.plist
+
+# MARK: - macOS metadata
 .DS_Store
 .AppleDouble
 .LSOverride
 
-# Backup and temp files
+# MARK: - Backup & Temp files
 *.swp
 *.lock
 *.orig
 *.tmp
 
-# Swift Playground
+# MARK: - Swift Playgrounds
 *.playground
 timeline.xctimeline
-
-# SwiftUI Preview
-**/Preview Content/
-
-# Test Artifacts
-*.xcresult
-*.log
-
-# Firebase
-GoogleService-Info.plist
