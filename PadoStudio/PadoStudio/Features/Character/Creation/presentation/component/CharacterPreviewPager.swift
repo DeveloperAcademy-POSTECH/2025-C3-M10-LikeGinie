@@ -24,7 +24,7 @@ struct CharacterPreviewPager: View {
                     characterPreviewStack
                         .padding(.horizontal)
                 }
-                .frame(width: proxy.size.width * 0.5, height: proxy.size.height * 0.4)
+                .frame(width: proxy.size.width * 0.5, height: proxy.size.height * 0.3)
 
                 rightArrowButton
             }
@@ -33,13 +33,14 @@ struct CharacterPreviewPager: View {
             HStack(spacing: 8) {
                 ForEach(0..<number, id: \.self) { index in
                     Circle()
-                        .fill(index == currentIndex ? Color.primaryBlue : Color.gray03)
+                        .fill(index == currentIndex ? Color.primaryGreen : Color.gray05)
                         .frame(width: 8, height: 8)
                 }
             }
             .padding(.top, 8)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(maxWidth: .infinity)
+        .padding(.bottom, 24)
     }
 
     private var leftArrowButton: some View {

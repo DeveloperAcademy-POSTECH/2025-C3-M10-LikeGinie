@@ -29,7 +29,8 @@ struct CharacterPartSelector: View {
                     }
                 }
                 .padding(.horizontal)
-                .padding(.vertical, 4.scaled)
+                .padding(.top, 4.scaled)
+                .padding(.bottom, 12.scaled)
             }
         }
     }

@@ -16,7 +16,7 @@ struct CharacterPartItem: View {
             .font(isSelected ? .title3BoldResponsive(size: 16, proxy: proxy)
                   : .title3RegularResponsive(size: 16, proxy: proxy))
             .padding(.vertical, 8.scaled)
-            .padding(.horizontal, 32.scaled)
+            .padding(.horizontal, 28.scaled)
             .background(
                 isSelected ? Color.primaryGreen : Color.gray04
             )

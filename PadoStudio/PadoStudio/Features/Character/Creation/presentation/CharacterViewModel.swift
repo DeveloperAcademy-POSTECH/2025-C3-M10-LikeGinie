@@ -87,6 +87,24 @@ final class CharacterViewModel: ObservableObject {
             }
         }
     }
+    
+    func initializeDefaultSelections(count: Int) {
+        // 먼저 각 파트별로 디폴트 에셋을 1회만 탐색하여 저장
+        var defaultAssetsByPart: [CharacterPartType: CharacterAsset] = [:]
+
+        for part in CharacterPartType.allCases {
+            if let defaultAsset = assets.first(where: {
+                $0.part == part && ($0.index == "00" || $0.index == "01")
+            }) {
+                defaultAssetsByPart[part] = defaultAsset
+            }
+        }
+
+        // 각 인덱스마다 default 에셋을 설정
+        for index in 0..<count {
+            selections[index] = defaultAssetsByPart
+        }
+    }
 
     // 캐릭터 만들기 시작 시 전체 삭제 -> 촬영 완료시 or 앱 시작시로 변경
     func clearCharacterPreviewDirectory() {

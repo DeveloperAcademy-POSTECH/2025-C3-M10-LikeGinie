@@ -16,9 +16,10 @@ struct CharacterAssetItemView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 20)
                 .stroke(
-                    isSelected ? Color.primaryBlue : Color.gray05, lineWidth: 3
+                    isSelected ? Color.primaryGreen : Color.gray05, lineWidth: 6
                 )
                 .background(Color.white)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
                 .frame(width: size, height: size)
 
             Image(asset.imageName)
