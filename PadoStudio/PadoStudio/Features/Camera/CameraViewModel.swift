@@ -66,28 +66,33 @@ class CameraViewModel: NSObject, ObservableObject {
     
     
     func switchCamera() {
-           sessionQueue.async {
-               self.session.beginConfiguration()
+        sessionQueue.async {
+            self.session.beginConfiguration()
 
-               guard let currentInput = self.session.inputs.first as? AVCaptureDeviceInput else {
-                   return
-               }
+            guard let currentInput = self.session.inputs.first as? AVCaptureDeviceInput else {
+                return
+            }
 
-               self.session.removeInput(currentInput)
+            self.session.removeInput(currentInput)
 
-               self.currentPosition = currentInput.device.position == .back ? .front : .back
+            let newPosition: AVCaptureDevice.Position = currentInput.device.position == .back ? .front : .back
 
-               guard let newDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: self.currentPosition),
-                     let newInput = try? AVCaptureDeviceInput(device: newDevice),
-                     self.session.canAddInput(newInput) else {
-                   print("전환 실패")
-                   return
-               }
+            guard let newDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: newPosition),
+                  let newInput = try? AVCaptureDeviceInput(device: newDevice),
+                  self.session.canAddInput(newInput) else {
+                print("전환 실패")
+                return
+            }
 
-               self.session.addInput(newInput)
-               self.session.commitConfiguration()
-           }
-       }
+            self.session.addInput(newInput)
+            self.session.commitConfiguration()
+            
+            // UI 업데이트를 메인 스레드에서 수행
+            DispatchQueue.main.async {
+                self.currentPosition = newPosition
+            }
+        }
+    }
 }
 
 extension CameraViewModel: AVCapturePhotoCaptureDelegate {
@@ -101,10 +106,33 @@ extension CameraViewModel: AVCapturePhotoCaptureDelegate {
         }
 
         DispatchQueue.main.async {
-            self.capturedImage = image  
+            // 전면 카메라일 때 좌우반전 처리
+            if self.currentPosition == .front {
+                self.capturedImage = self.flipImageHorizontally(image: image)
+            } else {
+                self.capturedImage = image
+            }
         }
 
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        // 저장할 때도 좌우반전 처리된 이미지 저장
+        let imageToSave = currentPosition == .front ? flipImageHorizontally(image: image) : image
+        UIImageWriteToSavedPhotosAlbum(imageToSave, nil, nil, nil)
         print("사진 저장 완료")
+    }
+    
+    // 이미지 좌우반전 함수
+    private func flipImageHorizontally(image: UIImage) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
+        let context = UIGraphicsGetCurrentContext()!
+        
+        context.translateBy(x: image.size.width, y: 0)
+        context.scaleBy(x: -1.0, y: 1.0)
+        
+        image.draw(at: CGPoint.zero)
+        
+        let flippedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return flippedImage ?? image
     }
 }

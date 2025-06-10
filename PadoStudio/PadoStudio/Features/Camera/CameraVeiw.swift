@@ -14,6 +14,13 @@ struct CameraView: View {
     @State private var isCountingDown = false
     @EnvironmentObject var navModel: NavigationViewModel
     @EnvironmentObject var characterViewModel: CharacterViewModel
+    @EnvironmentObject var frameViewModel: CharacterFrameViewModel
+    
+    // 선택된 프레임 이미지 이름
+    private var frameImageName: String {
+        return frameViewModel.selectedFrame.imgName
+    }
+    
 
     // CharacterViewModel에서 완성된 캐릭터들을 가져오되, 없으면 기본 캐릭터 사용
     private var completedCharacters: [[String]] {
@@ -77,7 +84,7 @@ struct CameraView: View {
                 .clipped()
                 
 
-            Image("frame_sea")
+            Image(frameImageName)
                 .resizable()
                 .scaledToFit()
                 .frame(width: ScreenRatioUtility.imageWidth , height: ScreenRatioUtility.imageHeight )
@@ -134,6 +141,8 @@ struct CameraView: View {
                             .frame(width: 40.scaled, height: 40.scaled)
                             .padding(.leading, 60.scaled)
                     }
+                    .disabled(false) // 명시적으로 사용자 상호작용 활성화
+                    .allowsHitTesting(true) // 터치 이벤트 허용
                 }
             }
         }
@@ -142,7 +151,7 @@ struct CameraView: View {
                     
                       if let composedImage = ImageComposer.composeFramedImageWithCharacters(
                           baseImage: img,
-                          frameImageName: "frame_sea",
+                          frameImageName: frameImageName,
                           completedCharacters: completedCharacters
                       ) {
                           navModel.path.append(AppRoute.result(IdentifiableImage(image: composedImage)))
@@ -163,4 +172,5 @@ struct CameraView: View {
 #Preview {
     CameraView()
         .environmentObject(CharacterViewModel())
+        .environmentObject(CharacterFrameViewModel())
 }

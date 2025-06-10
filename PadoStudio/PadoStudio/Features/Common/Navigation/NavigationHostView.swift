@@ -21,6 +21,7 @@ struct NavigationHostView: View {
                     case .camera:
                         CameraView()
                             .environmentObject(characterViewModel)
+                            .environmentObject(characterFrameViewModel)
                     case .gallery:
                         GalleryView()
                     case .startRecording:
@@ -44,6 +45,7 @@ struct NavigationHostView: View {
                     case .frameSelect:
                         CharacterFrameSelectionView()
                             .environmentObject(characterFrameViewModel)
+                            .environmentObject(characterViewModel)
                     }
                     
                 }

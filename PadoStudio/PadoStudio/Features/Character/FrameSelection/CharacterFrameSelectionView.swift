@@ -77,7 +77,7 @@ struct CharacterFrameSelectionView: View {
             }
             .ignoresSafeArea(.all)
         }
-        .alert("촬영이 시작됩니다!", isPresented: $viewModel.showAlert, ) {
+        .alert("촬영이 시작됩니다!", isPresented: $viewModel.showAlert ) {
             Button("취소", role: .cancel) {}
             Button("촬영하기") {
                 navModel.path.append(AppRoute.camera)
