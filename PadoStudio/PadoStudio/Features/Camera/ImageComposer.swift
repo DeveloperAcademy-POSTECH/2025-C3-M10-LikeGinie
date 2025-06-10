@@ -29,10 +29,10 @@ class ImageComposer {
     static func composeFramedImageWithCharacters(
         baseImage: UIImage,
         frameImageName: String = "frame_sea",
-        completedCharacters: [[String]]
+        characterImages: [UIImage]
     ) -> UIImage? {
         print("캐릭터 포함 이미지 합성 시작 - 프레임: \(frameImageName)")
-        print("완성된 캐릭터 수: \(completedCharacters.count)")
+        print("완성된 캐릭터 수: \(characterImages.count)")
         
         guard let frameImage = UIImage(named: frameImageName) else {
             print("프레임 이미지 로드 실패: \(frameImageName)")
@@ -50,8 +50,8 @@ class ImageComposer {
         // 베이스 이미지와 프레임 그리기
         drawBaseAndFrame(baseImage: baseImage, frameImage: frameImage, size: size)
         
-        // 완성된 캐릭터들 그리기
-        drawCompletedCharacters(completedCharacters: completedCharacters, size: size)
+        // 완성된 캐릭터 이미지들 그리기
+        drawCharacterImages(characterImages: characterImages, size: size)
         
         // 날짜 텍스트 그리기
         drawDateText(on: size)
@@ -62,19 +62,15 @@ class ImageComposer {
         return combinedImage
     }
     
-    // 하위 호환성을 위한 기존 함수 유지
+    // 하위 호환성을 위한 기존 함수 유지 - Deprecated
+    @available(*, deprecated, message: "Use composeFramedImageWithCharacters(baseImage:frameImageName:characterImages:) instead.")
     static func composeFramedImageWithCharacters(
         baseImage: UIImage,
         frameImageName: String = "frame_sea",
         selectedCharacters: [String]
     ) -> UIImage? {
-        // 기존 방식을 새로운 방식으로 변환
-        let completedCharacters = [selectedCharacters]
-        return composeFramedImageWithCharacters(
-            baseImage: baseImage,
-            frameImageName: frameImageName,
-            completedCharacters: completedCharacters
-        )
+        // 기존 방식은 더 이상 사용하지 않음
+        return nil
     }
 }
 
@@ -118,85 +114,39 @@ private extension ImageComposer {
         return UIImage(cgImage: cgImage, scale: orientedImage.scale, orientation: .up)
     }
     
-    static func drawCompletedCharacters(completedCharacters: [[String]], size: CGSize) {
-        let characterLayout = calculateCharacterLayout(for: size, characterCount: completedCharacters.count)
-        
-        for (characterIndex, characterParts) in completedCharacters.enumerated() {
-            let characterRect = characterLayout.rectFor(index: characterIndex)
-            
-            // 캐릭터 파트들을 올바른 레이어 순서로 정렬
-            let sortedParts = getSortedCharacterParts(characterParts)
-            
-            // 각 캐릭터의 모든 파트를 올바른 순서로 같은 위치에 겹쳐서 그리기
-            for partImageName in sortedParts {
-                guard let partImage = UIImage(named: partImageName) else {
-                    print("캐릭터 파트 이미지 로드 실패: \(partImageName)")
-                    continue
-                }
-                
-                // 파트 이미지 비율 유지하며 그리기
-                let aspectRatio = partImage.size.width / partImage.size.height
-                var drawRect = characterRect
-                
-                if aspectRatio != 1.0 {
-                    // 정사각형이 아닌 경우 비율 조정
-                    if aspectRatio > 1.0 {
-                        // 이미지가 더 넓은 경우
-                        let newHeight = characterRect.width / aspectRatio
-                        drawRect = CGRect(
-                            x: characterRect.minX,
-                            y: characterRect.minY + (characterRect.height - newHeight) / 2,
-                            width: characterRect.width,
-                            height: newHeight
-                        )
-                    } else {
-                        // 이미지가 더 높은 경우
-                        let newWidth = characterRect.height * aspectRatio
-                        drawRect = CGRect(
-                            x: characterRect.minX + (characterRect.width - newWidth) / 2,
-                            y: characterRect.minY,
-                            width: newWidth,
-                            height: characterRect.height
-                        )
-                    }
-                }
-                
-                partImage.draw(in: drawRect)
-                print("캐릭터 \(characterIndex) 파트 \(partImageName) 그리기 완료 - 위치: \(drawRect)")
+    static func drawCharacterImages(characterImages: [UIImage], size: CGSize) {
+        let layout = calculateCharacterLayout(for: size, characterCount: characterImages.count)
+
+        for (index, image) in characterImages.enumerated() {
+            let rect = layout.rectFor(index: index)
+
+            // 이미지 비율 맞추기
+            let aspectRatio = image.size.width / image.size.height
+            var drawRect = rect
+
+            if aspectRatio > 1.0 {
+                let newHeight = rect.width / aspectRatio
+                drawRect = CGRect(
+                    x: rect.minX,
+                    y: rect.minY + (rect.height - newHeight) / 2,
+                    width: rect.width,
+                    height: newHeight
+                )
+            } else {
+                let newWidth = rect.height * aspectRatio
+                drawRect = CGRect(
+                    x: rect.minX + (rect.width - newWidth) / 2,
+                    y: rect.minY,
+                    width: newWidth,
+                    height: rect.height
+                )
             }
+
+            image.draw(in: drawRect)
+            print("캐릭터 \(index) 이미지 그리기 완료 - 위치: \(drawRect)")
         }
     }
     
-    // 캐릭터 파트들을 올바른 레이어 순서로 정렬하는 함수
-    static func getSortedCharacterParts(_ parts: [String]) -> [String] {
-        // 파트 타입별 우선순위 정의 (뒤에서부터 앞으로 - 서핑보드가 가장 뒤, 악세사리가 가장 앞)
-        let partOrder: [String] = ["board", "suit", "face", "hair", "accessory"]
-        
-        var sortedParts: [String] = []
-        
-        // 정의된 순서대로 파트 추가
-        for partType in partOrder {
-            for part in parts {
-                if part.contains(partType) && !part.contains("empty") { // empty 파트는 제외
-                    sortedParts.append(part)
-                }
-            }
-        }
-        
-        // 순서에 없는 파트들도 추가 (혹시 모를 경우를 대비)
-        for part in parts {
-            if !sortedParts.contains(part) && !part.contains("empty") {
-                sortedParts.append(part)
-            }
-        }
-        
-        return sortedParts
-    }
-    static func drawCharacters(selectedCharacters: [String], size: CGSize) {
-        // 기존 방식을 새로운 방식으로 변환하여 처리
-        let completedCharacters = [selectedCharacters]
-        drawCompletedCharacters(completedCharacters: completedCharacters, size: size)
-    }
     static func calculateCharacterLayout(for size: CGSize, characterCount: Int) -> CharacterLayout {
         // CameraView와 동일한 방식으로 계산
         let imageScale = size.width / ScreenRatioUtility.imageWidth
@@ -279,4 +229,3 @@ private struct CharacterLayout {
         return CGRect(x: xPosition, y: yPosition, width: characterSize, height: characterSize)
     }
 }
-

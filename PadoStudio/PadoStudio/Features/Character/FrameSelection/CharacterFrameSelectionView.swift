@@ -24,7 +24,6 @@ struct CharacterFrameSelectionView: View {
                 // 네비게이션바
                 ToolbarView(title: "프레임 고르기", titleColor: .black)
                     .padding(.top, 48)
-                
 
                 Spacer()
 
@@ -41,7 +40,7 @@ struct CharacterFrameSelectionView: View {
 
                         HStack(spacing: -5.scaled) {
                             Spacer()
-//                            추가 예정
+                            //                            추가 예정
 
                         }
                         .padding(.horizontal, 10.scaled)
@@ -77,14 +76,13 @@ struct CharacterFrameSelectionView: View {
             }
             .ignoresSafeArea(.all)
         }
-        .alert("촬영이 시작됩니다!", isPresented: $viewModel.showAlert ) {
+        .alert("촬영이 시작됩니다!", isPresented: $viewModel.showAlert) {
             Button("취소", role: .cancel) {}
             Button("촬영하기") {
                 navModel.path.append(AppRoute.camera)
             }
         }
         .toolbar(.hidden, for: .navigationBar)
-
     }
 }
 
