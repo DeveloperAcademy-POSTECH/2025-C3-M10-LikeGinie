@@ -10,7 +10,22 @@ import SwiftUI
 struct CharacterFrameSelectionView: View {
 
     @EnvironmentObject var navModel: NavigationViewModel
-    @EnvironmentObject var viewModel: CharacterFrameViewModel
+    @StateObject var viewModel = CharacterFrameViewModel()
+
+    @ViewBuilder
+    private var previewImage: some View {
+        Group {
+            if let composedImage = viewModel.composedImage {
+                Image(uiImage: composedImage)
+                    .resizable()
+            } else {
+                Image(viewModel.selectedFrame.imgName)
+                    .resizable()
+            }
+        }
+        .scaledToFit()
+        .frame(width: 300.scaled, height: 400.scaled)
+    }
 
     var body: some View {
         ZStack {
@@ -29,27 +44,7 @@ struct CharacterFrameSelectionView: View {
 
                 // 프레임 미리보기
                 ZStack {
-                    // 프레임 이미지
-                    Image(viewModel.selectedFrame.imgName)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 300.scaled, height: 400.scaled)
-                    // 캐릭터
-                    VStack {
-                        Spacer()
-
-                        HStack(spacing: -5.scaled) {
-                            Spacer()
-                            //                            추가 예정
-
-                        }
-                        .padding(.horizontal, 10.scaled)
-                        .padding(.bottom, 30.scaled)
-                        .frame(width: 300.scaled)
-
-                    }
-                    .frame(width: 300.scaled, height: 400.scaled)
-
+                    previewImage
                 }
                 .shadow(radius: 5, x: 10, y: 10)
 
@@ -59,7 +54,13 @@ struct CharacterFrameSelectionView: View {
                 VStack {
                     // 프레임 버튼 리스트
                     ScrollView(.horizontal, showsIndicators: true) {
-                        CharacterFrameButtonList()
+                        CharacterFrameButtonList(
+                            selectedFrame: viewModel.selectedFrame,
+                            onFrameSelected: { selected in
+                                viewModel.selectedFrame = selected
+                                viewModel.composeFramedPreview()
+                            }
+                        )
                     }
                     .padding(.horizontal, 60)
 
@@ -82,6 +83,12 @@ struct CharacterFrameSelectionView: View {
                 navModel.path.append(AppRoute.camera)
             }
         }
+        .onAppear {
+            Task {
+                await viewModel.loadCharacterImages()
+                viewModel.composeFramedPreview()
+            }
+        }
         .toolbar(.hidden, for: .navigationBar)
     }
 }
@@ -89,5 +96,4 @@ struct CharacterFrameSelectionView: View {
 #Preview {
     CharacterFrameSelectionView()
         .environmentObject(CharacterFrameViewModel())
-
 }

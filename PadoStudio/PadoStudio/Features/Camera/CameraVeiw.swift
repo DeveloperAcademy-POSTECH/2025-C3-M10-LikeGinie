@@ -13,7 +13,6 @@ struct CameraView: View {
     @State private var countdown = 5
     @State private var isCountingDown = false
     @EnvironmentObject var navModel: NavigationViewModel
-    @EnvironmentObject var characterViewModel: CharacterViewModel
     @EnvironmentObject var frameViewModel: CharacterFrameViewModel
     
     // 선택된 프레임 이미지 이름

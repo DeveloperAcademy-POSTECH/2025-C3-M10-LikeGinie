@@ -90,11 +90,11 @@ struct CharacterCreateView: View {
             }
         }
         .ignoresSafeArea()
-        .onAppear {
-            Task {
-                await viewModel.resetCharacterCreationSession()
-            }
-        }
+//        .onAppear {
+//            Task {
+//                await viewModel.resetCharacterCreationSession()
+//            }
+//        }
     }
 }
 

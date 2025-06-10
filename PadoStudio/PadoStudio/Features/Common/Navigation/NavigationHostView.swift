@@ -5,7 +5,6 @@
 //  Created by eunsong on 5/28/25.
 //
 
-
 import SwiftUI
 
 struct NavigationHostView: View {
@@ -47,7 +46,7 @@ struct NavigationHostView: View {
                             .environmentObject(characterFrameViewModel)
                             .environmentObject(characterViewModel)
                     }
-                    
+
                 }
         }
         .environmentObject(characterViewModel)
