@@ -83,7 +83,6 @@ struct CharacterFrameSelectionView: View {
             }
         }
         .toolbar(.hidden, for: .navigationBar)
-
     }
 }
 
