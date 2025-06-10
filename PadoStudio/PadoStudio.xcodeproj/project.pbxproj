@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C059C9022DF83A43000EA262 /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = C059C9012DF83A43000EA262 /* Dependencies */; };
 		C059C9042DF83A43000EA262 /* DependenciesMacros in Frameworks */ = {isa = PBXBuildFile; productRef = C059C9032DF83A43000EA262 /* DependenciesMacros */; };
+		C059C9E22DF83B6D000EA262 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = C01D54E82DF6764900DD6015 /* ComposableArchitecture */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C059C9E22DF83B6D000EA262 /* ComposableArchitecture in Frameworks */,
 				C059C9042DF83A43000EA262 /* DependenciesMacros in Frameworks */,
 				C059C9022DF83A43000EA262 /* Dependencies in Frameworks */,
 			);
@@ -431,7 +433,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PadoStudio/Preview Content\"";
-				DEVELOPMENT_TEAM = NB42482NDH;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PadoStudio/Info.plist;
@@ -464,7 +466,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PadoStudio/Preview Content\"";
-				DEVELOPMENT_TEAM = NB42482NDH;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PadoStudio/Info.plist;
