@@ -50,13 +50,15 @@ struct NavigationHostView: View {
                                 HomeView()
                         )
                     case .result(let identifiableImage):
-                        CameraStageView(
-                            image: identifiableImage.image,
-                            onRetake: {
-                                navModel.path.removeLast()
-                            }
+                        ToolbarHiddenWrapper(
+                            content:
+                                CameraStageView(
+                                    image: identifiableImage.image,
+                                    onRetake: {
+                                        navModel.path.removeLast()
+                                    }
+                                )
                         )
-                        .environmentObject(characterViewModel)
                     case .ImageCheck(let identifiableImage):
                         ImageCheckView(identifiableImage: identifiableImage)
                     case .frameSelect:
