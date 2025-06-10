@@ -79,7 +79,6 @@ struct CharacterCountSelectPhoneLayout: View {
         .alert("캐릭터를 한 명 이상 선택해주세요!", isPresented: $showAlert) {
             Button("확인", role: .cancel) {}
         }
-        .toolbar(.hidden, for: .navigationBar)
     }
 
     private var minusButton: some View {

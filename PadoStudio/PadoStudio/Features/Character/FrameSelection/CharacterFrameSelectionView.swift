@@ -8,9 +8,18 @@
 import SwiftUI
 
 struct CharacterFrameSelectionView: View {
+    @StateObject var viewModel = CharacterFrameViewModel()
+
+    var body: some View {
+        CharacterFrameSelectionBody()
+            .environmentObject(viewModel)
+    }
+}
+
+struct CharacterFrameSelectionBody: View {
 
     @EnvironmentObject var navModel: NavigationViewModel
-    @StateObject var viewModel = CharacterFrameViewModel()
+    @EnvironmentObject var viewModel: CharacterFrameViewModel
 
     @ViewBuilder
     private var previewImage: some View {
@@ -72,7 +81,9 @@ struct CharacterFrameSelectionView: View {
                     Spacer()
                 }
                 .frame(height: ScreenRatioUtility.screenHeight * 0.3)
-                .background(Color.white)
+                .background(
+                    TopRoundedShadowBackground()
+                )
 
             }
             .ignoresSafeArea(.all)
@@ -89,11 +100,9 @@ struct CharacterFrameSelectionView: View {
                 viewModel.composeFramedPreview()
             }
         }
-        .toolbar(.hidden, for: .navigationBar)
     }
 }
 
 #Preview {
     CharacterFrameSelectionView()
-        .environmentObject(CharacterFrameViewModel())
 }

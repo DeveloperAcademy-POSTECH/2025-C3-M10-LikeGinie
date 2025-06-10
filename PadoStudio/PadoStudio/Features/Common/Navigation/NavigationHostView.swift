@@ -18,19 +18,35 @@ struct NavigationHostView: View {
                 .navigationDestination(for: AppRoute.self) { route in
                     switch route {
                     case .camera:
-                        CameraView()
-                            .environmentObject(characterViewModel)
-                            .environmentObject(characterFrameViewModel)
+                        ToolbarHiddenWrapper(
+                            content:
+                                CameraView()
+                                .environmentObject(characterViewModel)
+                                .environmentObject(characterFrameViewModel)
+                        )
                     case .gallery:
-                        GalleryView()
+                        ToolbarHiddenWrapper(
+                            content:
+                                GalleryView()
+                        )
+
                     case .startRecording:
-                        CharacterCountSelectView()
-                            .environmentObject(characterViewModel)
+                        ToolbarHiddenWrapper(
+                            content:
+                                CharacterCountSelectView()
+                                .environmentObject(characterViewModel)
+                        )
                     case .characterCreate(let number):
-                        CharacterCreateView(number: number)
-                            .environmentObject(characterViewModel)
+                        ToolbarHiddenWrapper(
+                            content:
+                                CharacterCreateView(number: number)
+                                .environmentObject(characterViewModel)
+                        )
                     case .home:
-                        HomeView()
+                        ToolbarHiddenWrapper(
+                            content:
+                                HomeView()
+                        )
                     case .result(let identifiableImage):
                         CameraStageView(
                             image: identifiableImage.image,
@@ -42,9 +58,12 @@ struct NavigationHostView: View {
                     case .ImageCheck(let identifiableImage):
                         ImageCheckView(identifiableImage: identifiableImage)
                     case .frameSelect:
-                        CharacterFrameSelectionView()
-                            .environmentObject(characterFrameViewModel)
-                            .environmentObject(characterViewModel)
+                        ToolbarHiddenWrapper(
+                            content:
+                                CharacterFrameSelectionView()
+                                .environmentObject(characterFrameViewModel)
+                                .environmentObject(characterViewModel)
+                        )
                     }
 
                 }

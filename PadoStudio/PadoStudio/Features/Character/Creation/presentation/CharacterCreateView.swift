@@ -4,6 +4,7 @@
 //
 //  Created by eunsong on 5/31/25.
 //
+
 import SwiftUI
 
 struct CharacterCreateView: View {
@@ -25,8 +26,10 @@ struct CharacterCreateView: View {
                     .position(x: width / 2, y: height / 2)
 
                 VStack {
-                    // MARK: Toolbar 추가하기
-
+                    // MARK: Toolbar
+                    ToolbarView(title: "캐릭터 만들기", titleColor: .white)
+                        .padding(.top, 48)
+                    
                     // MARK: 캐릭터 전환
                     CharacterPreviewPager(
                         number: number, currentIndex: $currentIndex,
@@ -80,10 +83,7 @@ struct CharacterCreateView: View {
                     .padding(.bottom, proxy.size.width * 0.015)
                     .padding(.top, proxy.size.width * 0.04)
                     .background(
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(Color.white)
-                            .shadow(
-                                color: Color.gray05, radius: 10, x: 0, y: -4)
+                        TopRoundedShadowBackground()
                     )
 
                 }
