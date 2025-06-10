@@ -29,7 +29,7 @@ struct CameraView: View {
                 .clipped()
                 
 
-            Image("Frame1")
+            Image("frame_sea")
                 .resizable()
                 .scaledToFit()
                 .frame(width: ScreenRatioUtility.imageWidth , height: ScreenRatioUtility.imageHeight )
@@ -98,7 +98,7 @@ struct CameraView: View {
                     
                       if let composedImage = ImageComposer.composeFramedImageWithCharacters(
                           baseImage: img,
-                          frameImageName: "Frame1",
+                          frameImageName: "frame_sea",
                           selectedCharacters: characters
                       ) {
                           navModel.path.append(AppRoute.result(IdentifiableImage(image: composedImage)))

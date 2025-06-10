@@ -6,13 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CameraStageView: View {
     let image: UIImage?
     var onRetake: () -> Void
     @EnvironmentObject var navModel: NavigationViewModel
-    
-
+    @Environment(\.modelContext) var modelContext
     
     var body: some View {
         VStack {
@@ -41,6 +41,9 @@ struct CameraStageView: View {
                             print("최종 이미지가 없음")
                             return
                         }
+                        print("이미지 저장")
+                        insertImageData(image: finalImage)
+                        
                         print("이미지체크뷰로 이동")
                         let identifiableImage = IdentifiableImage(image: finalImage)
                         navModel.path.append(AppRoute.ImageCheck(identifiableImage))
@@ -70,6 +73,36 @@ struct CameraStageView: View {
 
 
                   }.navigationBarHidden(true)
+    }
+    
+    func savePhotoForGallery(image: UIImage) throws -> URL {
+        guard let data = image.pngData() else {
+            throw NSError(domain: "SaveImageError", code: 1, userInfo: [NSLocalizedDescriptionKey: "이미지를 Data로 변환할 수 없음"])
+        }
+        
+        guard let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            throw NSError(domain: "SaveImageError", code: 2, userInfo: [NSLocalizedDescriptionKey: "문서 디렉토리를 찾을 수 없음"])
+        }
+        let fileName = UUID().uuidString + ".png"
+        let fileURL = directory.appendingPathComponent(fileName)
+        
+        do {
+            try data.write(to: fileURL)
+        } catch {
+            print("저장 실패!")
+        }
+        
+        return fileURL
+    }
+
+    func insertImageData(image: UIImage) {
+        do {
+            let fileURL = try savePhotoForGallery(image: image)
+            let newImageModel = GalleryData(filePath: fileURL.path)
+            modelContext.insert(newImageModel)
+        } catch {
+            print("에러 발생")
+        }
     }
 }
 

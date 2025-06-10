@@ -30,7 +30,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		06D3B72A2DEEB8AF00D3D6C7 /* Exceptions for "PadoStudio" folder in "PadoStudio" target */ = {
+		C04D5E072DED564400B66DB9 /* Exceptions for "PadoStudio" folder in "PadoStudio" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -43,7 +43,7 @@
 		C06FDC5C2DE6E9490014D299 /* PadoStudio */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				06D3B72A2DEEB8AF00D3D6C7 /* Exceptions for "PadoStudio" folder in "PadoStudio" target */,
+				C04D5E072DED564400B66DB9 /* Exceptions for "PadoStudio" folder in "PadoStudio" target */,
 			);
 			path = PadoStudio;
 			sourceTree = "<group>";

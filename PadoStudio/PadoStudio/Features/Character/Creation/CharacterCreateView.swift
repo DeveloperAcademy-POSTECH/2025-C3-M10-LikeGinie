@@ -12,6 +12,7 @@ struct CharacterCreateView: View {
     @State private var currentIndex: Int = 0
     @EnvironmentObject var navModel: NavigationViewModel  
 
+
     var body: some View {
         VStack {
             CharacterPreviewPager(
@@ -36,17 +37,14 @@ struct CharacterCreateView: View {
                     .buttonStyle(.bordered)
 
                     Button("저장하기") {
+                        // 저장 처리
                         navModel.path.append(AppRoute.camera)
                     }
                     .buttonStyle(.borderedProminent)
                 }
-//                .padding(.bottom, 20)
             }
             .padding(.horizontal, 16)
-            //                .padding(.top, 24)
-
         }
-        //        .padding()
     }
 }
 

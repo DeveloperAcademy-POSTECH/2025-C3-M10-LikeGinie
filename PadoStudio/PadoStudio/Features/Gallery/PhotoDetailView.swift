@@ -8,15 +8,25 @@
 import SwiftUI
 
 struct PhotoDetailView: View {
-    let imageName: String
+    let imageModel: GalleryData
     
     var body: some View {
-        Image(imageName)
-            .resizable()
-            .scaledToFit()
+        VStack {
+            GalleryToolbarView(imageModel: imageModel)
+            Group {
+                if let uiImage = UIImage(contentsOfFile: imageModel.filePath) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFit()
+                } else {
+                    Text("이미지를 불러올 수 없습니다.")
+                }
+            }
+            .toolbar(.hidden, for: .navigationBar)
+        }
     }
 }
 
-#Preview {
-    PhotoDetailView(imageName: "Image4")
-}
+//#Preview {
+//    PhotoDetailView()
+//}
