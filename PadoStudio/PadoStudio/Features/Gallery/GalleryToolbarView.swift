@@ -12,7 +12,7 @@ struct GalleryToolbarView: View {
     let imageModel: GalleryData
     
     var body: some View {
-        HStack(spacing: 40) {
+        HStack {
             Button {
                 dismiss()
             } label: {
@@ -25,8 +25,12 @@ struct GalleryToolbarView: View {
                             .font(.eliceBold(size: 30))
                     )
             }
+            .padding(.horizontal, 40.scaled)
+            Spacer()
             Text("\(galleryDateFormatter.string(from: imageModel.date))")
+            Spacer()
             PhotoMenuView(imageModel: imageModel)
+                .padding(.horizontal, 40.scaled)
         }
         .padding()
         .background(Color.white)

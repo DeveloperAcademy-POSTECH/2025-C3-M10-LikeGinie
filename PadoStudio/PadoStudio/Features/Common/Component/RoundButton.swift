@@ -17,16 +17,16 @@ struct RoundButton: View {
             ZStack {
                 Circle()
                     .fill(Color.primaryGreen)
-                    .frame(width: 200.scaled, height: 200.scaled)
+                    .frame(width: 100.scaled, height: 100.scaled)
                 
                 VStack {
                     Image(systemName: iconName)
                         .resizable()
                         .scaledToFit()
-                        .frame(height: 60.scaled)
+                        .frame(height: 30.scaled)
                         .foregroundStyle(.white)
                     Text(label)
-                        .font(.styledRegular(size: 30.scaled))
+                        .font(.styledRegular(size: 15.scaled))
                         .fontWeight(.black)
                         .foregroundStyle(.white)
                 }

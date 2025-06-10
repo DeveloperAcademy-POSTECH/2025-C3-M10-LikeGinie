@@ -16,9 +16,9 @@ struct ImageCheckView: View {
         ZStack {
             Color.lightYellow.ignoresSafeArea()
             
-            VStack(spacing: 20.scaled) {
+            VStack(spacing: 10.scaled) {
                 HomeButtonView()
-                    .padding(.top, 48)
+                    .padding()
                 FramedImageTextView()
                 FramedImageView(identifiableImage: identifiableImage)
                     .shadow(color: .black.opacity(0.10), radius: 6, x: 0, y: 2)

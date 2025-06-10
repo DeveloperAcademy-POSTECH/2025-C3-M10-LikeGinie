@@ -18,7 +18,7 @@ struct HomeButtonView: View {
             }) {
                 Circle()
                     .fill(Color.white)
-                    .frame(width: 80.scaled, height: 80.scaled)
+                    .frame(width: 80, height: 80)
                     .overlay(
                         Image(systemName: "house")
                             .foregroundColor(.primaryGreen)
