@@ -17,10 +17,12 @@ struct NavigationHostView: View {
             HomeView()
                 .navigationDestination(for: AppRoute.self) { route in
                     switch route {
-                    case .camera:
+                    case .camera(let frameImagePath):
                         ToolbarHiddenWrapper(
                             content:
-                                CameraView()
+                                CameraView(
+                                    frameImagePath: frameImagePath
+                                )
                                 .environmentObject(characterViewModel)
                                 .environmentObject(characterFrameViewModel)
                         )

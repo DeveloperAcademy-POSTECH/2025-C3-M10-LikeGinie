@@ -12,13 +12,13 @@ final class CharacterFrameViewModel: ObservableObject {
     
     @Dependency(\.getCharactersUseCase) var getCharactersUseCase
     
-    @Published var selectedFrame: Frame = .sea
+    @Published var selectedFrame: FrameType = .sea
     @Published var showAlert = false
     
     @Published var characterImages: [UIImage] = []
     @Published var composedImage: UIImage?
     
-    private var composedImageCache: [Frame: UIImage] = [:]
+    private var composedImageCache: [FrameType: UIImage] = [:]
 
     func loadCharacterImages() async {
         do {
@@ -53,28 +53,19 @@ final class CharacterFrameViewModel: ObservableObject {
         }
     }
     
-    
-    enum Frame: CaseIterable, Hashable {
-        case sea, sunset, comic, white, black
-
-        var imgName: String {
-            switch self {
-            case .sea: return "frame_sea"
-            case .sunset: return "frame_sunset"
-            case .comic: return "frame_comic"
-            case .white: return "frame_white"
-            case .black: return "frame_black"
-            }
+    func saveComposedImageToCache() -> String? {
+        guard let image = composedImage else {
+            print("No composed image to save.")
+            return nil
         }
-
-        var btnImgName: String {
-            switch self {
-            case .sea: return "frame_btn_sea"
-            case .sunset: return "frame_btn_sunset"
-            case .comic: return "frame_btn_comic"
-            case .white: return "frame_btn_white"
-            case .black: return "frame_btn_black"
-            }
+        do {
+            try FrameImageCacheManager.createFrameDirectory()
+            let path = try FrameImageCacheManager.save(image: image, named: selectedFrame.rawValue)
+            print("Composed image saved at: \(path)")
+            return path
+        } catch {
+            print("Failed to save composed image: \(error)")
+            return nil
         }
     }
 }

@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct CharacterFrameButtonList: View {
-    let selectedFrame: CharacterFrameViewModel.Frame
-    let onFrameSelected: (CharacterFrameViewModel.Frame) -> Void
+    let selectedFrame: FrameType
+    let onFrameSelected: (FrameType) -> Void
 
     var body: some View {
         HStack(spacing: 32.scaled) {
-            ForEach(CharacterFrameViewModel.Frame.allCases, id: \.self) { f in
+            ForEach(FrameType.allCases, id: \.self) { f in
                 Button {
                     onFrameSelected(f)
                 } label: {

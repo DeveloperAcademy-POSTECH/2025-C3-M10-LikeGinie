@@ -5,77 +5,80 @@
 //  Created by kim yijun on 5/28/25.
 //
 
-import SwiftUI
 import AVFoundation
+import SwiftUI
 
 struct CameraView: View {
     @StateObject private var camera = CameraViewModel()
     @State private var countdown = 5
     @State private var isCountingDown = false
     @EnvironmentObject var navModel: NavigationViewModel
-    @EnvironmentObject var frameViewModel: CharacterFrameViewModel
-    
-    // 선택된 프레임 이미지 이름
-    private var frameImageName: String {
-        return frameViewModel.selectedFrame.imgName
-    }
 
-    // 프레임에 표시할 캐릭터들 - 완성된 캐릭터 이미지를 직접 표시
-    private var characterViews: [AnyView] {
-        return camera.characterImages.enumerated().compactMap { index, imageName in
-            let view = Image(uiImage: imageName)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: min(150.scaled, (ScreenRatioUtility.imageWidth) / CGFloat(camera.characterImages.count)),
-                       height: min(150.scaled, (ScreenRatioUtility.imageWidth) / CGFloat(camera.characterImages.count)))
-            
-            return AnyView(view)
-        }
-    }
+    let frameImagePath: String
     
+    // 프레임에 표시할 캐릭터들 - 완성된 캐릭터 이미지를 직접 표시
+//    private var characterViews: [AnyView] {
+//        return camera.characterImages.enumerated().compactMap {
+//            index, imageName in
+//            let view = Image(uiImage: imageName)
+//                .resizable()
+//                .aspectRatio(contentMode: .fit)
+//                .frame(
+//                    width: min(
+//                        150.scaled,
+//                        (ScreenRatioUtility.imageWidth)
+//                            / CGFloat(camera.characterImages.count)),
+//                    height: min(
+//                        150.scaled,
+//                        (ScreenRatioUtility.imageWidth)
+//                            / CGFloat(camera.characterImages.count)))
+//
+//            return AnyView(view)
+//        }
+//    }
+
     var body: some View {
         ZStack {
             CameraPreview(session: camera.session)
                 .onAppear {
                     camera.configure()
                 }
-                .frame(width: ScreenRatioUtility.imageWidth , height: ScreenRatioUtility.imageHeight, alignment: .top )
+                .frame(
+                    width: ScreenRatioUtility.imageWidth,
+                    height: ScreenRatioUtility.imageHeight, alignment: .top
+                )
                 .cornerRadius(16.scaled)
                 .clipped()
-                
-
-            Image(frameImageName)
-                .resizable()
-                .scaledToFit()
-                .frame(width: ScreenRatioUtility.imageWidth , height: ScreenRatioUtility.imageHeight )
-                .allowsHitTesting(false)
             
+            if let uiImage = UIImage(contentsOfFile: frameImagePath) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(
+                        width: ScreenRatioUtility.imageWidth,
+                        height: ScreenRatioUtility.imageHeight
+                    )
+                    .allowsHitTesting(false)
+            }
 
             if isCountingDown {
                 Text("\(countdown)")
-                    .font(.system(size: 100.scaled , weight: .bold))
+                    .font(.system(size: 100.scaled, weight: .bold))
                     .foregroundColor(.white)
                     .shadow(radius: 10.scaled)
             }
-           
+
             VStack {
-                
+
                 Spacer()
-                
-                HStack(spacing: -10.scaled) {
-                    ForEach(0..<characterViews.count, id: \.self) { index in
-                        characterViews[index]
-                    }
-                }
-                .frame(maxWidth: ScreenRatioUtility.imageWidth)
-                .padding(.bottom, 30.scaled)
-                
-                HStack {
+
+                HStack(alignment: .center) {
                     Button(action: {
                         isCountingDown = true
                         countdown = 5
 
-                        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+                        Timer.scheduledTimer(withTimeInterval: 1, repeats: true)
+                        { timer in
                             countdown -= 1
                             if countdown == 0 {
                                 timer.invalidate()
@@ -87,7 +90,7 @@ struct CameraView: View {
                         Image("CameraFrame")
                             .resizable()
                             .frame(width: 70.scaled, height: 70.scaled)
-                           
+
                     }
                     .padding(.bottom, 30.scaled)
                     .padding(.leading, 100.scaled)
@@ -101,25 +104,29 @@ struct CameraView: View {
                             .frame(width: 40.scaled, height: 40.scaled)
                             .padding(.leading, 60.scaled)
                     }
-                    .disabled(false) // 명시적으로 사용자 상호작용 활성화
-                    .allowsHitTesting(true) // 터치 이벤트 허용
+                    .disabled(false)  // 명시적으로 사용자 상호작용 활성화
+                    .allowsHitTesting(true)  // 터치 이벤트 허용
                 }
             }
         }
         .onChange(of: camera.capturedImage) { oldValue, newImage in
-                  if let img = newImage {
-                    
-                      if let composedImage = ImageComposer.composeFramedImageWithCharacters(
-                          baseImage: img,
-                          frameImageName: frameImageName,
-                          characterImages: camera.characterImages
-                      ) {
-                          navModel.path.append(AppRoute.result(IdentifiableImage(image: composedImage)))
-                      } else {
-                          navModel.path.append(AppRoute.result(IdentifiableImage(image: img)))
-                      }
-                  }
-              }
+            if let img = newImage {
+
+                if let composedImage =
+                    ImageComposer.composeFramedCapturedImage(
+                        baseImage: img,
+                        frameImageName: frameImagePath
+                    )
+                {
+                    navModel.path.append(
+                        AppRoute.result(IdentifiableImage(image: composedImage))
+                    )
+                } else {
+                    navModel.path.append(
+                        AppRoute.result(IdentifiableImage(image: img)))
+                }
+            }
+        }
         .navigationBarHidden(true)
         .environmentObject(camera)
         .task {
@@ -129,6 +136,5 @@ struct CameraView: View {
 }
 
 #Preview {
-    CameraView()
-        .environmentObject(CharacterFrameViewModel())
+    CameraView(frameImagePath: "frame_sea")
 }

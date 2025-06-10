@@ -91,7 +91,10 @@ struct CharacterFrameSelectionBody: View {
         .alert("촬영이 시작됩니다!", isPresented: $viewModel.showAlert) {
             Button("취소", role: .cancel) {}
             Button("촬영하기") {
-                navModel.path.append(AppRoute.camera)
+                if let savedPath = viewModel.saveComposedImageToCache() {
+                    navModel.path.append(
+                        AppRoute.camera(frameImagePath: savedPath))
+                }
             }
         }
         .onAppear {

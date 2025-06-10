@@ -94,7 +94,7 @@ struct CharacterCreateView: View {
             .onAppear {
                 Task {
                     viewModel.initializeDefaultSelections(count: number)
-//                    await viewModel.resetCharacterCreationSession()
+                    //                    await viewModel.resetCharacterCreationSession()
                 }
             }
     }
