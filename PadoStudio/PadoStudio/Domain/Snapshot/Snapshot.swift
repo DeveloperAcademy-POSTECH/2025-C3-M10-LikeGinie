@@ -8,8 +8,6 @@ import Foundation
 
 struct Snapshot {
     let id: UUID
-    let characterId: UUID
-    let frameId: String
     let imagePath: String
     let createdAt: Date
 }
