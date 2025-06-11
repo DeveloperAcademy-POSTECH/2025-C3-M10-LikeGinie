@@ -15,8 +15,6 @@ struct PhotoDetailView: View {
 
     var body: some View {
         ZStack {
-            Color.gray06.ignoresSafeArea()
-
             VStack(spacing: 0) {
                 GalleryToolbarViewWithMenu(
                     imageModel: imageModel,
@@ -33,7 +31,6 @@ struct PhotoDetailView: View {
                         }
                     }
                 )
-                .padding(.top, 10)
 
                 Spacer()
 
@@ -56,6 +53,7 @@ struct PhotoDetailView: View {
             }
         }
         .toolbar(.hidden, for: .navigationBar)
+        .background(Color.lightYellow)
     }
 }
 
