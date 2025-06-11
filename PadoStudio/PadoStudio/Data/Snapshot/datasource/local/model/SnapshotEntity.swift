@@ -10,16 +10,30 @@ import SwiftData
 @Model
 final class SnapshotEntity {
     var id: UUID
-    var characterId: UUID
-    var frameId: String
     var imagePath: String
     var createdAt: Date
 
-    init(id: UUID = UUID(), characterId: UUID, frameId: String, imagePath: String, createdAt: Date = .now) {
+    init(id: UUID = UUID(), imagePath: String, createdAt: Date = .now) {
         self.id = id
-        self.characterId = characterId
-        self.frameId = frameId
         self.imagePath = imagePath
         self.createdAt = createdAt
+    }
+}
+
+extension SnapshotEntity {
+    func toDomainModel() -> Snapshot {
+        return Snapshot(
+            id: id,
+            imagePath: imagePath,
+            createdAt: createdAt
+        )
+    }
+
+    static func fromDomainModel(_ model: Snapshot) -> SnapshotEntity {
+        return SnapshotEntity(
+            id: model.id,
+            imagePath: model.imagePath,
+            createdAt: model.createdAt
+        )
     }
 }

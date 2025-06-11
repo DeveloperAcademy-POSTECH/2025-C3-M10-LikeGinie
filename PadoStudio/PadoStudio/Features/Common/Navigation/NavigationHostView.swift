@@ -52,7 +52,7 @@ struct NavigationHostView: View {
                     case .result(let identifiableImage):
                         ToolbarHiddenWrapper(
                             content:
-                                CameraStageView(
+                                CameraPreviewView(
                                     image: identifiableImage.image,
                                     onRetake: {
                                         navModel.path.removeLast()

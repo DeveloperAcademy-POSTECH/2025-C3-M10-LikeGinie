@@ -10,9 +10,9 @@ import SwiftData
 
 struct PhotoMenuView: View {
     let imageModel: GalleryData
+    let deleteAction: () -> Void
     @State private var isSharing = false
     @State private var isWarning = false
-    @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var modelContext
     
     var body: some View {
@@ -33,11 +33,11 @@ struct PhotoMenuView: View {
             } label: {
                 Circle()
                     .fill(Color.gray03)
-                    .frame(width: 80, height: 80)
+                    .frame(width: 50.scaled, height: 50.scaled)
                     .overlay(
                         Image(systemName: "ellipsis.circle")
                             .foregroundColor(.primaryGreen)
-                            .font(.eliceBold(size: 30))
+                            .font(.eliceBold(size: 24.scaled))
                     )
             }
         }
@@ -50,11 +50,7 @@ struct PhotoMenuView: View {
         }
         .alert("정말로 삭제하시겠습니까?", isPresented: $isWarning, actions: {
             Button("삭제하기", role: .destructive) {
-                try? FileManager.default.removeItem(atPath: imageModel.filePath)
-                modelContext.delete(imageModel)
-                try? modelContext.save()
-                
-                dismiss()
+                deleteAction()
             }
             Button("취소하기", role: .cancel) { }
         }, message: {

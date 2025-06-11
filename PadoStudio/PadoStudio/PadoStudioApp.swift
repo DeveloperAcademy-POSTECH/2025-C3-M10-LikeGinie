@@ -18,6 +18,6 @@ struct PadoStudioApp: App {
             NavigationHostView()
                 .environmentObject(NavigationViewModel())
         }
-        .modelContainer(for: [GalleryData.self])
+        .modelContainer(for: [SnapshotEntity.self])
     }
 }
