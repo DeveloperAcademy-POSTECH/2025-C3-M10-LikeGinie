@@ -26,6 +26,9 @@ struct ScreenRatioUtility {
     static var imageWidth: CGFloat { screenWidth * 0.8 }
     static var imageHeight: CGFloat { imageWidth * 4 / 3 }
     
+    //프리뷰 사진 크기
+    static var previewWidth: CGFloat { screenWidth * 0.6 }
+    
     // 유틸리티 함수들
     static func scaledSize(_ size: CGFloat) -> CGFloat {
         return size * ratio
