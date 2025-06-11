@@ -4,6 +4,7 @@
 //
 //  Created by eunsong on 5/31/25.
 //
+
 import SwiftUI
 
 struct CharacterCreateView: View {
@@ -25,7 +26,9 @@ struct CharacterCreateView: View {
                     .position(x: width / 2, y: height / 2)
 
                 VStack {
-                    // MARK: Toolbar 추가하기
+                    // MARK: Toolbar
+                    ToolbarView(title: "캐릭터 만들기", titleColor: .white)
+                        .padding(.top, 48)
 
                     // MARK: 캐릭터 전환
                     CharacterPreviewPager(
@@ -48,12 +51,12 @@ struct CharacterCreateView: View {
                         HStack(spacing: 12) {
                             CharacterActionButton(
                                 title: "초기화",
-                                foreground: .gray01,
+                                foreground: .gray09,
                                 background: .gray04,
                                 font: .title3RegularResponsive(
-                                    size: 11.scaled, proxy: proxy),
+                                    size: 13, proxy: proxy),
                                 width: proxy.size.width * 0.4,
-                                height: 42
+                                height: proxy.size.height * 0.06
                             ) {
                                 viewModel.resetCharacter()
                             }
@@ -63,9 +66,9 @@ struct CharacterCreateView: View {
                                 foreground: .white,
                                 background: .primaryGreen,
                                 font: .title3RegularResponsive(
-                                    size: 11.scaled, proxy: proxy),
+                                    size: 13, proxy: proxy),
                                 width: proxy.size.width * 0.4,
-                                height: 42
+                                height: proxy.size.height * 0.06
                             ) {
                                 viewModel.saveAllCharacterSnapshots(
                                     count: number, imageSize: proxy.size
@@ -75,26 +78,25 @@ struct CharacterCreateView: View {
                             }
                         }
                         .frame(maxWidth: .infinity)
+                        .padding(.top, 8)
                     }
                     .padding(.horizontal, proxy.size.width * 0.04)
-                    .padding(.bottom, proxy.size.width * 0.015)
+                    .padding(.bottom, proxy.safeAreaInsets.bottom + 24)
                     .padding(.top, proxy.size.width * 0.04)
                     .background(
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(Color.white)
-                            .shadow(
-                                color: Color.gray05, radius: 10, x: 0, y: -4)
+                        TopRoundedShadowBackground()
                     )
 
                 }
             }
-        }
-        .ignoresSafeArea()
-        .onAppear {
-            Task {
-                await viewModel.resetCharacterCreationSession()
+
+        }.ignoresSafeArea()
+            .onAppear {
+                Task {
+                    viewModel.initializeDefaultSelections(count: number)
+                    //                    await viewModel.resetCharacterCreationSession()
+                }
             }
-        }
     }
 }
 
@@ -108,13 +110,17 @@ struct CharacterActionButton: View {
     let action: () -> Void
 
     var body: some View {
-        Button(title, action: action)
-            .font(font)
-            .foregroundColor(foreground)
-            .frame(width: width, height: height)
-            .background(background)
-            .cornerRadius(20)
-            .clipShape(Capsule())
+        Button(action: action) {
+            Text(title)
+                .font(font)
+                .foregroundColor(foreground)
+                .padding(.vertical, height * 0.25)
+                .padding(.horizontal, width * 0.1)
+                .frame(minWidth: width, minHeight: height)
+                .background(background)
+                .cornerRadius(12)
+        }
+        .clipShape(Capsule())
     }
 }
 

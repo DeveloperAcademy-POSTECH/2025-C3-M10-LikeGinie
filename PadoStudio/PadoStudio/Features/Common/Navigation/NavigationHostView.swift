@@ -5,7 +5,6 @@
 //  Created by eunsong on 5/28/25.
 //
 
-
 import SwiftUI
 
 struct NavigationHostView: View {
@@ -18,36 +17,59 @@ struct NavigationHostView: View {
             HomeView()
                 .navigationDestination(for: AppRoute.self) { route in
                     switch route {
-                    case .camera:
-                        CameraView()
-                            .environmentObject(characterViewModel)
-                            .environmentObject(characterFrameViewModel)
-                    case .gallery:
-                        GalleryView()
-                    case .startRecording:
-                        CharacterCountSelectView()
-                            .environmentObject(characterViewModel)
-                    case .characterCreate(let number):
-                        CharacterCreateView(number: number)
-                            .environmentObject(characterViewModel)
-                    case .home:
-                        HomeView()
-                    case .result(let identifiableImage):
-                        CameraStageView(
-                            image: identifiableImage.image,
-                            onRetake: {
-                                navModel.path.removeLast()
-                            }
+                    case .camera(let frameImagePath):
+                        ToolbarHiddenWrapper(
+                            content:
+                                CameraView(
+                                    frameImagePath: frameImagePath
+                                )
+                                .environmentObject(characterViewModel)
+                                .environmentObject(characterFrameViewModel)
                         )
-                        .environmentObject(characterViewModel)
+                    case .gallery:
+                        ToolbarHiddenWrapper(
+                            content:
+                                GalleryView()
+                        )
+
+                    case .startRecording:
+                        ToolbarHiddenWrapper(
+                            content:
+                                CharacterCountSelectView()
+                                .environmentObject(characterViewModel)
+                        )
+                    case .characterCreate(let number):
+                        ToolbarHiddenWrapper(
+                            content:
+                                CharacterCreateView(number: number)
+                                .environmentObject(characterViewModel)
+                        )
+                    case .home:
+                        ToolbarHiddenWrapper(
+                            content:
+                                HomeView()
+                        )
+                    case .result(let identifiableImage):
+                        ToolbarHiddenWrapper(
+                            content:
+                                CameraStageView(
+                                    image: identifiableImage.image,
+                                    onRetake: {
+                                        navModel.path.removeLast()
+                                    }
+                                )
+                        )
                     case .ImageCheck(let identifiableImage):
                         ImageCheckView(identifiableImage: identifiableImage)
                     case .frameSelect:
-                        CharacterFrameSelectionView()
-                            .environmentObject(characterFrameViewModel)
-                            .environmentObject(characterViewModel)
+                        ToolbarHiddenWrapper(
+                            content:
+                                CharacterFrameSelectionView()
+                                .environmentObject(characterFrameViewModel)
+                                .environmentObject(characterViewModel)
+                        )
                     }
-                    
+
                 }
         }
         .environmentObject(characterViewModel)

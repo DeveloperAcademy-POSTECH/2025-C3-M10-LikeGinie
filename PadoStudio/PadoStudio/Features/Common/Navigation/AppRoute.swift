@@ -6,7 +6,7 @@
 //
 
 enum AppRoute: Hashable {
-    case camera
+    case camera(frameImagePath: String)
     case gallery
     case startRecording
     case characterCreate(number: Int)

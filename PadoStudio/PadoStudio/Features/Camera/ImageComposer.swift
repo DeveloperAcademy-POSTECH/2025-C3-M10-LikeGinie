@@ -26,6 +26,34 @@ extension UIImage {
 
 class ImageComposer {
     
+    static func composeFramedCapturedImage(
+        baseImage: UIImage,
+        frameImageName: String
+    ) -> UIImage? {
+        print("캐릭터 포함 이미지 합성 시작 - 프레임: \(frameImageName)")
+        
+        guard let frameImage = UIImage(named: frameImageName) else {
+            print("프레임 이미지 로드 실패: \(frameImageName)")
+            return nil
+        }
+        
+        // 화면에서 보이는 프레임 비율(4:3)로 크기 설정
+        let targetWidth = ScreenRatioUtility.imageWidth * UIScreen.main.scale
+        let targetHeight = ScreenRatioUtility.imageHeight * UIScreen.main.scale
+        let size = CGSize(width: targetWidth, height: targetHeight)
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, UIScreen.main.scale)
+        defer { UIGraphicsEndImageContext() }
+        
+        // 베이스 이미지와 프레임 그리기
+        drawBaseAndFrame(baseImage: baseImage, frameImage: frameImage, size: size)
+        
+        let combinedImage = UIGraphicsGetImageFromCurrentImageContext()
+        logCompletionStatus(combinedImage)
+        
+        return combinedImage
+    }
+    
     static func composeFramedImageWithCharacters(
         baseImage: UIImage,
         frameImageName: String = "frame_sea",
