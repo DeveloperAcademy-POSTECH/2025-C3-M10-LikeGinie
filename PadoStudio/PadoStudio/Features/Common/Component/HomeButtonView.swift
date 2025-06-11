@@ -13,7 +13,7 @@ struct HomeButtonView: View {
     var body: some View {
         Button {
             print("홈으로")
-            navModel.navigate(to: .home)
+            navModel.navigateToRoot()
         } label: {
             Circle()
                 .fill(Color.white)

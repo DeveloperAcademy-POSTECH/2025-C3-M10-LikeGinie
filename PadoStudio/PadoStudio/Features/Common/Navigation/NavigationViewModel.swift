@@ -17,4 +17,9 @@ final class NavigationViewModel: ObservableObject {
     func reset() {
         path = NavigationPath()
     }
+    
+    func navigateToRoot() {
+        path = NavigationPath()
+        path.append(AppRoute.home)
+    }
 }
