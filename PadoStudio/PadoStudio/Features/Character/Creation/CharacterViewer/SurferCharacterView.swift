@@ -8,8 +8,22 @@
 import SwiftUI
 
 struct SurferCharacterView: View {
-    let characterImages = Array(repeating: "Asset5", count: 6)
+    @EnvironmentObject var viewModel: CharacterFrameViewModel
 
+    @ViewBuilder
+    private var previewImage: some View {
+        Group {
+            if let composedImage = viewModel.composedImage {
+                Image(uiImage: composedImage)
+                    .resizable()
+            } else {
+                Image(viewModel.selectedFrame.imgName)
+                    .resizable()
+            }
+        }
+        .scaledToFit()
+        .frame(width: 300.scaled, height: 400.scaled)
+        
     var body: some View {
         HStack{
             ForEach(0..<characterImages.count, id: \.self) { idx in
@@ -18,6 +32,7 @@ struct SurferCharacterView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 120, height: 320)
             }
+            viewModel.composeFramedPreview()
         }
         .frame(maxWidth: .infinity, alignment: .center) // 가운데 정렬
     }

@@ -97,6 +97,8 @@ struct CharacterFrameSelectionBody: View {
                         AppRoute.camera(frameImagePath: savedPath))
                 }
             }
+        } message: {
+            Text("캐릭터와 프레임을 수정할 수 없으니  다시 확인해 주세요.")
         }
         .onAppear {
             Task {

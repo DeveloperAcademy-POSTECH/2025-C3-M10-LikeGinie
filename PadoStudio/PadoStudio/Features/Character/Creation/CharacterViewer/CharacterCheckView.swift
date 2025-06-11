@@ -8,6 +8,8 @@ import SwiftUI
 
 struct CharacterCheckView: View {
     @State private var showAlert = false
+    @EnvironmentObject var navModel: NavigationViewModel
+    @EnvironmentObject var viewModel: CharacterFrameViewModel
 
     var body: some View {
         ZStack {
@@ -19,6 +21,7 @@ struct CharacterCheckView: View {
             VStack(spacing: 0) {
                 // 중앙에 오게 하기 위한 Spacer
                 ToolbarView(title: "캐릭터 확인", titleColor: .white)
+                    .padding(.top, 48)
                 
                 Spacer()
 
@@ -35,19 +38,15 @@ struct CharacterCheckView: View {
                 Spacer()
 
                 // 하단 버튼
-                PadoStudio.CameraButtonView {
-                    showAlert = true
-                }
-                .padding(.bottom, 50)
+                SquareButton(color: .green, label: "확인", action: {
+                    if let savedPath = viewModel.saveComposedImageToCache() {
+                        navModel.path.append(
+                            AppRoute.frameSelect)
+                    }
+                })
+                    .padding(.bottom, 60.scaled)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-        }
-        .alert("저장하면 수정이 어려워요!",
-               isPresented: $showAlert) {
-            Button("촬영하기", role: .cancel) { }
-            Button("취소", role: .destructive) { }
-        } message: {
-            Text("저장하면 캐릭터를 수정할 수 없으니 다시 확인해 주세요.")
         }
     }
 }
