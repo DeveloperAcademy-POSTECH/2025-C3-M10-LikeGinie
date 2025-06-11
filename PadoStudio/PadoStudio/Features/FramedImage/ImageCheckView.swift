@@ -9,32 +9,34 @@ import SwiftUI
 struct ImageCheckView: View {
     @EnvironmentObject var navModel: NavigationViewModel
     let identifiableImage: IdentifiableImage
-
+    
     @State private var isSharing: Bool = false
-
+    
     var body: some View {
         ZStack {
             Color.lightYellow.ignoresSafeArea()
             
-            VStack(spacing: 20.scaled) {
+            VStack {
                 HStack {
                     HomeButtonView()
                         .padding(.horizontal, 40)
                     Spacer()
                 }
+                .padding(.top, 20)
+                
                 FramedImageTextView()
                 FramedImageView(identifiableImage: identifiableImage)
                     .shadow(color: .black.opacity(0.10), radius: 6, x: 0, y: 2)
+                    .padding()
                 
-                HStack(spacing: 50.scaled) {
-                    RoundButton(iconName: "square.and.arrow.up", label: "공유하기", action: {
-                        print("공유!")
-                        isSharing = true
-                    })
-                    .sheet(isPresented: $isSharing) {
-                        FramedImageShareView(image: identifiableImage.image)
-                    }
+                RoundButton(iconName: "square.and.arrow.up", label: "공유하기", action: {
+                    print("공유!")
+                    isSharing = true
+                })
+                .sheet(isPresented: $isSharing) {
+                    FramedImageShareView(image: identifiableImage.image)
                 }
+                
             }
         }
         .toolbar(.hidden, for: .navigationBar)
