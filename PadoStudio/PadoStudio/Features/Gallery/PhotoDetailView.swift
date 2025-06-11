@@ -13,6 +13,7 @@ struct PhotoDetailView: View {
     var body: some View {
         VStack {
             GalleryToolbarView(imageModel: imageModel)
+                .padding(.vertical, 40)
             Group {
                 if let uiImage = UIImage(contentsOfFile: imageModel.filePath) {
                     Image(uiImage: uiImage)

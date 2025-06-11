@@ -32,7 +32,9 @@ struct GalleryView: View {
     var body: some View {
         VStack {
             ToolbarView(title: "갤러리", titleColor: .black)
+                .padding(.vertical, 40)
                 .background(Color.white)
+            
             if galleryItems.isEmpty {
                 EmptyGalleryView()
                     .frame(maxWidth: .infinity, maxHeight: .infinity)

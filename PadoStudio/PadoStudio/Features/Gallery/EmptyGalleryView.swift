@@ -12,9 +12,9 @@ struct EmptyGalleryView: View {
         VStack {
             Image("ic_home_title")
             Text("저장된 사진이 없습니다 :(")
-                .font(.title3Bold)
+                .font(.title2Bold)
             Text("파도 사진관에서 오늘의 추억을 남겨보세요!")
-                .font(.styledRegular(size: 15))
+                .font(.styledRegular(size: 20))
         }
     }
 }
