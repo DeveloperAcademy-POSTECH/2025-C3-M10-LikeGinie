@@ -37,6 +37,7 @@ struct ImageCheckView: View {
                 }
             }
         }
+        .toolbar(.hidden, for: .navigationBar)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         
     }
