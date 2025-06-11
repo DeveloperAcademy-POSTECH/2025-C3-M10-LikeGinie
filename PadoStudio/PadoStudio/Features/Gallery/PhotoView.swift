@@ -20,11 +20,9 @@ struct PhotoView: View {
             }
         } else {
             Color.gray
-                .overlay(Text("오류").foregroundStyle(Color.white))
+                .overlay(Text("오류")
+                    .font(.styledRegular(size: 15))
+                    .foregroundStyle(Color.white))
         }
     }
 }
-
-//#Preview {
-//    PhotoView(imageName: "Image2")
-//}

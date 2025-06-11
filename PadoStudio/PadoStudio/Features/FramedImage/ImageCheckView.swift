@@ -17,6 +17,11 @@ struct ImageCheckView: View {
             Color.lightYellow.ignoresSafeArea()
             
             VStack(spacing: 20.scaled) {
+                HStack {
+                    HomeButtonView()
+                        .padding(.horizontal, 40)
+                    Spacer()
+                }
                 FramedImageTextView()
                 FramedImageView(identifiableImage: identifiableImage)
                     .shadow(color: .black.opacity(0.10), radius: 6, x: 0, y: 2)
@@ -29,13 +34,11 @@ struct ImageCheckView: View {
                     .sheet(isPresented: $isSharing) {
                         FramedImageShareView(image: identifiableImage.image)
                     }
-                    //                RoundButton(iconName: "house", label: "처음으로", action: {
-                    //                    print("홈!")
-                    //                    navModel.navigate(to: .home)
-                    //                })
                 }
             }
         }
+        .toolbar(.hidden, for: .navigationBar)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         
     }
 }

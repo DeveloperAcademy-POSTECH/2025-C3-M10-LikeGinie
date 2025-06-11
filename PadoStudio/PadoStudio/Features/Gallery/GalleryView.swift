@@ -30,27 +30,40 @@ struct GalleryView: View {
     ]
     
     var body: some View {
-        if galleryItems.isEmpty {
-            EmptyGalleryView()
-        } else {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    ForEach(groupedItems.keys.sorted(by: >), id: \.self) { dateKey in
-                        Text(dateKey)
-                            .font(.title3Bold)
-                            .padding(.vertical)
-                        
-                        LazyVGrid(columns: columns) {
-                            ForEach(groupedItems[dateKey] ?? []) { item in
-                                PhotoView(imageModel: item)
+        VStack {
+            ToolbarView(title: "갤러리", titleColor: .black)
+                .padding(.vertical, 40)
+                .background(Color.white)
+            
+            if galleryItems.isEmpty {
+                EmptyGalleryView()
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            } else {
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        ForEach(groupedItems.keys.sorted(by: >), id: \.self) { dateKey in
+                            HStack {
+                                Image("patrick")
+                                    .resizable()
+                                    .frame(height: 20)
+                                Text(dateKey)
+                                    .font(.title3Bold)
+                                    .padding(.vertical)
                             }
                             
+                            LazyVGrid(columns: columns) {
+                                ForEach(groupedItems[dateKey] ?? []) { item in
+                                    PhotoView(imageModel: item)
+                                }
+                                
+                            }
                         }
                     }
                 }
+                .padding(.top)
             }
-            .padding(.top)
         }
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
 

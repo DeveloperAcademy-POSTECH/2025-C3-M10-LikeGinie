@@ -11,25 +11,20 @@ struct PhotoDetailView: View {
     let imageModel: GalleryData
     
     var body: some View {
-        Group {
-            if let uiImage = UIImage(contentsOfFile: imageModel.filePath) {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFit()
-            } else {
-                Text("이미지를 불러올 수 없습니다.")
+        VStack {
+            GalleryToolbarView(imageModel: imageModel)
+                .padding(.vertical, 40)
+            Group {
+                if let uiImage = UIImage(contentsOfFile: imageModel.filePath) {
+                    Image(uiImage: uiImage)
+                        .resizable()
+                        .scaledToFit()
+                } else {
+                    Text("이미지를 불러올 수 없습니다.")
+                }
             }
         }
-        .navigationTitle("날짜")
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                PhotoMenuView(imageModel: imageModel)
-            }
-        }
+        .toolbar(.hidden, for: .navigationBar)
     }
     
 }
-
-//#Preview {
-//    PhotoDetailView()
-//}
