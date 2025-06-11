@@ -93,8 +93,8 @@ struct CharacterCreateView: View {
         }.ignoresSafeArea()
             .onAppear {
                 Task {
+                    await viewModel.resetCharacterCreationSession()
                     viewModel.initializeDefaultSelections(count: number)
-                    //                    await viewModel.resetCharacterCreationSession()
                 }
             }
     }
