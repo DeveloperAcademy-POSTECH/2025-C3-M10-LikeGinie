@@ -180,8 +180,8 @@ private extension ImageComposer {
         let imageScale = size.width / ScreenRatioUtility.imageWidth
         
         // CameraView와 동일한 캐릭터 크기 계산
-        let maxSize = min(150.scaled * imageScale, (size.width) / CGFloat(max(characterCount, 1)))
-        let spacing: CGFloat = -10.scaled * imageScale
+        let maxSize = min(180.scaled * imageScale, (size.width) / CGFloat(max(characterCount, 1)))
+        let spacing = -maxSize * 0.4
         
         // CameraView와 동일한 bottomPadding 사용
         let bottomPadding = 50.scaled * imageScale
@@ -191,7 +191,7 @@ private extension ImageComposer {
         
         // 전체 너비 계산 (CameraView와 동일)
         let totalWidth = CGFloat(characterCount) * maxSize + CGFloat(max(characterCount - 1, 0)) * spacing
-        let startX = (size.width - totalWidth) / 2
+        let startX = characterCount <= 4 ? (size.width - totalWidth) : (size.width - totalWidth) / 2
         
         return CharacterLayout(
             characterSize: maxSize,

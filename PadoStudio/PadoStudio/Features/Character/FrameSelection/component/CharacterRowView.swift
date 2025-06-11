@@ -27,8 +27,6 @@ struct CharacterRowView: View {
                             .stroke(Color.white, lineWidth: 1)
                     )
             }
-            
-            Spacer()
         }
         .onAppear {
             print("CharacterRowView appeared with \(characterImages.count) images")

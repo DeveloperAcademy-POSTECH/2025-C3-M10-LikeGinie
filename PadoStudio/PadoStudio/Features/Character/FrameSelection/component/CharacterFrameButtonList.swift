@@ -23,11 +23,12 @@ struct CharacterFrameButtonList: View {
                             .scaledToFit()
                             .cornerRadius(100)
                             .clipShape(Circle())
-                            .frame(width: selectedFrame == f ? ScreenRatioUtility.widthRatio * 60 : ScreenRatioUtility.widthRatio * 40)
+                            .frame(width: selectedFrame == f ? ScreenRatioUtility.widthRatio * 50 : ScreenRatioUtility.widthRatio * 40)
+
                             .overlay(
                                 Circle().stroke(
                                     selectedFrame == f ? Color.primaryGreen : Color.gray05,
-                                    lineWidth: selectedFrame == f ? 8 : 1
+                                    lineWidth: selectedFrame == f ? 6 : 1
                                 )
                             )
                     }
