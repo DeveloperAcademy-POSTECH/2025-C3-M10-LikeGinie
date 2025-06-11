@@ -71,7 +71,8 @@ struct CharacterFrameSelectionBody: View {
                             }
                         )
                     }
-                    .padding(.horizontal, 60)
+                    .padding(.horizontal, 0.1 * ScreenRatioUtility.screenWidth)
+                    .frame(maxWidth: .infinity, alignment: .center)
 
                     // 촬영 버튼
                     SquareButton(color: .green, label: "촬영하기") {
