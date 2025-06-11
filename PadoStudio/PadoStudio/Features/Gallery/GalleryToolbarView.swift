@@ -30,20 +30,9 @@ struct GalleryToolbarView: View {
             Text("\(galleryDateFormatter.string(from: imageModel.date))")
                 .font(.styledRegular(size: 32))
             Spacer()
-            Button {
-                PhotoMenuView(imageModel: imageModel)
-            } label : {
-                Circle()
-                    .fill(Color.gray03)
-                    .frame(width: 80, height: 80)
-                    .overlay(
-                        Image(systemName: "ellipsis.circle")
-                            .foregroundColor(.primaryGreen)
-                            .font(.eliceBold(size: 30))
-                    )
-            }
+            PhotoMenuView(imageModel: imageModel)
             .padding(.horizontal, 40)
         }
-        
+        .toolbar(.hidden, for: .navigationBar)
     }
 }

@@ -61,6 +61,7 @@ struct GalleryView: View {
                 .padding(.top)
             }
         }
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
 

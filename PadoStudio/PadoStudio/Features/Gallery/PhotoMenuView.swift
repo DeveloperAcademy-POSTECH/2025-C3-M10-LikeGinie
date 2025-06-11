@@ -31,7 +31,14 @@ struct PhotoMenuView: View {
                     Label("삭제하기", systemImage: "trash")
                 }
             } label: {
-                Image(systemName: "ellipsis.circle")
+                Circle()
+                    .fill(Color.gray03)
+                    .frame(width: 80, height: 80)
+                    .overlay(
+                        Image(systemName: "ellipsis.circle")
+                            .foregroundColor(.primaryGreen)
+                            .font(.eliceBold(size: 30))
+                    )
             }
         }
         .sheet(isPresented: $isSharing) {
@@ -55,7 +62,3 @@ struct PhotoMenuView: View {
         })
     }
 }
-
-//#Preview {
-//    PhotoMenuView(imageName: "image4")
-//}

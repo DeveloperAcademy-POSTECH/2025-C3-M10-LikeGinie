@@ -24,7 +24,3 @@ struct PhotoView: View {
         }
     }
 }
-
-//#Preview {
-//    PhotoView(imageName: "Image2")
-//}
