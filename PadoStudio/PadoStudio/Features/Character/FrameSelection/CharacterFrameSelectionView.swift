@@ -23,6 +23,7 @@ struct CharacterFrameSelectionBody: View {
 
     @ViewBuilder
     private var previewImage: some View {
+        
         Group {
             if let composedImage = viewModel.composedImage {
                 Image(uiImage: composedImage)

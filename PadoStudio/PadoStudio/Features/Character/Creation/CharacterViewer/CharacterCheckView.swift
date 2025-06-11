@@ -31,7 +31,15 @@ struct CharacterCheckView: View {
                 VStack(spacing: 2) {
                     
                     Spacer().frame(height: 160) // SurferCharacterView 위에 여백
-                    SurferCharacterView()
+                    if viewModel.characterImages.count > 6 {
+                        ScrollView(.horizontal){
+                            SurferCharacterView()
+
+                        }
+                    } else {
+                        SurferCharacterView()
+
+                    }
                     CharacterTextView()
                 }
 

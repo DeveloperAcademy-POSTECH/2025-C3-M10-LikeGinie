@@ -12,7 +12,6 @@ struct SurferCharacterView: View {
 
     private var characterWidth: CGFloat {
         let count = viewModel.characterImages.count
-
         return (count <= 3 ? 0.3 : 0.2) * ScreenRatioUtility.screenWidth
 
     }
