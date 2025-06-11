@@ -68,6 +68,13 @@ struct NavigationHostView: View {
                                 .environmentObject(characterFrameViewModel)
                                 .environmentObject(characterViewModel)
                         )
+                    case .characterCheck:
+                        ToolbarHiddenWrapper(
+                            content:
+                                CharacterCheckView()
+                                .environmentObject(characterFrameViewModel)
+                                .environmentObject(characterViewModel)
+                        )
                     }
 
                 }

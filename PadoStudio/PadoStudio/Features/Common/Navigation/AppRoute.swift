@@ -14,4 +14,5 @@ enum AppRoute: Hashable {
     case result(IdentifiableImage)
     case frameSelect
     case ImageCheck(IdentifiableImage)
+    case characterCheck
 }

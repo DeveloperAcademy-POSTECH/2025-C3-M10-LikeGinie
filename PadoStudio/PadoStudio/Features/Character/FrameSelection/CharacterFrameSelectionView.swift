@@ -23,6 +23,7 @@ struct CharacterFrameSelectionBody: View {
 
     @ViewBuilder
     private var previewImage: some View {
+        
         Group {
             if let composedImage = viewModel.composedImage {
                 Image(uiImage: composedImage)
@@ -97,6 +98,8 @@ struct CharacterFrameSelectionBody: View {
                         AppRoute.camera(frameImagePath: savedPath))
                 }
             }
+        } message: {
+            Text("캐릭터와 프레임을 수정할 수 없으니 \n다시 확인해 주세요.")
         }
         .onAppear {
             Task {
@@ -109,4 +112,6 @@ struct CharacterFrameSelectionBody: View {
 
 #Preview {
     CharacterFrameSelectionView()
+        .environmentObject(NavigationViewModel())
+        .environmentObject(CharacterFrameViewModel())
 }

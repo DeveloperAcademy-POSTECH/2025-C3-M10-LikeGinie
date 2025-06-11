@@ -8,21 +8,45 @@
 import SwiftUI
 
 struct SurferCharacterView: View {
-    let characterImages = Array(repeating: "Asset5", count: 6)
+    @EnvironmentObject var viewModel: CharacterFrameViewModel
 
-    var body: some View {
-        HStack{
-            ForEach(0..<characterImages.count, id: \.self) { idx in
-                Image(characterImages[idx])
+    private var characterWidth: CGFloat {
+        let count = viewModel.characterImages.count
+        return (count <= 3 ? 0.3 : 0.2) * ScreenRatioUtility.screenWidth
+
+    }
+
+    @ViewBuilder
+    private var characterPreviewImages: some View {
+        let spacing: CGFloat = viewModel.characterImages.count <= 3 ? -30 : -60
+        
+        
+        HStack(spacing: spacing) {
+            ForEach(viewModel.characterImages, id: \.self) { img in
+                Image(uiImage: img)
                     .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 120, height: 320)
+                    .scaledToFit()
+                    .frame(width: characterWidth, height: characterWidth * 4/3)
             }
         }
-        .frame(maxWidth: .infinity, alignment: .center) // 가운데 정렬
     }
+
+    var body: some View {
+        HStack {
+            characterPreviewImages
+        }
+        .frame(maxWidth: .infinity, alignment: .center)  // 가운데 정렬
+        .onAppear {
+            Task {
+                await viewModel.loadCharacterImages()
+                viewModel.composeFramedPreview()
+            }
+        }
+    }
+
 }
 
 #Preview {
     SurferCharacterView()
+        .environmentObject(CharacterFrameViewModel())
 }
