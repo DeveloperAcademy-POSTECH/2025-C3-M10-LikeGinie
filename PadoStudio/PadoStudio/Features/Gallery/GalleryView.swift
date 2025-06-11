@@ -40,9 +40,14 @@ struct GalleryView: View {
                 ScrollView {
                     VStack(alignment: .leading) {
                         ForEach(groupedItems.keys.sorted(by: >), id: \.self) { dateKey in
-                            Text(dateKey)
-                                .font(.title3Bold)
-                                .padding(.vertical)
+                            HStack {
+                                Image("patrick")
+                                    .resizable()
+                                    .frame(height: 20)
+                                Text(dateKey)
+                                    .font(.title3Bold)
+                                    .padding(.vertical)
+                            }
                             
                             LazyVGrid(columns: columns) {
                                 ForEach(groupedItems[dateKey] ?? []) { item in
