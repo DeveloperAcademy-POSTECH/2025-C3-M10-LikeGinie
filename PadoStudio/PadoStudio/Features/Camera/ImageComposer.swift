@@ -232,8 +232,9 @@ private extension ImageComposer {
         let attributedString = NSAttributedString(string: dateString, attributes: attributes)
         let textSize = attributedString.size()
         
-        // 우측 상단 위치 (여백 20pt)
-        let margin: CGFloat = 20 * (size.width / ScreenRatioUtility.imageWidth)
+        // 우측 상단 위치 (여백)
+        let margin: CGFloat = ScreenRatioUtility.screenHeight < 812 ? (8 * ScreenRatioUtility.heightRatio) : (40 *  ScreenRatioUtility.heightRatio)
+        
         let textRect = CGRect(
             x: size.width - textSize.width - margin,
             y: margin,
