@@ -5,7 +5,6 @@
 //  Created by eunsong on 6/12/25.
 //
 
-
 import Dependencies
 import Foundation
 import SwiftData
@@ -27,10 +26,19 @@ extension DependencyValues {
     }
 }
 
-
 enum SnapshotEntityModelContainer {
     static let shared: ModelContainer = {
-        try! ModelContainer(for: SnapshotEntity.self)
+        do {
+            return try ModelContainer(for: SnapshotEntity.self)
+        } catch {
+            let storeURL = URL.applicationSupportDirectory.appending(path: "default.store")
+            try? FileManager.default.removeItem(at: storeURL)
+            do {
+                return try ModelContainer(for: SnapshotEntity.self)
+            } catch {
+                fatalError("Failed to create ModelContainer for SnapshotEntity after resetting store: \(error)")
+            }
+        }
     }()
 }
 

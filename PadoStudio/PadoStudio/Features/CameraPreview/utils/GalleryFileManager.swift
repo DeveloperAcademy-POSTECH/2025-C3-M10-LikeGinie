@@ -40,4 +40,12 @@ enum GalleryFileManager {
         try data.write(to: fileURL)
         return fileURL.path
     }
+
+    static func delete(imageAtPath path: String) throws {
+        let fileManager = FileManager.default
+        let fileURL = URL(fileURLWithPath: path)
+        if fileManager.fileExists(atPath: fileURL.path) {
+            try fileManager.removeItem(at: fileURL)
+        }
+    }
 }

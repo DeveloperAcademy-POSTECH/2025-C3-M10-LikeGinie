@@ -9,7 +9,7 @@ import Foundation
 struct GetAllSnapshotsUseCase {
     let repository: SnapshotRepository
 
-    func execute() async throws -> [Snapshot] {
+    func callAsFunction() async throws -> [Snapshot] {
         try await repository.fetchAll()
     }
 }

@@ -9,7 +9,9 @@ import Foundation
 struct DeleteSnapshotUseCase {
     let repository: SnapshotRepository
 
-    func execute(_ snapshot: Snapshot) async throws {
-        try await repository.delete(snapshot)
+    func callAsFunction(_ id: UUID) async throws {
+        if let snapshot = try await repository.get(by: id) {
+            try await repository.delete(snapshot)
+        }
     }
 }

@@ -16,7 +16,7 @@ extension Color {
     static let lightGreen = Color(hex: "#E2F4F5")
     static let primaryYellow = Color(hex: "#FFF1CC")
     static let alertRed = Color(hex: "#C41C1C")
-    static let lightYellow = Color(hex: "#FFF8E5")
+    static let lightYellow = Color(hex: "#FCF5EE")
 
     // Background Grays
     static let gray01 = Color(hex: "#FCFCFD")

@@ -9,7 +9,7 @@ import Foundation
 struct SaveSnapshotUseCase {
     let repository: SnapshotRepository
 
-    func execute(_ snapshot: Snapshot) async throws {
+    func callAsFunction(_ snapshot: Snapshot) async throws {
         try await repository.save(snapshot)
     }
 }

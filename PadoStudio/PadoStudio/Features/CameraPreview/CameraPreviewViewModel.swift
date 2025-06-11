@@ -21,7 +21,7 @@ final class CameraPreviewViewModel: ObservableObject {
             do {
                 let filePath = try GalleryFileManager.save(image: image)
                 let snapshot = Snapshot(id: UUID(), imagePath: filePath, createdAt: Date())
-                try await saveSnapshotUseCase.execute(snapshot)
+                try await saveSnapshotUseCase(snapshot)
                 await MainActor.run {
                     onSuccess(filePath)
                 }
