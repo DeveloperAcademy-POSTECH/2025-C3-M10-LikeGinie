@@ -2,22 +2,21 @@ import SwiftUI
 
 struct CharacterCountSelectView: View {
     @EnvironmentObject var navModel: NavigationViewModel
-    @State private var number = 0
-    @State private var showAlert = false
+    @State private var number = 1
     @Environment(\.horizontalSizeClass) private var sizeClass
 
     var body: some View {
         if sizeClass == .regular {
             CharacterCountSelectPadLayout(
                 navModel: navModel,
-                number: $number,
-                showAlert: $showAlert
+                number: $number
+                
             )
         } else {
             CharacterCountSelectPhoneLayout(
                 navModel: navModel,
-                number: $number,
-                showAlert: $showAlert
+                number: $number
+              
             )
         }
     }
@@ -27,7 +26,6 @@ struct CharacterCountSelectView: View {
 struct CharacterCountSelectPhoneLayout: View {
     @ObservedObject var navModel: NavigationViewModel
     @Binding var number: Int
-    @Binding var showAlert: Bool
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -68,34 +66,29 @@ struct CharacterCountSelectPhoneLayout: View {
             VStack {
                 Spacer()
                 SquareButton(color: .green, label: "설정하기") {
-                    if number > 0 {
+                    if number >= 1 {
                         navModel.navigate(to: .characterCreate(number: number))
-                    } else {
-                        showAlert = true
                     }
                 }
             }
         }
-        .alert("캐릭터를 한 명 이상 선택해주세요!", isPresented: $showAlert) {
-            Button("확인", role: .cancel) {}
-        }
     }
 
     private var minusButton: some View {
-        Button(action: { if number > 0 { number -= 1 } }) {
+        Button(action: { if number > 1 { number -= 1 } }) {
             ZStack {
                 Circle()
-                    .stroke(number > 0 ? Color.primaryGreen : Color.gray04, lineWidth: 2)
+                    .stroke(number > 1 ? Color.primaryGreen : Color.gray04, lineWidth: 2)
                     .foregroundColor(.gray01)
                     .frame(width: 20, height: 20)
                 Image(systemName: "minus")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 10, height: 10)
-                    .foregroundColor(number > 0 ? Color.primaryGreen : Color.gray04)
+                    .foregroundColor(number > 1 ? Color.primaryGreen : Color.gray04)
             }
         }
-        .disabled(number <= 0)
+        .disabled(number <= 1)
     }
 
     private var plusButton: some View {
@@ -120,7 +113,7 @@ struct CharacterCountSelectPhoneLayout: View {
 struct CharacterCountSelectPadLayout: View {
     @ObservedObject var navModel: NavigationViewModel
     @Binding var number: Int
-    @Binding var showAlert: Bool
+ 
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -161,36 +154,31 @@ struct CharacterCountSelectPadLayout: View {
             VStack {
                 Spacer()
                 SquareButton(color: .green, label: "설정하기") {
-                    if number > 0 {
+                    if number > 1 {
                         navModel.navigate(to: .characterCreate(number: number))
-                    } else {
-                        showAlert = true
                     }
                 }
                 .padding(.bottom, 60)
             }
         }
-        .alert("캐릭터를 한 명 이상 선택해주세요!", isPresented: $showAlert) {
-            Button("확인", role: .cancel) {}
-        }
         .toolbar(.hidden, for: .navigationBar)
     }
 
     private var minusButton: some View {
-        Button(action: { if number > 0 { number -= 1 } }) {
+        Button(action: { if number > 1 { number -= 1 } }) {
             ZStack {
                 Circle()
-                    .stroke(number > 0 ? Color.primaryGreen : Color.gray04, lineWidth: 4)
+                    .stroke(number > 1 ? Color.primaryGreen : Color.gray04, lineWidth: 4)
                     .foregroundColor(.gray01)
                     .frame(width: 40, height: 40)
                 Image(systemName: "minus")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 20, height: 20)
-                    .foregroundColor(number > 0 ? Color.primaryGreen : Color.gray04)
+                    .foregroundColor(number > 1 ? Color.primaryGreen : Color.gray04)
             }
         }
-        .disabled(number <= 0)
+        .disabled(number <= 1)
     }
 
     private var plusButton: some View {
@@ -214,4 +202,5 @@ struct CharacterCountSelectPadLayout: View {
 
 #Preview {
     CharacterCountSelectView()
+        .environmentObject(NavigationViewModel())
 }
