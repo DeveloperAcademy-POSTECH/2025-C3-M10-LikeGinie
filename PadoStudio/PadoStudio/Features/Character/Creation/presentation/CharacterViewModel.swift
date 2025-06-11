@@ -89,6 +89,7 @@ final class CharacterViewModel: ObservableObject {
     }
     
     func initializeDefaultSelections(count: Int) {
+        
         // 먼저 각 파트별로 디폴트 에셋을 1회만 탐색하여 저장
         var defaultAssetsByPart: [CharacterPartType: CharacterAsset] = [:]
 

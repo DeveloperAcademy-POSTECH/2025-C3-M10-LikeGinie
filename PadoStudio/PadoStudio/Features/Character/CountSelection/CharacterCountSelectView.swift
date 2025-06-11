@@ -154,7 +154,7 @@ struct CharacterCountSelectPadLayout: View {
             VStack {
                 Spacer()
                 SquareButton(color: .green, label: "설정하기") {
-                    if number > 1 {
+                    if number >= 1 {
                         navModel.navigate(to: .characterCreate(number: number))
                     }
                 }
