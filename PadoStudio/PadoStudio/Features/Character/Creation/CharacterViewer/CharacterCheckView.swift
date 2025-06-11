@@ -11,6 +11,8 @@ struct CharacterCheckView: View {
     @EnvironmentObject var navModel: NavigationViewModel
     @EnvironmentObject var viewModel: CharacterFrameViewModel
 
+    let size = CGSize(width: 1000, height: 1000)
+
     var body: some View {
         ZStack {
             // 전체 배경 이미지
@@ -29,7 +31,6 @@ struct CharacterCheckView: View {
                 VStack(spacing: 2) {
                     
                     Spacer().frame(height: 160) // SurferCharacterView 위에 여백
-                    
                     SurferCharacterView()
                     CharacterTextView()
                 }
@@ -53,4 +54,6 @@ struct CharacterCheckView: View {
 
 #Preview {
     CharacterCheckView()
+        .environmentObject(NavigationViewModel())
+        .environmentObject(CharacterFrameViewModel())
 }

@@ -25,6 +25,7 @@ struct ScreenRatioUtility {
     // 공통 크기 계산
     static var imageWidth: CGFloat { screenWidth * 0.8 }
     static var imageHeight: CGFloat { imageWidth * 4 / 3 }
+
     
     //프리뷰 사진 크기
     static var previewWidth: CGFloat { screenWidth * 0.6 }
