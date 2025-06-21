@@ -15,14 +15,21 @@ enum ToolbarTitleColor {
 struct ToolbarView: View {
     let title: String
     let titleColor: ToolbarTitleColor
+    let backAction: (() -> Void)?
     @Environment(\.dismiss) private var dismiss
     @Environment(\.horizontalSizeClass) private var sizeClass
 
+    init(title: String, titleColor: ToolbarTitleColor, backAction: (() -> Void)? = nil) {
+        self.title = title
+        self.titleColor = titleColor
+        self.backAction = backAction
+    }
+
     var body: some View {
         if sizeClass == .regular {
-            ToolbarPadLayout(title: title, titleColor: titleColor)
+            ToolbarPadLayout(title: title, titleColor: titleColor, backAction: backAction)
         } else {
-            ToolbarPhoneLayout(title: title, titleColor: titleColor)
+            ToolbarPhoneLayout(title: title, titleColor: titleColor, backAction: backAction)
         }
     }
 }
@@ -31,13 +38,18 @@ struct ToolbarView: View {
 struct ToolbarPhoneLayout: View {
     let title: String
     let titleColor: ToolbarTitleColor
-    @Environment(\.dismiss) private var dismiss   // 추가
+    let backAction: (() -> Void)?
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         HStack {
             Color.clear.frame(width: 16)
             Button(action: {
-                dismiss()   // 뒤로가기 동작
+                if let backAction = backAction {
+                    backAction()
+                } else {
+                    dismiss()
+                }
             }) {
                 Circle()
                     .fill(Color.white)
@@ -65,13 +77,18 @@ struct ToolbarPhoneLayout: View {
 struct ToolbarPadLayout: View {
     let title: String
     let titleColor: ToolbarTitleColor
-    @Environment(\.dismiss) private var dismiss   // 추가
+    let backAction: (() -> Void)?
+    @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         HStack {
             Color.clear.frame(width: 40)
             Button(action: {
-                dismiss()   // 뒤로가기 동작
+                if let backAction = backAction {
+                    backAction()
+                } else {
+                    dismiss()
+                }
             }) {
                 Circle()
                     .fill(Color.white)
