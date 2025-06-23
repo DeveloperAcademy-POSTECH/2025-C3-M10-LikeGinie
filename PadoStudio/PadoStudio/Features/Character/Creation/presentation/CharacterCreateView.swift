@@ -11,6 +11,7 @@ struct CharacterCreateView: View {
     let number: Int
     @StateObject var viewModel = CharacterViewModel()
     @State private var currentIndex: Int = 0
+    @State private var showBackAlert = false
     @EnvironmentObject var navModel: NavigationViewModel
 
     var body: some View {
@@ -27,7 +28,9 @@ struct CharacterCreateView: View {
 
                 VStack {
                     // MARK: Toolbar
-                    ToolbarView(title: "캐릭터 만들기", titleColor: .white)
+                    ToolbarView(title: "캐릭터 만들기", titleColor: .white) {
+                        showBackAlert = true
+                    }
                         .padding(.top, 48)
 
                     // MARK: 캐릭터 전환
@@ -96,6 +99,14 @@ struct CharacterCreateView: View {
                     await viewModel.resetCharacterCreationSession()
                     viewModel.initializeDefaultSelections(count: number)
                 }
+            }
+            .alert("캐릭터가 초기화됩니다!", isPresented: $showBackAlert) {
+                Button("취소", role: .cancel) { }
+                Button("인원 수정하기", role: .destructive) {
+                    navModel.path.removeLast()
+                }
+            } message: {
+                Text("이전 화면으로 돌아가면 생성된 캐릭터가 저장되지 않습니다")
             }
     }
 }
