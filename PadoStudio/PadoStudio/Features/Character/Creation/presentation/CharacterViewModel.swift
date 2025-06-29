@@ -109,7 +109,7 @@ final class CharacterViewModel: ObservableObject {
 
     // 캐릭터 만들기 시작 시 전체 삭제 -> 촬영 완료시 or 앱 시작시로 변경
     func clearCharacterPreviewDirectory() {
-        try? CharacterImageStorageManager.removeCharacterDirectory()
+        try? CharacterImageStorageManager.removeCharacterDirectoryContents()
     }
 
     func clearSavedCharactersFromDatabase() async {

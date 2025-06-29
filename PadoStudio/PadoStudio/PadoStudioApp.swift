@@ -11,6 +11,7 @@ import SwiftUI
 struct PadoStudioApp: App {
     init() {
         UIView.appearance(whenContainedInInstancesOf: [UIWindow.self]).overrideUserInterfaceStyle = .light
+        DatabaseFileManager.removeStoreFileIfExists()
     }
 
     var body: some Scene {
@@ -18,6 +19,6 @@ struct PadoStudioApp: App {
             NavigationHostView()
                 .environmentObject(NavigationViewModel())
         }
-        .modelContainer(for: [SnapshotEntity.self])
+        .modelContainer(for: [SnapshotEntity.self, CharacterEntity.self])
     }
 }
