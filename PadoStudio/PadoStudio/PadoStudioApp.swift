@@ -11,7 +11,6 @@ import SwiftUI
 struct PadoStudioApp: App {
     init() {
         UIView.appearance(whenContainedInInstancesOf: [UIWindow.self]).overrideUserInterfaceStyle = .light
-        // DatabaseFileManager.removeStoreFileIfExists() // 주석 처리: 데이터 지속성을 위해 제s
     }
 
     var body: some Scene {
