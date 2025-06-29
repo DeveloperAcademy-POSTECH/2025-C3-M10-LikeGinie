@@ -28,8 +28,8 @@ final class GalleryViewModel: ObservableObject {
 
             groupedSnapshots = grouped
             isEmpty = snapshots.isEmpty
-            print(">>> Snapshots count: \n", snapshots.count)
-            print("snapshots: \(snapshots)")
+            print(">>> Snapshots count: \(snapshots.count)")
+            print(">>> Grouped snapshots: \(grouped.keys.sorted())")
         } catch {
             print("Error fetching snapshots: \(error)")
             groupedSnapshots = [:]

@@ -23,29 +23,32 @@ final class DefaultLocalSnapshotDatasource: LocalSnapshotDatasource {
     }
 
     func save(snapshot: SnapshotEntity) async throws {
+        print("[LocalDatasource] SwiftData save() 시작: \(snapshot.id)")
         context.insert(snapshot)
         do {
             try context.save()
             print("[LocalDatasource] SwiftData save() 성공: \(snapshot.id)")
+            print("[LocalDatasource] 이미지 경로: \(snapshot.imagePath)")
         } catch {
-            print(
-                "[LocalDatasource] SwiftData save() 오류: \(error.localizedDescription)"
-            )
+            print("[LocalDatasource] SwiftData save() 오류: \(error.localizedDescription)")
+            print("[LocalDatasource] 오류 상세: \(error)")
             throw error
         }
     }
 
     func fetchAll() async throws -> [SnapshotEntity] {
+        print("[LocalDatasource] SwiftData fetchAll() 시작")
         let descriptor = FetchDescriptor<SnapshotEntity>()
         do {
             let results = try context.fetch(descriptor)
-            print(
-                "[LocalDatasource] SwiftData fetchAll() 성공: \(results.count)개")
+            print("[LocalDatasource] SwiftData fetchAll() 성공: \(results.count)개")
+            for result in results {
+                print("[LocalDatasource] - ID: \(result.id), 경로: \(result.imagePath)")
+            }
             return results
         } catch {
-            print(
-                "[LocalDatasource] SwiftData fetchAll() 오류: \(error.localizedDescription)"
-            )
+            print("[LocalDatasource] SwiftData fetchAll() 오류: \(error.localizedDescription)")
+            print("[LocalDatasource] 오류 상세: \(error)")
             throw error
         }
     }
