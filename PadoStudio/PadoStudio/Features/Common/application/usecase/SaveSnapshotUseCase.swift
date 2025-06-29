@@ -10,6 +10,14 @@ struct SaveSnapshotUseCase {
     let repository: SnapshotRepository
 
     func callAsFunction(_ snapshot: Snapshot) async throws {
-        try await repository.save(snapshot)
+        do {
+            try await repository.save(snapshot)
+            print("[SaveSnapshotUseCase] repository.save() 성공")
+        } catch {
+            print(
+                "[SaveSnapshotUseCase] repository.save() 오류: \(error.localizedDescription)"
+            )
+            throw error
+        }
     }
 }

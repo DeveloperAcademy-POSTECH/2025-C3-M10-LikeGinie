@@ -8,7 +8,6 @@
 
 import SwiftData
 import SwiftUI
-#if DEBUG
 
 struct PhotoView: View {
     let imageModel: GalleryData
@@ -48,10 +47,7 @@ struct PhotoView: View {
         }
     }
 }
-#endif
 
- 
-#if DEBUG
 #Preview {
     PhotoView(
         imageModel: GalleryData(
@@ -62,4 +58,3 @@ struct PhotoView: View {
         reloadTrigger: .constant(false)
     )
 }
-#endif
