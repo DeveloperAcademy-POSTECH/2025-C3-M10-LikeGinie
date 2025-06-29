@@ -61,24 +61,45 @@ struct CharacterCreateView: View {
                                 width: proxy.size.width * 0.4,
                                 height: proxy.size.height * 0.06
                             ) {
+                                currentIndex += 1
                                 viewModel.resetCharacter()
                             }
-
-                            CharacterActionButton(
-                                title: "저장하기",
-                                foreground: .white,
-                                background: .primaryGreen,
-                                font: .title3RegularResponsive(
-                                    size: 13, proxy: proxy),
-                                width: proxy.size.width * 0.4,
-                                height: proxy.size.height * 0.06
-                            ) {
-                                viewModel.saveAllCharacterSnapshots(
-                                    count: number, imageSize: proxy.size
+                            
+                            if currentIndex != number - 1 {
+                                CharacterActionButton(
+                                    title: "다음",
+                                    foreground: .white,
+                                    background: .primaryGreen,
+                                    font: .title3RegularResponsive(
+                                        size: 13, proxy: proxy),
+                                    width: proxy.size.width * 0.4,
+                                    height: proxy.size.height * 0.06
                                 ) {
-                                    navModel.path.append(AppRoute.characterCheck)
+                                    viewModel.saveAllCharacterSnapshots(
+                                        count: number, imageSize: proxy.size
+                                    ) {
+                                        currentIndex += 1
+                                    }
+                                }
+                                
+                            } else {
+                                CharacterActionButton(
+                                    title: "저장하기",
+                                    foreground: .white,
+                                    background: .primaryGreen,
+                                    font: .title3RegularResponsive(
+                                        size: 13, proxy: proxy),
+                                    width: proxy.size.width * 0.4,
+                                    height: proxy.size.height * 0.06
+                                ) {
+                                    viewModel.saveAllCharacterSnapshots(
+                                        count: number, imageSize: proxy.size
+                                    ) {
+                                        navModel.path.append(AppRoute.characterCheck)
+                                    }
                                 }
                             }
+                            
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.top, 8)
