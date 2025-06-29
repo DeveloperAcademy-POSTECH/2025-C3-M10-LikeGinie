@@ -91,7 +91,6 @@ struct CameraButton: View {
             .frame(width: size, height: size)
             .padding(size * 0.05)
             .background(Circle().fill(Color.primaryGreen))
-            .shadow(color: .black.opacity(0.15), radius: 10, x: 0, y: 4)
         }
     }
 }
@@ -120,7 +119,6 @@ struct GalleryButton: View {
                         Circle().stroke(Color.primaryGreen, lineWidth: 3)
                     )
             )
-            .shadow(color: .black.opacity(0.10), radius: 6, x: 0, y: 2)
         }
     }
 }

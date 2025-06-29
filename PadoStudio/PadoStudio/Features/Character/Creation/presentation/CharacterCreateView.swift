@@ -46,7 +46,9 @@ struct CharacterCreateView: View {
             ToolbarView(title: "캐릭터 만들기", titleColor: .white) {
                 showBackAlert = true
             }
-            .padding(.top, 48)
+                    .safeAreaInset(edge: .top) {
+                        Color.clear.frame(height: 48)
+                    }
 
             CharacterPreviewPager(
                 number: number,
@@ -193,9 +195,8 @@ struct CharacterActionButton: View {
                 .padding(.horizontal, width * 0.1)
                 .frame(minWidth: width, minHeight: height)
                 .background(background)
-                .cornerRadius(12)
+                .cornerRadius(15)
         }
-        .clipShape(Capsule())
     }
 }
 

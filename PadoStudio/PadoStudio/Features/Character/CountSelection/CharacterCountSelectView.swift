@@ -10,13 +10,13 @@ struct CharacterCountSelectView: View {
             CharacterCountSelectPadLayout(
                 navModel: navModel,
                 number: $number
-                
+
             )
         } else {
             CharacterCountSelectPhoneLayout(
                 navModel: navModel,
                 number: $number
-              
+
             )
         }
     }
@@ -32,60 +32,71 @@ struct CharacterCountSelectPhoneLayout: View {
             Image("background2")
                 .resizable()
                 .ignoresSafeArea()
-            
-            ToolbarView(title: "인원 선택하기", titleColor: .black)
-                .padding(.top, 16)
-            
-            VStack {
-                Spacer().frame(height: 250)
-                
-                VStack(spacing: 4) {
-                    Text("몇 명의 캐릭터를 만들까요?")
-                        .font(.eliceBold(size: 25))
-                        .multilineTextAlignment(.center)
-                    Text("최대 6명까지 가능해요!")
-                        .font(.styledRegular(size: 15))
-                        .foregroundColor(.gray)
-                        .multilineTextAlignment(.center)
-                }
-                .frame(maxWidth: .infinity)
 
-                HStack(spacing: 20) {
-                    minusButton
-                    Text("\(number)")
-                        .font(.eliceBold(size: 70))
-                        .frame(minWidth: 60)
-                    plusButton
-                }
+            VStack {
+                ToolbarView(title: "인원 선택하기", titleColor: .black)
+                    .safeAreaInset(edge: .top) {
+                        Color.clear.frame(height: 48)
+                    }
 
                 Spacer()
-                Spacer()
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            
-            VStack {
-                Spacer()
-                SquareButton(color: .green, label: "설정하기") {
-                    if number >= 1 {
-                        navModel.navigate(to: .characterCreate(number: number))
+
+                VStack(spacing: 20) {
+                    VStack(spacing: 4) {
+                        Text("몇 명의 캐릭터를 만들까요?")
+                            .font(.eliceBold(size: 25))
+                            .multilineTextAlignment(.center)
+                        Text("최대 6명까지 가능해요!")
+                            .font(.styledRegular(size: 15))
+                            .foregroundColor(.gray)
+                            .multilineTextAlignment(.center)
+                    }
+
+                    HStack(spacing: 20) {
+                        minusButton
+                        Text("\(number)")
+                            .font(.eliceBold(size: 70))
+                            .frame(minWidth: 60)
+                        plusButton
                     }
                 }
+
+                Spacer()
+
+                SquareButton(color: .green, label: "설정하기") {
+                    if number >= 1 {
+                        navModel.navigate(
+                            to: .characterCreate(number: number)
+                        )
+                    }
+                }
+                .padding(.bottom, 30)
+
             }
+            .padding(.horizontal, 20)
+            .navigationBarTitleDisplayMode(.inline)
         }
+        .ignoresSafeArea()
+
     }
 
     private var minusButton: some View {
         Button(action: { if number > 1 { number -= 1 } }) {
             ZStack {
                 Circle()
-                    .stroke(number > 1 ? Color.primaryGreen : Color.gray04, lineWidth: 2)
+                    .stroke(
+                        number > 1 ? Color.primaryGreen : Color.gray04,
+                        lineWidth: 2
+                    )
                     .foregroundColor(.gray01)
                     .frame(width: 20, height: 20)
                 Image(systemName: "minus")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 10, height: 10)
-                    .foregroundColor(number > 1 ? Color.primaryGreen : Color.gray04)
+                    .foregroundColor(
+                        number > 1 ? Color.primaryGreen : Color.gray04
+                    )
             }
         }
         .disabled(number <= 1)
@@ -95,14 +106,19 @@ struct CharacterCountSelectPhoneLayout: View {
         Button(action: { if number < 6 { number += 1 } }) {
             ZStack {
                 Circle()
-                    .stroke(number < 6 ? Color.primaryGreen : Color.gray04, lineWidth: 2)
+                    .stroke(
+                        number < 6 ? Color.primaryGreen : Color.gray04,
+                        lineWidth: 2
+                    )
                     .foregroundColor(.gray01)
                     .frame(width: 20, height: 20)
                 Image(systemName: "plus")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 10, height: 10)
-                    .foregroundColor(number < 6 ? Color.primaryGreen : Color.gray04)
+                    .foregroundColor(
+                        number < 6 ? Color.primaryGreen : Color.gray04
+                    )
             }
         }
         .disabled(number >= 6)
@@ -113,69 +129,77 @@ struct CharacterCountSelectPhoneLayout: View {
 struct CharacterCountSelectPadLayout: View {
     @ObservedObject var navModel: NavigationViewModel
     @Binding var number: Int
- 
 
     var body: some View {
         ZStack(alignment: .top) {
             Image("background2")
                 .resizable()
                 .ignoresSafeArea()
-            
-            ToolbarView(title: "인원 선택하기", titleColor: .black)
-                .padding(.top, 48)
-            
+            //
             VStack {
-                Spacer().frame(height: 350)
-                
-                VStack(spacing: 12) {
-                    Text("몇 명의 캐릭터를 만들까요?")
-                        .font(.eliceBold(size: 40))
-                        .multilineTextAlignment(.center)
-                    Text("최대 6명까지 가능해요!")
-                        .font(.styledRegular(size: 24))
-                        .foregroundColor(.gray)
-                        .multilineTextAlignment(.center)
-                }
-                .frame(maxWidth: .infinity)
-
-                HStack(spacing: 40) {
-                    minusButton
-                    Text("\(number)")
-                        .font(.eliceBold(size: 120))
-                        .frame(minWidth: 100)
-                    plusButton
-                }
+                ToolbarView(title: "인원 선택하기", titleColor: .black)
+                    .safeAreaInset(edge: .top) {
+                        Color.clear.frame(height: 48)
+                    }
 
                 Spacer()
-                Spacer()
-            }
-            .navigationBarTitleDisplayMode(.inline)
-            
-            VStack {
-                Spacer()
-                SquareButton(color: .green, label: "설정하기") {
-                    if number >= 1 {
-                        navModel.navigate(to: .characterCreate(number: number))
+
+                VStack(spacing: 20) {
+                    VStack(spacing: 4) {
+                        Text("몇 명의 캐릭터를 만들까요?")
+                            .font(.eliceBold(size: 40))
+                            .multilineTextAlignment(.center)
+                        Text("최대 6명까지 가능해요!")
+                            .font(.styledRegular(size: 24))
+                            .foregroundColor(.gray)
+                            .multilineTextAlignment(.center)
+                    }
+
+                    HStack(spacing: 40) {
+                        minusButton
+                        Text("\(number)")
+                            .font(.eliceBold(size: 120))
+                            .frame(minWidth: 100)
+                        plusButton
                     }
                 }
-                .padding(.bottom, 60)
+
+                Spacer()
+
+                SquareButton(color: .green, label: "설정하기") {
+                    if number >= 1 {
+                        navModel.navigate(
+                            to: .characterCreate(number: number)
+                        )
+                    }
+                }
+
             }
+            .padding(.horizontal, 20)
+            .navigationBarTitleDisplayMode(.inline)
         }
         .toolbar(.hidden, for: .navigationBar)
+        .ignoresSafeArea()
+
     }
 
     private var minusButton: some View {
         Button(action: { if number > 1 { number -= 1 } }) {
             ZStack {
                 Circle()
-                    .stroke(number > 1 ? Color.primaryGreen : Color.gray04, lineWidth: 4)
+                    .stroke(
+                        number > 1 ? Color.primaryGreen : Color.gray04,
+                        lineWidth: 4
+                    )
                     .foregroundColor(.gray01)
                     .frame(width: 40, height: 40)
                 Image(systemName: "minus")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 20, height: 20)
-                    .foregroundColor(number > 1 ? Color.primaryGreen : Color.gray04)
+                    .foregroundColor(
+                        number > 1 ? Color.primaryGreen : Color.gray04
+                    )
             }
         }
         .disabled(number <= 1)
@@ -185,20 +209,24 @@ struct CharacterCountSelectPadLayout: View {
         Button(action: { if number < 6 { number += 1 } }) {
             ZStack {
                 Circle()
-                    .stroke(number < 6 ? Color.primaryGreen : Color.gray04, lineWidth: 4)
+                    .stroke(
+                        number < 6 ? Color.primaryGreen : Color.gray04,
+                        lineWidth: 4
+                    )
                     .foregroundColor(.gray01)
                     .frame(width: 40, height: 40)
                 Image(systemName: "plus")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 20, height: 20)
-                    .foregroundColor(number < 6 ? Color.primaryGreen : Color.gray04)
+                    .foregroundColor(
+                        number < 6 ? Color.primaryGreen : Color.gray04
+                    )
             }
         }
         .disabled(number >= 6)
     }
 }
-
 
 #Preview {
     CharacterCountSelectView()

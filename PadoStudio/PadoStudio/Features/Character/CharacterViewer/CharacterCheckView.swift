@@ -14,49 +14,59 @@ struct CharacterCheckView: View {
     let size = CGSize(width: 1000, height: 1000)
 
     var body: some View {
-        ZStack {
-            // 전체 배경 이미지
-            Image("background1 1")
-                .resizable()
-                .ignoresSafeArea()
-            
-            VStack(spacing: 0) {
-                // 중앙에 오게 하기 위한 Spacer
-                ToolbarView(title: "캐릭터 확인", titleColor: .white)
-                    .padding(.top, 48)
-                
-                Spacer()
+        GeometryReader { proxy in
 
-                // 캐릭터와 텍스트 묶음
-                VStack(spacing: 2) {
-                    
-                    Spacer().frame(height: 160) // SurferCharacterView 위에 여백
-                    if viewModel.characterImages.count > 6 {
-                        ScrollView(.horizontal){
-                            SurferCharacterView()
+            ZStack {
+                // 전체 배경 이미지
+                Image("background1 1")
+                    .resizable()
+                    .ignoresSafeArea()
 
+                VStack(spacing: 0) {
+                    // 중앙에 오게 하기 위한 Spacer
+                    ToolbarView(title: "캐릭터 확인", titleColor: .white)
+                        .safeAreaInset(edge: .top) {
+                            Color.clear.frame(height: 48)
                         }
-                    } else {
-                        SurferCharacterView()
 
+                    Spacer()
+
+                    // 캐릭터와 텍스트 묶음
+                    VStack(spacing: 2) {
+
+                        Spacer().frame(height: 160)  // SurferCharacterView 위에 여백
+                        if viewModel.characterImages.count > 6 {
+                            ScrollView(.horizontal) {
+                                SurferCharacterView()
+                            }
+                        } else {
+                            SurferCharacterView()
+                        }
+                        CharacterTextView(proxy: proxy)
                     }
-                    CharacterTextView()
+
+                    // 아래쪽 Spacer
+                    Spacer()
+
+                    // 하단 버튼
+                    SquareButton(
+                        color: .green,
+                        label: "확인",
+                        action: {
+                            if viewModel.saveComposedImageToCache() != nil {
+                                navModel.path.append(
+                                    AppRoute.frameSelect
+                                )
+                            }
+                        }
+                    )
                 }
-
-                // 아래쪽 Spacer
-                Spacer()
-
-                // 하단 버튼
-                SquareButton(color: .green, label: "확인", action: {
-                    if let savedPath = viewModel.saveComposedImageToCache() {
-                        navModel.path.append(
-                            AppRoute.frameSelect)
-                    }
-                })
-                    .padding(.bottom, 60.scaled)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+
         }
+        .ignoresSafeArea()
+
     }
 }
 

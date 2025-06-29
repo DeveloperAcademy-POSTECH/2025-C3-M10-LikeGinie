@@ -32,6 +32,7 @@ struct RoundButton: View {
                 }
             }
         }
+        .padding(.bottom, 60)
     }
 }
 
