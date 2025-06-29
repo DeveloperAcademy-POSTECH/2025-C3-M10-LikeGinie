@@ -152,9 +152,8 @@ struct CharacterActionButton: View {
                 .padding(.horizontal, width * 0.1)
                 .frame(minWidth: width, minHeight: height)
                 .background(background)
-                .cornerRadius(12)
+                .cornerRadius(15)
         }
-        .clipShape(Capsule())
     }
 }
 
