@@ -151,12 +151,7 @@ struct ActionButtonPanel: View {
                 width: proxy.size.width * 0.4,
                 height: proxy.size.height * 0.06
             ) {
-                viewModel.saveAllCharacterSnapshots(
-                    count: number,
-                    imageSize: proxy.size
-                ) {
-                    viewModel.nextPage(count: number)
-                }
+                viewModel.nextPage(count: number)
             }
         } else {
             CharacterActionButton(

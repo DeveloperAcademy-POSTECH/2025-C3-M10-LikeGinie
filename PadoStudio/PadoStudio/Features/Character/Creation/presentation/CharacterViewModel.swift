@@ -83,6 +83,7 @@ final class CharacterViewModel: ObservableObject {
         let characterDir = FileManager.default.urls(
             for: .documentDirectory, in: .userDomainMask
         ).first!.appendingPathComponent("character")
+        print("paths.count: \(paths.count)")
         for index in 0..<paths.count {
             guard let selectedAssets = selections[index] else {
                 print("Failed to map to domain character for index \(index).")
@@ -91,6 +92,7 @@ final class CharacterViewModel: ObservableObject {
             let path = characterDir.appendingPathComponent(
                 "character-preview-\(index).png"
             ).path
+            print("path \(path)")
             guard
                 let character = CharacterMapper.toDomainCharacter(
                     from: selectedAssets, imagePath: path)

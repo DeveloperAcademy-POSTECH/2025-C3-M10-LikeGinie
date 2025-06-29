@@ -15,12 +15,14 @@ struct DefaultCharacterRepository: CharacterRepository {
     }
 
     func save(_ character: Character) async throws {
+        print(">>> save \(character)")
         let entity = CharacterEntity.fromDomainModel(character)
         try await local.save(character: entity)
     }
 
     func fetchAll() async throws -> [Character] {
         let entities = try await local.fetchAll()
+        print(">>> fetchAll \(entities.count)")
         return entities.map { $0.toDomainModel() }
     }
 
