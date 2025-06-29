@@ -26,7 +26,10 @@ final class GalleryViewModel: ObservableObject {
                 formatter.string(from: item.date)
             }
 
-            groupedSnapshots = grouped
+            groupedSnapshots = grouped.mapValues { items in
+                        items.sorted { $0.date > $1.date }
+                    }
+            
             isEmpty = snapshots.isEmpty
             print(">>> Snapshots count: \(snapshots.count)")
             print(">>> Grouped snapshots: \(grouped.keys.sorted())")
