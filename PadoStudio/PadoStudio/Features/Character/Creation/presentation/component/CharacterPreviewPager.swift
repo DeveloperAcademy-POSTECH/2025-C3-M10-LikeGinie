@@ -24,7 +24,9 @@ struct CharacterPreviewPager: View {
                     characterPreviewStack
                         .padding(.horizontal)
                 }
-                .frame(width: proxy.size.width * 0.5, height: proxy.size.height * 0.3)
+                .frame(
+                    width: proxy.size.width * 0.5,
+                    height: proxy.size.height * 0.3)
 
                 rightArrowButton
             }
@@ -33,7 +35,10 @@ struct CharacterPreviewPager: View {
             HStack(spacing: 8) {
                 ForEach(0..<number, id: \.self) { index in
                     Circle()
-                        .fill(index == currentIndex ? Color.primaryGreen : Color.gray05)
+                        .fill(
+                            index == currentIndex
+                                ? Color.primaryGreen : Color.gray05
+                        )
                         .frame(width: 8, height: 8)
                 }
             }
@@ -44,11 +49,7 @@ struct CharacterPreviewPager: View {
     }
 
     private var leftArrowButton: some View {
-        Button(action: {
-            if currentIndex > 0 {
-                currentIndex -= 1
-            }
-        }) {
+        Button(action: viewModel.prevPage) {
             Image(systemName: "chevron.left")
                 .foregroundColor(.white)
                 .font(.system(size: 24, weight: .bold))
@@ -58,11 +59,7 @@ struct CharacterPreviewPager: View {
     }
 
     private var rightArrowButton: some View {
-        Button(action: {
-            if currentIndex < number - 1 {
-                currentIndex += 1
-            }
-        }) {
+        Button(action: { viewModel.nextPage(count: number) }) {
             Image(systemName: "chevron.right")
                 .foregroundColor(.white)
                 .font(.system(size: 24, weight: .bold))
@@ -95,6 +92,8 @@ struct CharacterPreviewPager: View {
 #Preview {
     GeometryReader { proxy in
         CharacterPreviewPager(
-            number: 3, currentIndex: .constant(0), viewModel: CharacterViewModel(), proxy: proxy).background(Color.gray)
+            number: 3, currentIndex: .constant(0),
+            viewModel: CharacterViewModel(), proxy: proxy
+        ).background(Color.gray)
     }
 }

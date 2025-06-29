@@ -10,7 +10,6 @@ import SwiftUI
 struct CharacterCreateView: View {
     let number: Int
     @StateObject var viewModel = CharacterViewModel()
-    @State private var currentIndex: Int = 0
     @State private var showBackAlert = false
     @EnvironmentObject var navModel: NavigationViewModel
 
@@ -31,11 +30,11 @@ struct CharacterCreateView: View {
                     ToolbarView(title: "캐릭터 만들기", titleColor: .white) {
                         showBackAlert = true
                     }
-                        .padding(.top, 48)
+                    .padding(.top, 48)
 
                     // MARK: 캐릭터 전환
                     CharacterPreviewPager(
-                        number: number, currentIndex: $currentIndex,
+                        number: number, currentIndex: $viewModel.currentIndex,
                         viewModel: viewModel, proxy: proxy)
 
                     VStack {
@@ -47,7 +46,7 @@ struct CharacterCreateView: View {
                         CharacterAssetGrid(
                             proxy: proxy,
                             viewModel: viewModel,
-                            currentIndex: currentIndex
+                            currentIndex: viewModel.currentIndex
                         )
 
                         // 하단 버튼
@@ -61,11 +60,11 @@ struct CharacterCreateView: View {
                                 width: proxy.size.width * 0.4,
                                 height: proxy.size.height * 0.06
                             ) {
-                                currentIndex += 1
                                 viewModel.resetCharacter()
+                                viewModel.resetPage()
                             }
-                            
-                            if currentIndex != number - 1 {
+
+                            if viewModel.currentIndex != number - 1 {
                                 CharacterActionButton(
                                     title: "다음",
                                     foreground: .white,
@@ -78,10 +77,10 @@ struct CharacterCreateView: View {
                                     viewModel.saveAllCharacterSnapshots(
                                         count: number, imageSize: proxy.size
                                     ) {
-                                        currentIndex += 1
+                                        viewModel.nextPage(count: number)
                                     }
                                 }
-                                
+
                             } else {
                                 CharacterActionButton(
                                     title: "저장하기",
@@ -95,11 +94,12 @@ struct CharacterCreateView: View {
                                     viewModel.saveAllCharacterSnapshots(
                                         count: number, imageSize: proxy.size
                                     ) {
-                                        navModel.path.append(AppRoute.characterCheck)
+                                        navModel.path.append(
+                                            AppRoute.characterCheck)
                                     }
                                 }
                             }
-                            
+
                         }
                         .frame(maxWidth: .infinity)
                         .padding(.top, 8)
@@ -122,7 +122,7 @@ struct CharacterCreateView: View {
                 }
             }
             .alert("캐릭터가 초기화됩니다!", isPresented: $showBackAlert) {
-                Button("취소", role: .cancel) { }
+                Button("취소", role: .cancel) {}
                 Button("인원 수정하기", role: .destructive) {
                     navModel.path.removeLast()
                 }

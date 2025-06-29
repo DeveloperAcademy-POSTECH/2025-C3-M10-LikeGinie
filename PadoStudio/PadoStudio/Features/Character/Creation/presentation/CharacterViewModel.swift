@@ -13,9 +13,26 @@ final class CharacterViewModel: ObservableObject {
     @Dependency(\.saveCharacterUseCase) var saveCharacterUseCase
     @Dependency(\.deleteAllCharactersUseCase) var deleteAllCharactersUseCase
     @Published var selections: [Int: [CharacterPartType: CharacterAsset]] = [:]
+    @Published var currentIndex: Int = 0
     @Published var selectedPart: CharacterPartType = .hair
 
     let assets: [CharacterAsset] = CharacterAssetMock.mockCharacterAssets
+
+    func nextPage(count: Int) {
+        if currentIndex < count - 1 {
+            currentIndex += 1
+        }
+    }
+
+    func prevPage() {
+        if currentIndex > 0 {
+            currentIndex -= 1
+        }
+    }
+
+    func resetPage() {
+        currentIndex = 0
+    }
 
     func select(asset: CharacterAsset, index: Int) {
         if selections[index] == nil {
@@ -49,6 +66,8 @@ final class CharacterViewModel: ObservableObject {
         onFinished: @escaping () -> Void
     ) {
         Task {
+            print(">> viewmodel count: \(count)")
+            print(">> viewmodel selections: \(selections.count)")
             let savedPaths = await CharacterSnapshotManager.saveAllSnapshots(
                 selections: selections,
                 count: count,
@@ -87,9 +106,9 @@ final class CharacterViewModel: ObservableObject {
             }
         }
     }
-    
+
     func initializeDefaultSelections(count: Int) {
-        
+
         // 먼저 각 파트별로 디폴트 에셋을 1회만 탐색하여 저장
         var defaultAssetsByPart: [CharacterPartType: CharacterAsset] = [:]
 
@@ -120,7 +139,7 @@ final class CharacterViewModel: ObservableObject {
             print("SwiftData 삭제 오류: \(error)")
         }
     }
-    
+
     @MainActor
     func resetCharacterCreationSession() async {
         clearCharacterPreviewDirectory()
