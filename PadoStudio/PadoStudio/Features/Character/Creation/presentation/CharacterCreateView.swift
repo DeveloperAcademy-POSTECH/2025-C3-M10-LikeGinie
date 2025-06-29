@@ -31,8 +31,10 @@ struct CharacterCreateView: View {
                     ToolbarView(title: "캐릭터 만들기", titleColor: .white) {
                         showBackAlert = true
                     }
-                        .padding(.top, 48)
-
+                    .safeAreaInset(edge: .top) {
+                        Color.clear.frame(height: 48)
+                    }
+                    
                     // MARK: 캐릭터 전환
                     CharacterPreviewPager(
                         number: number, currentIndex: $currentIndex,

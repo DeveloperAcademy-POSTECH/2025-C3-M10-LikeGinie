@@ -34,7 +34,6 @@ struct CharacterCountSelectPhoneLayout: View {
                 .ignoresSafeArea()
             
             ToolbarView(title: "인원 선택하기", titleColor: .black)
-                .padding(.top, 16)
             
             VStack {
                 Spacer().frame(height: 250)

@@ -48,7 +48,10 @@ struct CharacterFrameSelectionBody: View {
             VStack {
                 // 네비게이션바
                 ToolbarView(title: "프레임 고르기", titleColor: .black)
-                    .padding(.top, 48)
+                    .safeAreaInset(edge: .top) {
+                        Color.clear.frame(height: 48)
+                    }
+
 
                 Spacer()
 

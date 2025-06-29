@@ -23,8 +23,7 @@ struct CharacterCheckView: View {
             VStack(spacing: 0) {
                 // 중앙에 오게 하기 위한 Spacer
                 ToolbarView(title: "캐릭터 확인", titleColor: .white)
-                    .padding(.top, 48)
-                
+
                 Spacer()
 
                 // 캐릭터와 텍스트 묶음
