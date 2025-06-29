@@ -13,7 +13,7 @@ class GalleryData {
     var filePath: String
 
     init(id: UUID = UUID(), date: Date = Date(), filePath: String) {
-        self.id = UUID()
+        self.id = id // UUID() 대신 매개변수로 받은 id 사용
         self.date = date
         self.filePath = filePath
     }
