@@ -9,24 +9,40 @@ import SwiftUI
 
 struct HomeButtonView: View {
     @EnvironmentObject var navModel: NavigationViewModel
-    
-    var body: some View {
-        Button {
-            print("홈으로")
-            navModel.navigateToRoot()
-        } label: {
-            Circle()
-                .fill(Color.white)
-                .frame(width: 80, height: 80)
-                .overlay(
-                    Image(systemName: "house")
-                        .foregroundColor(.primaryGreen)
-                        .font(.eliceBold(size: 30))
-                    )
+    let proxy: GeometryProxy
+    let buttonSize: (width: CGFloat, font: CGFloat, fheight: CGFloat, padding: CGFloat) = {
+        switch UIDevice.current.userInterfaceIdiom {
+        case .pad:
+            return (width: 80, font: 30, fheight: 80, padding: 40)
+        default:
+            return (width: 44, font: 20, fheight: 60, padding: 16)
         }
+    }()
+
+    var body: some View {
+        HStack {
+            Button {
+                print("홈으로")
+                navModel.navigateToRoot()
+            } label: {
+                Circle()
+                    .fill(Color.white)
+                    .frame(width: buttonSize.width, height: buttonSize.width)
+                    .overlay(
+                        Image(systemName: "house")
+                            .foregroundColor(.primaryGreen)
+                            .font(.eliceBold(size: buttonSize.font))
+                    )
+            }
+            Spacer()
+        }
+        .padding(.horizontal, buttonSize.padding)
+        .frame(height: buttonSize.fheight)
     }
 }
 
 #Preview {
-    HomeButtonView()
+    GeometryReader { proxy in
+        HomeButtonView(proxy: proxy)
+    }
 }
