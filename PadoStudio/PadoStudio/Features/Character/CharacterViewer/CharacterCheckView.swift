@@ -37,10 +37,10 @@ struct CharacterCheckView: View {
                         Spacer().frame(height: 160)  // SurferCharacterView 위에 여백
                         if viewModel.characterImages.count > 6 {
                             ScrollView(.horizontal) {
-                                SurferCharacterView()
+                                SurferCharacterView(proxy: proxy)
                             }
                         } else {
-                            SurferCharacterView()
+                            SurferCharacterView(proxy: proxy)
                         }
                         CharacterTextView(proxy: proxy)
                     }
