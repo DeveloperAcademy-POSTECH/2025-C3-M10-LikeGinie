@@ -10,8 +10,6 @@ struct DeleteSnapshotUseCase {
     let repository: SnapshotRepository
 
     func callAsFunction(_ id: UUID) async throws {
-        if let snapshot = try await repository.get(by: id) {
-            try await repository.delete(snapshot)
-        }
+        try await repository.delete(id: id)
     }
 }

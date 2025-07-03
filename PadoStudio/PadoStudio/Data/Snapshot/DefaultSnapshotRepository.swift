@@ -14,9 +14,10 @@ struct DefaultSnapshotRepository: SnapshotRepository {
         self.local = local
     }
 
-    func delete(_ snapshot: Snapshot) async throws {
-        let entity = SnapshotEntity.fromDomainModel(snapshot)
-        try await local.delete(entity)
+    func delete(id: UUID) async throws {
+        if let managedEntity = try await local.get(by: id) {
+            try await local.delete(managedEntity)
+        }
     }
 
     func fetchAll() async throws -> [Snapshot] {
