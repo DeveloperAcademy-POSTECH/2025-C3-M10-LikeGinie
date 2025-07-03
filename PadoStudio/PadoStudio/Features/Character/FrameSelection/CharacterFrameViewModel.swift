@@ -40,7 +40,7 @@ final class CharacterFrameViewModel: ObservableObject {
             return
         }
 
-        let size = CGSize(width: 1000, height: 1000)
+        let size = CGSize(width: 1000.scaled, height: 1000.scaled)
         if let composed = FramePreviewUtil.composeFramedPreviewWithTransparentBase(
             size: size,
             frameImageName: selectedFrame.imgName,

@@ -48,7 +48,7 @@ struct CharacterFrameSelectionBody: View {
             VStack {
                 // 네비게이션바
                 ToolbarView(title: "프레임 고르기", titleColor: .black)
-                    .padding(.top, 48)
+                    .padding(.top, 48.scaled)
 
                 Spacer()
 
@@ -79,7 +79,7 @@ struct CharacterFrameSelectionBody: View {
                     SquareButton(color: .green, label: "촬영하기") {
                         viewModel.showAlert = true
                     }
-                    .padding(.bottom, 60)
+                    .padding(.bottom, 60.scaled)
                     Spacer()
                 }
                 .frame(height: ScreenRatioUtility.screenHeight * 0.3)

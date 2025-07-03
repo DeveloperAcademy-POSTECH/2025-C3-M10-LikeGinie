@@ -19,14 +19,14 @@ struct ImageCheckView: View {
             VStack {
                 HStack {
                     HomeButtonView()
-                        .padding(.horizontal, 40)
+                        .padding(.horizontal, 40.scaled)
                     Spacer()
                 }
-                .padding(.top, 20)
+                .padding(.top, 20.scaled)
                 
                 FramedImageTextView()
                 FramedImageView(identifiableImage: identifiableImage)
-                    .shadow(color: .black.opacity(0.10), radius: 6, x: 0, y: 2)
+                    .shadow(color: .black.opacity(0.10.scaled), radius: 6.scaled, x: 0.scaled, y: 2.scaled)
                     .padding()
                 
                 RoundButton(iconName: "square.and.arrow.up", label: "공유하기", action: {
@@ -40,7 +40,7 @@ struct ImageCheckView: View {
             }
         }
         .toolbar(.hidden, for: .navigationBar)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(maxWidth: .infinity.scaled, maxHeight: .infinity.scaled)
         
     }
 }

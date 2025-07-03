@@ -38,9 +38,9 @@ struct SquareButton: View {
     var body: some View {
         Button(action: action) {
             ZStack {
-                RoundedRectangle(cornerRadius: 20)
+                RoundedRectangle(cornerRadius: 20.scaled)
                     .fill(color.backgroundColor)
-                    .frame(width: 300, height: 80)
+                    .frame(width: 300.scaled, height: 80.scaled)
                 
                 VStack {
                     Text(label)

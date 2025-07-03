@@ -23,8 +23,8 @@ struct CharacterRowView: View {
                     .frame(width: 44.scaled, height: 55.scaled)
                     .clipShape(RoundedRectangle(cornerRadius: 5))
                     .overlay(
-                        RoundedRectangle(cornerRadius: 5)
-                            .stroke(Color.white, lineWidth: 1)
+                        RoundedRectangle(cornerRadius: 5.scaled)
+                            .stroke(Color.white, lineWidth: 1.scaled)
                     )
             }
         }
@@ -45,10 +45,10 @@ struct CharacterRowView: View {
         UIImage(named: "origin-standard") ?? UIImage()
     ]
 
-    VStack(spacing: 20) {
+    VStack(spacing: 20.scaled) {
         // 단독 미리보기
         CharacterRowView(characterImages: dummyImages)
-            .frame(width: 300)
+            .frame(width: 300.scaled)
             .background(Color.gray.opacity(0.1))
     }
     .padding()

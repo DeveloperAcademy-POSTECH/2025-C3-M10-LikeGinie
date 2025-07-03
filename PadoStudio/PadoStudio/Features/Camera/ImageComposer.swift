@@ -179,11 +179,12 @@ private extension ImageComposer {
         // CameraView와 동일한 방식으로 계산
         let imageScale = size.width / ScreenRatioUtility.imageWidth
         
-        // CameraView와 동일한 캐릭터 크기 계산
-        let maxSize = min(180.scaled * imageScale, (size.width) / CGFloat(max(characterCount, 1)))
+        // 디바이스별로 다른 캐릭터 크기 설정
+        let baseCharacterSize: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 180 : 120
+        let maxSize = min(baseCharacterSize.scaled * imageScale, (size.width) / CGFloat(max(characterCount, 1)))
         let spacing = -maxSize * 0.4
         
-        // CameraView와 동일한 bottomPadding 사용
+        // CameraView와 동일한 bottomPadding 사용 - .scaled가 알아서 디바이스별로 조정
         let bottomPadding = 50.scaled * imageScale
         
         // 캐릭터 위치를 더 아래로
@@ -215,13 +216,12 @@ private extension ImageComposer {
         dateFormatter.timeZone = TimeZone(identifier: "Asia/Seoul")
         let dateString = dateFormatter.string(from: Date())
         
-        
-        let fontSize: CGFloat = 20 * (size.width / ScreenRatioUtility.imageWidth)
-        
+        // 디바이스별로 다른 날짜 폰트 크기 설정
+        let baseFontSize: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 20 : 14
+        let fontSize: CGFloat = baseFontSize.scaled * (size.width / ScreenRatioUtility.imageWidth)
         
         let font = UIFont(name: "EliceDigitalBaeum-Bd", size: fontSize) ?? UIFont.systemFont(ofSize: fontSize, weight: .semibold)
         
-       
         let attributes: [NSAttributedString.Key: Any] = [
             .font: font,
             .foregroundColor: UIColor.white,
@@ -232,8 +232,8 @@ private extension ImageComposer {
         let attributedString = NSAttributedString(string: dateString, attributes: attributes)
         let textSize = attributedString.size()
         
-        // 우측 상단 위치 (여백)
-        let margin: CGFloat = ScreenRatioUtility.screenHeight < 812 ? (8 * ScreenRatioUtility.heightRatio) : (40 *  ScreenRatioUtility.heightRatio)
+        // .scaled가 알아서 디바이스별로 조정
+        let margin: CGFloat = ScreenRatioUtility.screenHeight < 812 ? (8.scaled) : (40.scaled)
         
         let textRect = CGRect(
             x: size.width - textSize.width - margin,

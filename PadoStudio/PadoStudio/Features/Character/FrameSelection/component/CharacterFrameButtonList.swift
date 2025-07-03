@@ -21,7 +21,7 @@ struct CharacterFrameButtonList: View {
                         Image(f.btnImgName)
                             .resizable()
                             .scaledToFit()
-                            .cornerRadius(100)
+                            .cornerRadius(100.scaled)
                             .clipShape(Circle())
                             .frame(width: selectedFrame == f ? ScreenRatioUtility.widthRatio * 50 : ScreenRatioUtility.widthRatio * 40)
 
@@ -37,7 +37,7 @@ struct CharacterFrameButtonList: View {
         }
         .padding(.top, 30.scaled)
         .padding(.bottom, 30.scaled)
-        .padding(.horizontal, 8)
+        .padding(.horizontal, 8.scaled)
         .frame(maxWidth: .infinity, alignment: .center)
     }
 }

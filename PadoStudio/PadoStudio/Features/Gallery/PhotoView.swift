@@ -12,6 +12,17 @@ import SwiftUI
 struct PhotoView: View {
     let imageModel: GalleryData
     @Binding var reloadTrigger: Bool
+    
+    // 디바이스별로 이미지 크기 계산
+    private var imageSize: CGSize {
+        let columnCount: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 4 : 3
+        let spacing: CGFloat = 8.scaled * (columnCount - 1)
+        let padding: CGFloat = 28.scaled // 좌우 패딩
+        let availableWidth = ScreenRatioUtility.screenWidth - spacing - padding
+        let width = availableWidth / columnCount
+        let height = width * 4/3 // 4:3 비율 유지
+        return CGSize(width: width, height: height)
+    }
 
     var body: some View {
         VStack {
@@ -23,7 +34,7 @@ struct PhotoView: View {
                     Image(uiImage: uiImage)
                         .resizable()
                         .aspectRatio(contentMode: .fill)
-                        .frame(width: 120, height: 160)
+                        .frame(width: imageSize.width, height: imageSize.height)
                         .clipped()
                         .cornerRadius(8)
                         .shadow(radius: 2)
@@ -33,13 +44,13 @@ struct PhotoView: View {
                     Image(systemName: "exclamationmark.triangle.fill")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 40, height: 40)
+                        .frame(width: 40.scaled, height: 40.scaled)
                         .foregroundColor(.primaryGreen)
                     Text("이미지 없음")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
-                .frame(width: 120, height: 160)
+                .frame(width: imageSize.width, height: imageSize.height)
                 .background(Color.gray.opacity(0.1))
                 .cornerRadius(8)
                 .shadow(radius: 2)

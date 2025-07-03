@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CharacterTextView: View {
     var body: some View {
-        HStack(alignment: .firstTextBaseline, spacing: 2) {  // 👈 베이스라인 정렬!
+        HStack(alignment: .firstTextBaseline, spacing: 2.scaled) {  // 👈 베이스라인 정렬!
             Text("완성된 캐릭터")
                 .font(.title2Bold)
                 .foregroundColor(.black)
@@ -17,7 +17,7 @@ struct CharacterTextView: View {
                 .font(.title3)
         }
         .frame(maxWidth: .infinity, alignment: .center)
-        .frame(height: 60)
+        .frame(height: 60.scaled)
 
     }
 }

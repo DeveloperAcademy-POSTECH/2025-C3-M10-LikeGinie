@@ -17,7 +17,7 @@ struct ScreenRatioUtility {
     private static let baseWidth: CGFloat = 393
     private static let baseHeight: CGFloat = 852
     
-    // 비율 계산
+    // 비율 계산 - 모든 디바이스에서 작은 비율 사용
     static var widthRatio: CGFloat { screenWidth / baseWidth }
     static var heightRatio: CGFloat { screenHeight / baseHeight }
     static var ratio: CGFloat { min(widthRatio, heightRatio) }

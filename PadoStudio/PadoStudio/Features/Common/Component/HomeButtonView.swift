@@ -17,11 +17,11 @@ struct HomeButtonView: View {
         } label: {
             Circle()
                 .fill(Color.white)
-                .frame(width: 80, height: 80)
+                .frame(width: 80.scaled, height: 80.scaled)
                 .overlay(
                     Image(systemName: "house")
                         .foregroundColor(.primaryGreen)
-                        .font(.eliceBold(size: 30))
+                        .font(.eliceBold(size: 30.scaled))
                     )
         }
     }

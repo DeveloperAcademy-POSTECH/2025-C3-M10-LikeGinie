@@ -13,12 +13,11 @@ struct GalleryView: View {
     @Environment(\.dismiss) var dismiss
     @State private var reloadTrigger = false
 
-    let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-    ]
+    // 디바이스별로 다른 컬럼 수 설정
+    private var columns: [GridItem] {
+        let columnCount = UIDevice.current.userInterfaceIdiom == .pad ? 4 : 3
+        return Array(repeating: GridItem(.flexible(), spacing: 8.scaled), count: columnCount)
+    }
 
     var body: some View {
         VStack {
@@ -38,8 +37,8 @@ struct GalleryView: View {
                             viewModel.groupedSnapshots.keys.sorted(by: >),
                             id: \.self
                         ) { dateKey in
-                            VStack(alignment: .leading, spacing: 4) {
-                                HStack(spacing: 8) {
+                            VStack(alignment: .leading, spacing: 4.scaled) {
+                                HStack(spacing: 8.scaled) {
                                     Image("patrick")
                                         .resizable()
                                         .frame(width: 20.scaled, height: 20.scaled)
@@ -49,7 +48,7 @@ struct GalleryView: View {
                                 .padding(.horizontal, 14.scaled)
                             }
 
-                            LazyVGrid(columns: columns) {
+                            LazyVGrid(columns: columns, spacing: 8.scaled) {
                                 ForEach(
                                     viewModel.groupedSnapshots[dateKey] ?? [],
                                     id: \.id
@@ -59,6 +58,7 @@ struct GalleryView: View {
                                         reloadTrigger: $reloadTrigger)
                                 }
                             }
+                            .padding(.horizontal, 14.scaled)
                         }
                     }
                 }
