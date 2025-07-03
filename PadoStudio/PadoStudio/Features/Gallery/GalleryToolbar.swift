@@ -31,8 +31,8 @@ struct GalleryToolbar: View {
             Spacer()
 
         }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 18)
+        .padding(.horizontal, 20.scaled)
+        .padding(.vertical, 18.scaled)
         .padding(.trailing, 50.scaled)
         .background(Color.white)
         .toolbar(.hidden, for: .navigationBar)

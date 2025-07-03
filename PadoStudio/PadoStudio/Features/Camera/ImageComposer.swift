@@ -180,7 +180,8 @@ private extension ImageComposer {
         let imageScale = size.width / ScreenRatioUtility.imageWidth
         
         // CameraView와 동일한 캐릭터 크기 계산
-        let maxSize = min(180.scaled * imageScale, (size.width) / CGFloat(max(characterCount, 1)))
+        let baseCharacterSize: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 180 : 120
+        let maxSize = min(baseCharacterSize.scaled * imageScale, (size.width) / CGFloat(max(characterCount, 1)))
         let spacing = -maxSize * 0.4
         
         // CameraView와 동일한 bottomPadding 사용
@@ -216,7 +217,8 @@ private extension ImageComposer {
         let dateString = dateFormatter.string(from: Date())
         
         
-        let fontSize: CGFloat = 20 * (size.width / ScreenRatioUtility.imageWidth)
+        let baseFontSize: CGFloat = UIDevice.current.userInterfaceIdiom == .pad ? 20 : 14
+        let fontSize: CGFloat = baseFontSize.scaled * (size.width / ScreenRatioUtility.imageWidth)
         
         
         let font = UIFont(name: "EliceDigitalBaeum-Bd", size: fontSize) ?? UIFont.systemFont(ofSize: fontSize, weight: .semibold)
@@ -233,7 +235,7 @@ private extension ImageComposer {
         let textSize = attributedString.size()
         
         // 우측 상단 위치 (여백)
-        let margin: CGFloat = ScreenRatioUtility.screenHeight < 812 ? (8 * ScreenRatioUtility.heightRatio) : (40 *  ScreenRatioUtility.heightRatio)
+        let margin: CGFloat = ScreenRatioUtility.screenHeight < 812 ? (8.scaled) : (40.scaled)
         
         let textRect = CGRect(
             x: size.width - textSize.width - margin,

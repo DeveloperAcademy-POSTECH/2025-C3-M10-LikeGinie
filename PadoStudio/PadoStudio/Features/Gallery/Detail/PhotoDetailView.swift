@@ -41,7 +41,12 @@ struct PhotoDetailView: View {
                         Image(uiImage: uiImage)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .padding(.horizontal, 24)
+                            .frame(
+                                width: ScreenRatioUtility.imageWidth,
+                                height: ScreenRatioUtility.imageHeight
+                            )
+                            .cornerRadius(16.scaled)
+                            .clipped()
                             .padding(.bottom, 30)
                     } else {
                         Text("이미지를 불러올 수 없습니다.")

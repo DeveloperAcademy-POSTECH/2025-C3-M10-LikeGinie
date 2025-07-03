@@ -13,8 +13,12 @@ struct FramedImageView: View {
     var body: some View {
         Image(uiImage: identifiableImage.image)
             .resizable()
-            .scaledToFit()
-            .frame(width: ScreenRatioUtility.previewWidth)
+            .aspectRatio(contentMode: .fit)
+            .frame(
+                width: ScreenRatioUtility.imageWidth,
+                height: ScreenRatioUtility.imageHeight
+            )
+            .clipped()
     }
 }
 

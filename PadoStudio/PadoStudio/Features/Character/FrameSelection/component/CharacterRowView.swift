@@ -45,10 +45,10 @@ struct CharacterRowView: View {
         UIImage(named: "origin-standard") ?? UIImage()
     ]
 
-    VStack(spacing: 20) {
+    VStack(spacing: 20.scaled) {
         // 단독 미리보기
         CharacterRowView(characterImages: dummyImages)
-            .frame(width: 300)
+            .frame(width: 300.scaled)
             .background(Color.gray.opacity(0.1))
     }
     .padding()
