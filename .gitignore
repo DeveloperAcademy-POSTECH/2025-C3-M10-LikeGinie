@@ -16,9 +16,6 @@ DerivedData/
 *.xcresult
 *.log
 
-# MARK: - SwiftUI Previews
-**/Preview Content/
-
 # MARK: - SwiftData (SQLite) & Core Data
 *.sqlite
 *.sqlite-shm
