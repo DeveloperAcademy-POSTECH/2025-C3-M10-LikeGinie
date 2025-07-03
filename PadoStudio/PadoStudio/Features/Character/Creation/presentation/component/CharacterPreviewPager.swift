@@ -30,29 +30,29 @@ struct CharacterPreviewPager: View {
 
                 rightArrowButton
             }
-            .padding(.horizontal, 24)
+            .padding(.horizontal, 24.scaled)
 
-            HStack(spacing: 8) {
+            HStack(spacing: 8.scaled) {
                 ForEach(0..<number, id: \.self) { index in
                     Circle()
                         .fill(
                             index == currentIndex
                                 ? Color.primaryGreen : Color.gray05
                         )
-                        .frame(width: 8, height: 8)
+                        .frame(width: 8.scaled, height: 8.scaled)
                 }
             }
-            .padding(.top, 8)
+            .padding(.top, 8.scaled)
         }
         .frame(maxWidth: .infinity)
-        .padding(.bottom, 24)
+        .padding(.bottom, 24.scaled)
     }
 
     private var leftArrowButton: some View {
         Button(action: viewModel.prevPage) {
             Image(systemName: "chevron.left")
                 .foregroundColor(.white)
-                .font(.system(size: 24, weight: .bold))
+                .font(.system(size: 24.scaled, weight: .bold))
                 .padding()
         }
         .opacity(currentIndex > 0 ? 1 : 0)
@@ -62,7 +62,7 @@ struct CharacterPreviewPager: View {
         Button(action: { viewModel.nextPage(count: number) }) {
             Image(systemName: "chevron.right")
                 .foregroundColor(.white)
-                .font(.system(size: 24, weight: .bold))
+                .font(.system(size: 24.scaled, weight: .bold))
                 .padding()
         }
         .opacity(currentIndex < number - 1 ? 1 : 0)

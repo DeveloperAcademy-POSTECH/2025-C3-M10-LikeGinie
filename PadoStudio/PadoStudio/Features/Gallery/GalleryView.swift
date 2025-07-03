@@ -13,12 +13,10 @@ struct GalleryView: View {
     @Environment(\.dismiss) var dismiss
     @State private var reloadTrigger = false
 
-    let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-    ]
+    private var columns: [GridItem] {
+           let columnCount = UIDevice.current.userInterfaceIdiom == .pad ? 4 : 3
+           return Array(repeating: GridItem(.flexible(), spacing: 8.scaled), count: columnCount)
+       }
 
     var body: some View {
         VStack {

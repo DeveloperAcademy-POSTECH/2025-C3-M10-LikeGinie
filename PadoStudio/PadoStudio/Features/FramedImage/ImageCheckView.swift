@@ -21,7 +21,7 @@ struct ImageCheckView: View {
 
                     HomeButtonView(proxy: proxy)
                         .safeAreaInset(edge: .top) {
-                            Color.clear.frame(height: 48)
+                            Color.clear.frame(height: 48.scaled)
                         }
 
                     Spacer()

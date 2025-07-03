@@ -14,7 +14,7 @@ struct EmptyGalleryView: View {
             Text("저장된 사진이 없습니다 :(")
                 .font(.title2Bold)
             Text("파도 사진관에서 오늘의 추억을 남겨보세요!")
-                .font(.styledRegular(size: 20))
+                .font(.styledRegular(size: 20.scaled))
         }
     }
 }

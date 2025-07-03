@@ -16,13 +16,13 @@ struct CameraButtonView: View {
                 Image(systemName: "camera.fill")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 48, height: 36)
+                    .frame(width: 48.scaled, height: 36.scaled)
                     .foregroundColor(.white)
                 Text("촬영하기")
-                    .font(.eliceBold(size: 30)) // 커스텀 폰트 적용!
+                    .font(.eliceBold(size: 30.scaled)) // 커스텀 폰트 적용!
                     .foregroundColor(.white)
             }
-            .frame(width: 200, height: 200)
+            .frame(width: 200.scaled, height: 200.scaled)
             .background(
                 Circle()
                     .foregroundColor(.primaryGreen))

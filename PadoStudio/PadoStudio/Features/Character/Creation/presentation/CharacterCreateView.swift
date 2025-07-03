@@ -47,7 +47,7 @@ struct CharacterCreateView: View {
                 showBackAlert = true
             }
                     .safeAreaInset(edge: .top) {
-                        Color.clear.frame(height: 48)
+                        Color.clear.frame(height: 48.scaled)
                     }
 
             CharacterPreviewPager(
@@ -119,13 +119,13 @@ struct ActionButtonPanel: View {
     @EnvironmentObject var navModel: NavigationViewModel
 
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 12.scaled) {
             resetButton
             Spacer()
             primaryActionButton
         }
         .frame(maxWidth: .infinity)
-        .padding(.top, 8)
+        .padding(.top, 8.scaled)
     }
 
     private var resetButton: some View {

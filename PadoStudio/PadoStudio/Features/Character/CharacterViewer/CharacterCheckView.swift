@@ -22,19 +22,19 @@ struct CharacterCheckView: View {
                     .resizable()
                     .ignoresSafeArea()
 
-                VStack(spacing: 0) {
+                VStack(spacing: 0.scaled) {
                     // 중앙에 오게 하기 위한 Spacer
                     ToolbarView(title: "캐릭터 확인", titleColor: .white)
                         .safeAreaInset(edge: .top) {
-                            Color.clear.frame(height: 48)
+                            Color.clear.frame(height: 48.scaled)
                         }
 
                     Spacer()
 
                     // 캐릭터와 텍스트 묶음
-                    VStack(spacing: 2) {
+                    VStack(spacing: 2.scaled) {
 
-                        Spacer().frame(height: 160)  // SurferCharacterView 위에 여백
+                        Spacer().frame(height: 160.scaled)  // SurferCharacterView 위에 여백
                         if viewModel.characterImages.count > 6 {
                             ScrollView(.horizontal) {
                                 SurferCharacterView(proxy: proxy)
