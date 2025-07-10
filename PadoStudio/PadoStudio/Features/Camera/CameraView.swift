@@ -88,20 +88,6 @@ struct CameraView: View {
                 }
             }
         }
-        .alert(item: $camera.cameraError) { err in
-            Alert(
-                title: Text(LocalizedStringKey("camera_error_title")),
-                message: Text(err.localizedDescription),
-                dismissButton: .default(Text(LocalizedStringKey("close")))
-            )
-        }
-        .onChange(of: camera.cameraError) { _, newValue in
-            if newValue == nil,
-               camera.isPresentingCamera
-            {  // Alert가 dismiss 된 시점
-                navModel.path.removeLast()
-            }
-        }
         .onChange(of: camera.capturedImage) { oldValue, newImage in
             if let img = newImage {
 
@@ -133,6 +119,20 @@ struct CameraView: View {
             camera.isPresentingCamera = false
             camera.stopSession()
             camera.cameraError = nil
+        }
+        .alert(item: $camera.cameraError) { err in
+            Alert(
+                title: Text(LocalizedStringKey("camera_error_title")),
+                message: Text(err.localizedDescription),
+                dismissButton: .default(Text(LocalizedStringKey("close")))
+            )
+        }
+        .onChange(of: camera.cameraError) { _, newValue in
+            if newValue == nil,
+               camera.isPresentingCamera
+            {  // Alert가 dismiss 된 시점
+                navModel.path.removeLast()
+            }
         }
     }
 }
