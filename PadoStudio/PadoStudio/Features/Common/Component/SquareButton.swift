@@ -51,7 +51,7 @@ struct SquareButton: View {
                     .frame(width: buttonSize.width, height: buttonSize.height)
 
                 VStack {
-                    Text(label)
+                    Text(LocalizedStringKey(label))
                         .font(.styledRegular(size: 20.scaled))
                         .foregroundStyle(color.textColor)
                 }

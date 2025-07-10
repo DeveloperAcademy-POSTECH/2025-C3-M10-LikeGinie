@@ -18,7 +18,9 @@ class CameraViewModel: NSObject, ObservableObject {
     @Published var capturedImage: UIImage?
     @Published var selectedCharacters: [String] = []
     @Published var characterImages: [UIImage] = []
-
+    @Published var isSessionReady = false
+    @Published var cameraError: CameraError?
+    @Published var isPresentingCamera = false
     @Dependency(\.getCharactersUseCase) var getCharactersUseCase
 
     override init() {
@@ -40,7 +42,10 @@ class CameraViewModel: NSObject, ObservableObject {
             let input = try? AVCaptureDeviceInput(device: device),
             session.canAddInput(input)
         else {
-            print("카메라 입력 오류")
+            print(CameraError.noInput.errorDescription ?? "error")
+            DispatchQueue.main.async {
+                self.cameraError = .noInput
+            }
             session.commitConfiguration()
             return
         }
@@ -48,18 +53,24 @@ class CameraViewModel: NSObject, ObservableObject {
         session.addInput(input)
 
         guard session.canAddOutput(output) else {
-            print("출력 추가 실패")
+            print(CameraError.cannotAddOutput.errorDescription ?? "error")
+            DispatchQueue.main.async {
+                self.cameraError = .cannotAddOutput
+            }
             session.commitConfiguration()
             return
         }
 
         session.addOutput(output)
         session.commitConfiguration()
+        DispatchQueue.main.async {
+            self.isSessionReady = true
+        }
     }
 
     func takePhoto() {
-        guard session.isRunning else {
-            print("세션 실행 안됨")
+        guard session.isRunning, output.connection(with: .video) != nil else {
+            print("세션이 실행 중이 아니거나 비디오 연결이 없습니다.")
             return
         }
 
@@ -90,7 +101,10 @@ class CameraViewModel: NSObject, ObservableObject {
                 let newInput = try? AVCaptureDeviceInput(device: newDevice),
                 self.session.canAddInput(newInput)
             else {
-                print("전환 실패")
+                print(CameraError.switchFailed.errorDescription ?? "error")
+                DispatchQueue.main.async {
+                    self.cameraError = .switchFailed
+                }
                 return
             }
 
@@ -119,6 +133,12 @@ class CameraViewModel: NSObject, ObservableObject {
         } catch {
             print("캐릭터 불러오기 실패: \(error)")
         }
+    }
+    
+    @MainActor
+    func stopSession() {
+        if session.isRunning { session.stopRunning() }
+        isSessionReady = false
     }
 }
 

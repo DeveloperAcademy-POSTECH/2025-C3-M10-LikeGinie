@@ -62,7 +62,7 @@ struct ToolbarPhoneLayout: View {
             }
             .frame(width: 44, height: 44)
             Spacer()
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .font(.styledRegular(size: 25))
                 .foregroundColor(titleColor.color)
                 .multilineTextAlignment(.center)
@@ -101,7 +101,7 @@ struct ToolbarPadLayout: View {
             }
             .frame(width: 80, height: 80)
             Spacer()
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .font(.styledRegular(size: 32))
                 .foregroundColor(titleColor.color)
                 .multilineTextAlignment(.center)

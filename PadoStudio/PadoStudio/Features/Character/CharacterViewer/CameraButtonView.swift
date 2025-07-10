@@ -18,7 +18,7 @@ struct CameraButtonView: View {
                     .scaledToFit()
                     .frame(width: 48.scaled, height: 36.scaled)
                     .foregroundColor(.white)
-                Text("촬영하기")
+                Text(LocalizedStringKey("take_photo"))
                     .font(.eliceBold(size: 30.scaled)) // 커스텀 폰트 적용!
                     .foregroundColor(.white)
             }

@@ -83,7 +83,7 @@ struct CameraButton: View {
                     .scaledToFit()
                     .frame(width: size * 0.35)
                     .foregroundColor(.white)
-                Text("기록 남기기")
+                Text("camera_button_title")
                     .font(.bodyBold)
                     .foregroundColor(.white)
                     .padding(.horizontal, 4)
@@ -107,7 +107,7 @@ struct GalleryButton: View {
                     .scaledToFit()
                     .frame(width: size * 0.4)
                     .foregroundColor(Color.primaryGreen)
-                Text("갤러리")
+                Text("gallery_button_title")
                     .font(.caption1Bold)
                     .foregroundColor(Color.primaryGreen)
             }

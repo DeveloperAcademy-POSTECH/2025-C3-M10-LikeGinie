@@ -25,7 +25,7 @@ struct CharacterSelectPhoneButton: View {
         Button(action: {
             // 버튼 클릭 시 동작
         }) {
-            Text("설정하기")
+            Text(LocalizedStringKey("setting"))
                 .font(.eliceBold(size: 25))
                 .foregroundColor(.white)
                 .frame(width: 160, height: 36)
@@ -41,7 +41,7 @@ struct CharacterSelectPadButton: View {
         Button(action: {
             // 버튼 클릭 시 동작
         }) {
-            Text("설정하기")
+            Text(LocalizedStringKey("setting"))
                 .font(.eliceBold(size: 25))
                 .foregroundColor(.white)
                 .frame(width: 372, height: 89)

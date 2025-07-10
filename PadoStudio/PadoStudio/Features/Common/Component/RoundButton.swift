@@ -25,7 +25,7 @@ struct RoundButton: View {
                         .scaledToFit()
                         .frame(height: 30.scaled)
                         .foregroundStyle(.white)
-                    Text(label)
+                    Text(LocalizedStringKey(label))
                         .font(.styledRegular(size: 15.scaled))
                         .fontWeight(.black)
                         .foregroundStyle(.white)

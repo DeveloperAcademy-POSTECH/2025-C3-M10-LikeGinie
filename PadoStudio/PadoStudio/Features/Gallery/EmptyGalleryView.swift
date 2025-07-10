@@ -11,9 +11,9 @@ struct EmptyGalleryView: View {
     var body: some View {
         VStack {
             Image("ic_home_title")
-            Text("저장된 사진이 없습니다 :(")
+            Text("no_saved_photos_message")
                 .font(.title2Bold)
-            Text("파도 사진관에서 오늘의 추억을 남겨보세요!")
+            Text("create_memory_suggestion")
                 .font(.styledRegular(size: 20.scaled))
         }
     }

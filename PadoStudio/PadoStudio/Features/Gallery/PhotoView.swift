@@ -47,7 +47,7 @@ struct PhotoView: View {
                         .scaledToFit()
                         .frame(width: 40.scaled, height: 40.scaled)
                         .foregroundColor(.primaryGreen)
-                    Text("이미지 없음")
+                    Text(LocalizedStringKey("no_image"))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
