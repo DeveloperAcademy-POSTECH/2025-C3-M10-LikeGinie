@@ -22,10 +22,10 @@ struct CharacterCreateView: View {
         }
         .ignoresSafeArea()
         .onAppear(perform: initialize)
-        .alert("캐릭터가 초기화됩니다!", isPresented: $showBackAlert) {
+        .alert("character_reset_alert_title", isPresented: $showBackAlert) {
             backAlertButtons
         } message: {
-            Text("이전 화면으로 돌아가면 생성된 캐릭터가 저장되지 않습니다")
+            Text("character_reset_alert_message")
         }
     }
 
@@ -43,7 +43,7 @@ struct CharacterCreateView: View {
 
     private func contentView(proxy: GeometryProxy) -> some View {
         VStack {
-            ToolbarView(title: "캐릭터 만들기", titleColor: .white) {
+            ToolbarView(title: "character_create_title", titleColor: .white) {
                 showBackAlert = true
             }
                     .safeAreaInset(edge: .top) {
@@ -67,8 +67,8 @@ struct CharacterCreateView: View {
 
     private var backAlertButtons: some View {
         Group {
-            Button("취소", role: .cancel) {}
-            Button("인원 수정하기", role: .destructive) {
+            Button("cancel_button_label", role: .cancel) {}
+            Button("edit_count_button_label", role: .destructive) {
                 navModel.path.removeLast()
             }
         }
@@ -130,7 +130,7 @@ struct ActionButtonPanel: View {
 
     private var resetButton: some View {
         CharacterActionButton(
-            title: "초기화",
+            title: "reset_button_label",
             foreground: .gray09,
             background: .gray04,
             font: .title3RegularResponsive(size: 13, proxy: proxy),
@@ -146,7 +146,7 @@ struct ActionButtonPanel: View {
     private var primaryActionButton: some View {
         if viewModel.currentIndex < number - 1 {
             CharacterActionButton(
-                title: "다음",
+                title: "next_button_label",
                 foreground: .white,
                 background: .primaryGreen,
                 font: .title3RegularResponsive(size: 13, proxy: proxy),
@@ -157,7 +157,7 @@ struct ActionButtonPanel: View {
             }
         } else {
             CharacterActionButton(
-                title: "저장하기",
+                title: "save_button_label",
                 foreground: .white,
                 background: .primaryGreen,
                 font: .title3RegularResponsive(size: 13, proxy: proxy),
@@ -188,7 +188,7 @@ struct CharacterActionButton: View {
 
     var body: some View {
         Button(action: action) {
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .font(font)
                 .foregroundColor(foreground)
                 .padding(.vertical, height * 0.25)

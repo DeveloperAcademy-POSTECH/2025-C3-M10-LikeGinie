@@ -24,7 +24,7 @@ struct CharacterCheckView: View {
 
                 VStack(spacing: 0.scaled) {
                     // 중앙에 오게 하기 위한 Spacer
-                    ToolbarView(title: "캐릭터 확인", titleColor: .white)
+                    ToolbarView(title: "character_check_title", titleColor: .white)
                         .safeAreaInset(edge: .top) {
                             Color.clear.frame(height: 48.scaled)
                         }
@@ -51,7 +51,7 @@ struct CharacterCheckView: View {
                     // 하단 버튼
                     SquareButton(
                         color: .green,
-                        label: "확인",
+                        label: "confirm_button_label",
                         action: {
                             if viewModel.saveComposedImageToCache() != nil {
                                 navModel.path.append(

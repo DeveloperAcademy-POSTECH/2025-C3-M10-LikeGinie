@@ -21,7 +21,7 @@ struct GalleryView: View {
     var body: some View {
         VStack {
             GalleryToolbar(
-                title: "갤러리",
+                title: "gallery_button_title",
                 onBack: { dismiss() }
             )
             .background(Color.white)

@@ -40,19 +40,19 @@ struct HomePhoneTextLayout: View {
                 .frame(width: proxy.size.width * 0.15)
 
             VStack(alignment: .center) {
-                Text("파도 사진관")
+                Text("main_title")
                     .font(.largeSinchonTitleResponsive(size: 30, proxy: proxy))
                     .foregroundColor(.white)
                     .minimumScaleFactor(0.7)
                     .multilineTextAlignment(.leading)
 
-                Text("직접 만든 서핑 캐릭터와 함께 사진을 찍어보세요!")
-                    .font(.title3RegularResponsive(size: 8, proxy: proxy))
+                Text("main_subtitle")
+                    .font(.title3RegularResponsive(size: 9, proxy: proxy))
                     .foregroundColor(.white)
                     .minimumScaleFactor(0.7)
                     .fixedSize(horizontal: false, vertical: true)
             }
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .center)
         }
         .frame(maxWidth: .infinity)
         .padding(.top, 40)
@@ -73,14 +73,14 @@ struct HomePadTextLayout: View {
                 .frame(width: proxy.size.width * 0.10)  // 패드에서 더 작게
 
             VStack(alignment: .center) {
-                Text("파도 사진관")
+                Text("main_title")
                     .font(
                         .largeSinchonTitleResponsive(size: 30, proxy: proxy)
                     )  // 더 크게
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
 
-                Text("직접 만든 서핑 캐릭터와 함께 사진을 찍어보세요!")
+                Text("main_subtitle")
                     .font(.title3RegularResponsive(size: 10, proxy: proxy))  // 더 크게
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)

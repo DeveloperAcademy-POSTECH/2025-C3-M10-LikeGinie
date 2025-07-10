@@ -18,7 +18,7 @@ struct CameraPreviewView: View {
                             width: ScreenRatioUtility.imageWidth,
                             height: ScreenRatioUtility.imageHeight)
                 } else {
-                    Text("이미지를 불러올 수 없습니다.")
+                    Text(LocalizedStringKey("image_load_failed"))
                         .foregroundColor(.gray)
                 }
             }

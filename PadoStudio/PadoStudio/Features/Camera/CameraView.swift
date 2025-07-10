@@ -15,27 +15,6 @@ struct CameraView: View {
     @EnvironmentObject var navModel: NavigationViewModel
 
     let frameImagePath: String
-    
-    // 프레임에 표시할 캐릭터들 - 완성된 캐릭터 이미지를 직접 표시
-//    private var characterViews: [AnyView] {
-//        return camera.characterImages.enumerated().compactMap {
-//            index, imageName in
-//            let view = Image(uiImage: imageName)
-//                .resizable()
-//                .aspectRatio(contentMode: .fit)
-//                .frame(
-//                    width: min(
-//                        150.scaled,
-//                        (ScreenRatioUtility.imageWidth)
-//                            / CGFloat(camera.characterImages.count)),
-//                    height: min(
-//                        150.scaled,
-//                        (ScreenRatioUtility.imageWidth)
-//                            / CGFloat(camera.characterImages.count)))
-//
-//            return AnyView(view)
-//        }
-//    }
 
     var body: some View {
         ZStack {
@@ -49,7 +28,7 @@ struct CameraView: View {
                 )
                 .cornerRadius(16.scaled)
                 .clipped()
-            
+
             if let uiImage = UIImage(contentsOfFile: frameImagePath) {
                 Image(uiImage: uiImage)
                     .resizable()
@@ -94,7 +73,7 @@ struct CameraView: View {
                     }
                     .padding(.bottom, 30.scaled)
                     .padding(.leading, 100.scaled)
-                    .disabled(isCountingDown)
+                    .disabled(isCountingDown || !camera.isSessionReady)
 
                     Button(action: {
                         camera.switchCamera()
@@ -107,6 +86,20 @@ struct CameraView: View {
                     .disabled(false)  // 명시적으로 사용자 상호작용 활성화
                     .allowsHitTesting(true)  // 터치 이벤트 허용
                 }
+            }
+        }
+        .alert(item: $camera.cameraError) { err in
+            Alert(
+                title: Text(LocalizedStringKey("camera_error_title")),
+                message: Text(err.localizedDescription),
+                dismissButton: .default(Text(LocalizedStringKey("close")))
+            )
+        }
+        .onChange(of: camera.cameraError) { _, newValue in
+            if newValue == nil,
+               camera.isPresentingCamera
+            {  // Alert가 dismiss 된 시점
+                navModel.path.removeLast()
             }
         }
         .onChange(of: camera.capturedImage) { oldValue, newImage in
@@ -131,6 +124,15 @@ struct CameraView: View {
         .environmentObject(camera)
         .task {
             await camera.fetchCompletedCharacters()
+        }
+        .onAppear {
+            camera.isPresentingCamera = true
+            camera.configure()
+        }
+        .onDisappear {
+            camera.isPresentingCamera = false
+            camera.stopSession()
+            camera.cameraError = nil
         }
     }
 }

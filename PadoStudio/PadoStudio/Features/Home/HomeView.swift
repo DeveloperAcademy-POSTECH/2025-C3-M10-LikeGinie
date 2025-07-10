@@ -77,7 +77,7 @@ struct HomePhoneLayout: View {
                 VStack(spacing: 0) {
                     MainTextView(proxy: proxy)
                         .padding(.top, topPadding)
-                        .padding(.horizontal, 50)
+                        .padding(.horizontal, 30)
 
                     Spacer().frame(height: proxy.size.height * 0.18)
 

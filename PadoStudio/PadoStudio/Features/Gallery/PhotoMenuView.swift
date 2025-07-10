@@ -22,13 +22,13 @@ struct PhotoMenuView: View {
                     isSharing = true
                     print("공유렛츠고")
                 } label : {
-                    Label("공유하기", systemImage: "square.and.arrow.up")
+                    Label("share_button_label", systemImage: "square.and.arrow.up")
                 }
                 Button(role: .destructive) {
                     isWarning = true
                     print("삭제렛쯔고")
                 } label : {
-                    Label("삭제하기", systemImage: "trash")
+                    Label("delete_button_label", systemImage: "trash")
                 }
             } label: {
                 Circle()
@@ -45,16 +45,16 @@ struct PhotoMenuView: View {
             if let uiImage = UIImage(contentsOfFile: imageModel.filePath) {
                 FramedImageShareView(image: uiImage)
             } else {
-                Text("이미지를 불러올 수 없습니다.")
+                Text("image_load_error_message")
             }
         }
-        .alert("정말로 삭제하시겠습니까?", isPresented: $isWarning, actions: {
-            Button("삭제하기", role: .destructive) {
+        .alert("delete_confirmation_alert_title", isPresented: $isWarning, actions: {
+            Button("delete_button_label", role: .destructive) {
                 deleteAction()
             }
-            Button("취소하기", role: .cancel) { }
+            Button("cancel_button_label", role: .cancel) { }
         }, message: {
-            Text("삭제 후엔 되돌릴 수 없습니다.")
+            Text("delete_warning_message")
         })
     }
 }

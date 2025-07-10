@@ -49,7 +49,7 @@ struct PhotoDetailView: View {
                             .clipped()
                             .padding(.bottom, 30)
                     } else {
-                        Text("이미지를 불러올 수 없습니다.")
+                        Text(LocalizedStringKey("image_load_failed"))
                             .foregroundColor(.gray)
                     }
                 }

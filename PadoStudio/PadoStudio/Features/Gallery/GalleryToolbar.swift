@@ -22,7 +22,7 @@ struct GalleryToolbar: View {
 
             Spacer()
 
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .font(.styledRegular(size: 24.scaled))
                 .lineLimit(1)
                 .minimumScaleFactor(0.7)

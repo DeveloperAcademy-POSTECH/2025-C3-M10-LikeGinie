@@ -12,7 +12,7 @@ struct CharacterPartItem: View {
     let isSelected: Bool
     
     var body: some View {
-        Text(part.label)
+        Text(LocalizedStringKey(part.label))
             .font(isSelected ? .title3BoldResponsive(size: 16, proxy: proxy)
                   : .title3RegularResponsive(size: 16, proxy: proxy))
             .padding(.vertical, 8.scaled)

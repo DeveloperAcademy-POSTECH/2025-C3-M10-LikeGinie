@@ -49,7 +49,7 @@ struct CharacterFrameSelectionBody: View {
 
                 VStack {
                     // 네비게이션바
-                    ToolbarView(title: "프레임 고르기", titleColor: .black)
+                    ToolbarView(title: "select_frame_title", titleColor: .black)
                         .safeAreaInset(edge: .top) {
                             Color.clear.frame(height: 48.scaled)
                         }
@@ -83,7 +83,7 @@ struct CharacterFrameSelectionBody: View {
                         .frame(maxWidth: .infinity, alignment: .center)
 
                         // 촬영 버튼
-                        SquareButton(color: .green, label: "촬영하기") {
+                        SquareButton(color: .green, label: "take_photo_button_label") {
                             viewModel.showAlert = true
                         }
                     }
@@ -95,9 +95,9 @@ struct CharacterFrameSelectionBody: View {
                 }
                 .ignoresSafeArea(.all)
             }
-            .alert("촬영이 시작됩니다!", isPresented: $viewModel.showAlert) {
-                Button("취소", role: .cancel) {}
-                Button("촬영하기") {
+            .alert("photo_shoot_start_alert_title", isPresented: $viewModel.showAlert) {
+                Button("cancel_button_label", role: .cancel) {}
+                Button("take_photo_button_label") {
                     if let savedPath = viewModel.saveComposedImageToCache() {
                         navModel.path.append(
                             AppRoute.camera(frameImagePath: savedPath)
@@ -105,7 +105,7 @@ struct CharacterFrameSelectionBody: View {
                     }
                 }
             } message: {
-                Text("캐릭터와 프레임을 수정할 수 없으니 \n다시 확인해 주세요.")
+                Text("photo_shoot_start_alert_message")
             }
             .onAppear {
                 Task {

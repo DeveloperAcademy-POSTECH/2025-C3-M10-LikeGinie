@@ -34,7 +34,7 @@ struct CharacterCountSelectPhoneLayout: View {
                 .ignoresSafeArea()
 
             VStack {
-                ToolbarView(title: "인원 선택하기", titleColor: .black)
+                ToolbarView(title: "character_count_select_title", titleColor: .black)
                     .safeAreaInset(edge: .top) {
                         Color.clear.frame(height: 48)
                     }
@@ -43,10 +43,10 @@ struct CharacterCountSelectPhoneLayout: View {
 
                 VStack(spacing: 20) {
                     VStack(spacing: 4) {
-                        Text("몇 명의 캐릭터를 만들까요?")
+                        Text("character_count_question")
                             .font(.eliceBold(size: 25))
                             .multilineTextAlignment(.center)
-                        Text("최대 6명까지 가능해요!")
+                        Text("character_count_info")
                             .font(.styledRegular(size: 15))
                             .foregroundColor(.gray)
                             .multilineTextAlignment(.center)
@@ -63,7 +63,7 @@ struct CharacterCountSelectPhoneLayout: View {
 
                 Spacer()
 
-                SquareButton(color: .green, label: "설정하기") {
+                SquareButton(color: .green, label: "set_button_label") {
                     if number >= 1 {
                         navModel.navigate(
                             to: .characterCreate(number: number)
@@ -137,7 +137,7 @@ struct CharacterCountSelectPadLayout: View {
                 .ignoresSafeArea()
             //
             VStack {
-                ToolbarView(title: "인원 선택하기", titleColor: .black)
+                ToolbarView(title: "character_count_select_title", titleColor: .black)
                     .safeAreaInset(edge: .top) {
                         Color.clear.frame(height: 48)
                     }
@@ -146,10 +146,10 @@ struct CharacterCountSelectPadLayout: View {
 
                 VStack(spacing: 20) {
                     VStack(spacing: 4) {
-                        Text("몇 명의 캐릭터를 만들까요?")
+                        Text("character_count_question")
                             .font(.eliceBold(size: 40))
                             .multilineTextAlignment(.center)
-                        Text("최대 6명까지 가능해요!")
+                        Text("character_count_info")
                             .font(.styledRegular(size: 24))
                             .foregroundColor(.gray)
                             .multilineTextAlignment(.center)
@@ -166,7 +166,7 @@ struct CharacterCountSelectPadLayout: View {
 
                 Spacer()
 
-                SquareButton(color: .green, label: "설정하기") {
+                SquareButton(color: .green, label: "set_button_label") {
                     if number >= 1 {
                         navModel.navigate(
                             to: .characterCreate(number: number)

@@ -15,12 +15,12 @@ enum CharacterPartType: String, CaseIterable, Hashable {
 
     var label: String {
         switch self {
-        case .hair: return "머리"
-        case .face: return "표정"
-        case .suit: return "옷"
-        case .board: return "서핑보드"
-        case .headAccessory: return "얼굴 악세사리"
-        case .handAccessory: return "손 악세사리"
+        case .hair: return "character_part_hair"
+        case .face: return "character_part_face"
+        case .suit: return "character_part_suit"
+        case .board: return "character_part_board"
+        case .headAccessory: return "character_part_head_accessory"
+        case .handAccessory: return "character_part_hand_accessory"
         }
     }
 
