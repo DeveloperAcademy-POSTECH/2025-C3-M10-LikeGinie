@@ -10,6 +10,7 @@
 		C059C9022DF83A43000EA262 /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = C059C9012DF83A43000EA262 /* Dependencies */; };
 		C059C9042DF83A43000EA262 /* DependenciesMacros in Frameworks */ = {isa = PBXBuildFile; productRef = C059C9032DF83A43000EA262 /* DependenciesMacros */; };
 		C059C9E22DF83B6D000EA262 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = C01D54E82DF6764900DD6015 /* ComposableArchitecture */; };
+		C08020192E1FD43E003526CC /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = C08020182E1FD43E003526CC /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +34,7 @@
 		C06FDC5A2DE6E9490014D299 /* PadoStudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PadoStudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C06FDC6F2DE6E94A0014D299 /* PadoStudioTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PadoStudioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C06FDC792DE6E94A0014D299 /* PadoStudioUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PadoStudioUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C08020182E1FD43E003526CC /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -104,6 +106,7 @@
 		C06FDC512DE6E9490014D299 = {
 			isa = PBXGroup;
 			children = (
+				C08020182E1FD43E003526CC /* Localizable.xcstrings */,
 				C06FDC5C2DE6E9490014D299 /* PadoStudio */,
 				C06FDC722DE6E94A0014D299 /* PadoStudioTests */,
 				C06FDC7C2DE6E94A0014D299 /* PadoStudioUITests */,
@@ -225,6 +228,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = C06FDC512DE6E9490014D299;
 			minimizedProjectReferenceProxies = 1;
@@ -249,6 +253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C08020192E1FD43E003526CC /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,6 +370,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -421,6 +427,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -431,9 +438,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"PadoStudio/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = NB42482NDH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PadoStudio/Info.plist;
@@ -449,7 +456,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.likegenie.PadoStudio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -464,9 +471,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"PadoStudio/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = NB42482NDH;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PadoStudio/Info.plist;
@@ -482,7 +489,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.likegenie.PadoStudio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
