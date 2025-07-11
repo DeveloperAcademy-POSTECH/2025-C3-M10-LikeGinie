@@ -19,9 +19,6 @@ struct CameraView: View {
     var body: some View {
         ZStack {
             CameraPreview(session: camera.session)
-                .onAppear {
-                    camera.configure()
-                }
                 .frame(
                     width: ScreenRatioUtility.imageWidth,
                     height: ScreenRatioUtility.imageHeight, alignment: .top

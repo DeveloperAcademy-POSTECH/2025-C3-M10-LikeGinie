@@ -23,17 +23,49 @@ class CameraViewModel: NSObject, ObservableObject {
     @Published var isPresentingCamera = false
     @Dependency(\.getCharactersUseCase) var getCharactersUseCase
 
+    private var isConfigured = false
+    
     override init() {
         super.init()
     }
 
     func configure() {
+        guard !isConfigured else { return }
+        isConfigured = true
+        
         sessionQueue.async {
-            self.setupSession()
-            self.session.startRunning()
+            self.checkCameraPermission()
         }
     }
 
+    private func checkCameraPermission() {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            // The user has previously granted access to the camera.
+            self.setupSession()
+            self.session.startRunning()
+        case .notDetermined:
+            // The user has not yet been asked for camera access.
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                if granted {
+                    self.setupSession()
+                    self.session.startRunning()
+                } else {
+                    DispatchQueue.main.async {
+                        self.cameraError = .permissionDenied
+                    }
+                }
+            }
+        case .denied, .restricted:
+            // The user has previously denied access.
+            DispatchQueue.main.async {
+                self.cameraError = .permissionDenied
+            }
+        @unknown default:
+            fatalError("Unknown camera authorization status")
+        }
+    }
+    
     private func setupSession() {
         session.beginConfiguration()
         session.sessionPreset = .photo
@@ -139,6 +171,7 @@ class CameraViewModel: NSObject, ObservableObject {
     func stopSession() {
         if session.isRunning { session.stopRunning() }
         isSessionReady = false
+        isConfigured = false
     }
 }
 
