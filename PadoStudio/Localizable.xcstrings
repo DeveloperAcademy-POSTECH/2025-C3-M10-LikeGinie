@@ -625,13 +625,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The camera is required to take photos."
+            "value" : "This app requires camera access to create a unique photo with your character. For example, you can place your chosen character within a decorative frame and take a picture, which is then saved directly to your photo library. "
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "사진을 촬영하기 위해 카메라 접근이 필요합니다."
+            "value" : "캐릭터와 함께 특별한 사진을 촬영하기 위해 카메라 접근 권한이 필요합니다. 예를 들어, 선택한 캐릭터를 꾸며진 액자 안에 배치하고 사진을 찍으면 기기의 사진 앨범에 바로 저장됩니다."
           }
         }
       }
@@ -642,13 +642,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Photo-library access is needed to save and view your pictures."
+            "value" : "This app needs access to your photo library to save the photos you create. For example, a picture taken with your character and a frame will be saved to your gallery, allowing you to view or share it anytime."
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "촬영한 사진을 저장하고 보기 위해 사진 보관함 접근이 필요합니다."
+            "value" : "앱에서 만든 사진을 저장하기 위해 사진 보관함 접근 권한이 필요합니다. 예를 들어, 캐릭터와 프레임으로 촬영한 사진을 갤러리에 저장하여 언제든지 다시 보거나 공유할 수 있습니다."
           }
         }
       }

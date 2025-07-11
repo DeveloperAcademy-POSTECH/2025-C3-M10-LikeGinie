@@ -38,9 +38,9 @@ class CameraViewModel: NSObject, ObservableObject {
         session.beginConfiguration()
         session.sessionPreset = .photo
 
-        guard let device = AVCaptureDevice.default(for: .video),
-            let input = try? AVCaptureDeviceInput(device: device),
-            session.canAddInput(input)
+        guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: currentPosition),
+              let input = try? AVCaptureDeviceInput(device: device),
+              session.canAddInput(input)
         else {
             print(CameraError.noInput.errorDescription ?? "error")
             DispatchQueue.main.async {
