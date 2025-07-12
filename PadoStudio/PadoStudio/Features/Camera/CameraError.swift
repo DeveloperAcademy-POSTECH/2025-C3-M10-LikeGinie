@@ -10,6 +10,7 @@ enum CameraError: LocalizedError, Identifiable {
     case noInput
     case cannotAddOutput
     case switchFailed
+    case permissionDenied
 
     // MARK: - Identifiable
     var id: String { localizationKey }
@@ -23,6 +24,8 @@ enum CameraError: LocalizedError, Identifiable {
             return "camera_error_cannot_add_output"
         case .switchFailed:
             return "camera_error_switch_failed"
+        case .permissionDenied:
+            return "camera_error_permission_denied"
         }
     }
 
