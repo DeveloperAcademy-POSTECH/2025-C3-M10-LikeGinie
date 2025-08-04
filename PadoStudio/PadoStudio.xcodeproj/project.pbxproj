@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C0530F182E26782B008CB908 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C0530F172E26782B008CB908 /* InfoPlist.strings */; };
 		C059C9022DF83A43000EA262 /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = C059C9012DF83A43000EA262 /* Dependencies */; };
 		C059C9042DF83A43000EA262 /* DependenciesMacros in Frameworks */ = {isa = PBXBuildFile; productRef = C059C9032DF83A43000EA262 /* DependenciesMacros */; };
 		C059C9E22DF83B6D000EA262 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = C01D54E82DF6764900DD6015 /* ComposableArchitecture */; };
@@ -31,6 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C0530F162E26782B008CB908 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C0530F192E26782C008CB908 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C06FDC5A2DE6E9490014D299 /* PadoStudio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PadoStudio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C06FDC6F2DE6E94A0014D299 /* PadoStudioTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PadoStudioTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C06FDC792DE6E94A0014D299 /* PadoStudioUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PadoStudioUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,6 +109,7 @@
 		C06FDC512DE6E9490014D299 = {
 			isa = PBXGroup;
 			children = (
+				C0530F172E26782B008CB908 /* InfoPlist.strings */,
 				C08020182E1FD43E003526CC /* Localizable.xcstrings */,
 				C06FDC5C2DE6E9490014D299 /* PadoStudio */,
 				C06FDC722DE6E94A0014D299 /* PadoStudioTests */,
@@ -254,6 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C08020192E1FD43E003526CC /* Localizable.xcstrings in Resources */,
+				C0530F182E26782B008CB908 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,6 +314,18 @@
 			targetProxy = C06FDC7A2DE6E94A0014D299 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		C0530F172E26782B008CB908 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C0530F162E26782B008CB908 /* en */,
+				C0530F192E26782C008CB908 /* ko */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		C06FDC812DE6E94A0014D299 /* Debug */ = {
@@ -438,7 +455,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"PadoStudio/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
@@ -472,7 +489,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"PadoStudio/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;

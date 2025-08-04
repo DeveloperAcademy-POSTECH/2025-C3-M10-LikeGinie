@@ -1,0 +1,3 @@
+/* English purpose strings */
+"NSCameraUsageDescription" = "This app requires camera access to create a unique photo with your character. For example, you can place your chosen character within a decorative frame and take a picture, which is then saved directly to your photo library.";
+"NSPhotoLibraryUsageDescription" = "This app needs access to your photo library to save the photos you create. For example, a picture taken with your character and a frame will be saved to your gallery, allowing you to view or share it anytime.";
