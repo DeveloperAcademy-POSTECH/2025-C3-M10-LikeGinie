@@ -14,6 +14,7 @@
 이 앱은 수강생들이 서핑 샵에서 캐릭터를 만들고 그 캐릭터가 담긴 프레임으로 사진촬영을 하고, </br>
 사장님은 고객과의 추억을 남기는 경험을 할 수 있도록 하는 앱입니다.
 
+👉 [App Store 다운로드 하러가기](https://apps.apple.com/kr/app/%ED%8C%8C%EB%8F%84%EC%82%AC%EC%A7%84%EA%B4%80/id6747717308)
 👉 [Like Ginie 문서 보러가기](https://www.notion.so/posacademy/C3-Like-Ginie-1ed2b843d5af80feb432e2b919e18eef?source=copy_link)
 👉 [챌린지 위키 보러가기](https://www.notion.so/posacademy/Like-Ginie-1ed2b843d5af809badb5c92788835e0c?source=copy_link)
 
